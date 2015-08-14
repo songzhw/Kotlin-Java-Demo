@@ -30,11 +30,11 @@ data class Person3(val name: String,  id: Long) {
 
 
 // need a main entrance, which is not like groovy or ruby, it's not a script language
-fun main(args: Array<String>){
-    println(Person3("szw", 100))
-
-    var invoice = Invoice1()
-    var p1 = Person1("name")
-//    var p2 = Person2.getInstance()
-
-}
+//fun main(args: Array<String>){
+//    println(Person3("szw", 100))
+//
+//    var invoice = Invoice1()
+//    var p1 = Person1("name")
+////    var p2 = Person2.getInstance()
+//
+//}
