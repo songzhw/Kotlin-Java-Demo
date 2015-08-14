@@ -21,8 +21,3 @@ class C() : A(), B {
         super<B>.f() // call to B.f()
     }
 }
-
-fun main(args: Array<String>) {
-    var c = C()
-    c.f()
-}
