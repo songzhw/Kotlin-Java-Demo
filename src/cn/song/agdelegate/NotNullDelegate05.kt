@@ -17,7 +17,7 @@ Copyright 2015 Six.
 
 import kotlin.properties.Delegates
 
-class User {
+class User2 {
     var name: String by Delegates.notNull()
 
     fun init(name: String) {
@@ -25,9 +25,9 @@ class User {
     }
 }
 
-fun main(args: Array<String>) {
-    val user = User()
-    // user.name -> IllegalStateException
-    user.init("Carl")
-    println(user.name) //Carl
-}
+//fun main(args: Array<String>) {
+//    val user = User2()
+//    // user.name -> IllegalStateException
+//    user.init("Carl")
+//    println(user.name) //Carl
+//}

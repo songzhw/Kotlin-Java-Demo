@@ -31,11 +31,11 @@ class Delegate() {
     }
 }
 
-fun main(args: Array<String>) {
-    val e = Example()
-    println(e.p) //=> NEW has been assigned to p in Example Class
-    e.p = "NEW" //=> Example Class, thank you for delegating 'p' to me!
-    println(e.p) //=> NEW has been assigned to p in Example Class
-}
+//fun main(args: Array<String>) {
+//    val e = Example()
+//    println(e.p) //=> NEW has been assigned to p in Example Class
+//    e.p = "NEW" //=> Example Class, thank you for delegating 'p' to me!
+//    println(e.p) //=> NEW has been assigned to p in Example Class
+//}
 
 

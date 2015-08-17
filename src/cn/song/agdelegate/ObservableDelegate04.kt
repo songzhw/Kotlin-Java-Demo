@@ -14,15 +14,15 @@ Copyright 2015 Six.
  */
 import kotlin.properties.Delegates
 
-class User {
+class User3 {
     var name: String by Delegates.observable("no name") {
         d, old, new ->
         println("$old - $new")
     }
 }
 
-fun main(args: Array<String>) {
-    val user = User()
-    user.name = "Carl"  //no name - Carl
-    user.name = "szw"   //Carl - szw
-}
+//fun main(args: Array<String>) {
+//    val user = User3()
+//    user.name = "Carl"  //no name - Carl
+//    user.name = "szw"   //Carl - szw
+//}
