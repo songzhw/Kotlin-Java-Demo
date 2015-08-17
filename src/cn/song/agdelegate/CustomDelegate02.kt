@@ -12,8 +12,6 @@ Copyright 2015 Six.
  * to provide methods named get() and set() to be called.</p>
  */
 
-import Delegate
-import Example
 
 class Example {
     var p: String by Delegate()
