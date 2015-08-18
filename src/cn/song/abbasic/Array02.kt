@@ -17,9 +17,5 @@ fun main(args: Array<String>) {
     var ary4 = intArrayOf(1,2,3)   // int array
     var ary5 = arrayListOf("1","2", "3")  // string array
 
-    val i = 10
-    val s = "i = $i" // evaluates to "i = 10"
 
-    val s = "abc"
-    val str = "$s.length is ${s.length}" // evaluates to "abc.length is 3"
 }
