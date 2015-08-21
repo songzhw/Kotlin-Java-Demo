@@ -51,8 +51,4 @@ package cn.song.abbasic
 //
 //    for (i in 1.0..2.0 step 0.3) print("$i ") // prints "1.0 1.3 1.6 1.9 "
 //
-//
-//
-//
-//
 //}

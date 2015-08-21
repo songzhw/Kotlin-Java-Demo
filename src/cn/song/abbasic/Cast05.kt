@@ -20,4 +20,4 @@ package cn.song.abbasic
 //    val x2: String = x as String  // the cast operator throws an exception if the cast is not possible.
 //    val x3: String? = x as? String //one can use a safe cast operator as? that returns null on failure
 //
-}
+//}
