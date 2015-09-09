@@ -1,6 +1,6 @@
 package cn.song.bcplatformtype
 
-import rx.Observable
+//import rx.Observable
 import java.util.*
 
 
@@ -16,39 +16,73 @@ import java.util.*
 
 */
 
-fun test(){
+fun test() {
     /*
-    // error ("Not enough information to infer paramter T in create() : rx.Observable<T!>!. Please specify it explicitly")
-    var obs1  = Observable.create { subscriber -> subscriber.onNext("23") }
+        /*
+        // error ("Not enough information to infer paramter T in create() : rx.Observable<T!>!. Please specify it explicitly")
+        var obs1  = Observable.create { subscriber -> subscriber.onNext("23") }
+        */
+
+        // correct
+        var obs2 : Observable<String> = Observable.create { subscriber -> subscriber.onNext("23") }
+
+        obs2.subscribe{str : String -> println(str)}
+        //---------------------------------------------
+        /** var obs3 : Observalbe<ArrayList> = Observable.create{...} is wrong, again.
+         *  we must tell the compiler the T of ArrayList<T> */
+
+        var obs3 : Observable<ArrayList<String>> = Observable.create{subscriber ->
+            var list : ArrayList<String> = ArrayList()
+            list.add("b12")
+            list.add("a23")
+            subscriber.onNext(list)
+        }
+
+        // error
+    //    obs3.subscribe{list : ArrayList -> println(list)}
+          obs3.subscribe{list : ArrayList<String> -> println(list)}
+
+        obs3.toSortedList()
+            .subscribe{list : List<ArrayList<String>> -> println(list)}
+
+
     */
+}
 
-    // correct
-    var obs2 : Observable<String> = Observable.create { subscriber -> subscriber.onNext("23") }
 
-    obs2.subscribe{str : String -> println(str)}
-    //---------------------------------------------
-    /** var obs3 : Observalbe<ArrayList> = Observable.create{...} is wrong, again.
-     *  we must tell the compiler the T of ArrayList<T> */
+// "T!" means "T" or "T?"
+fun testGenericsInJava() {
+    // java -> kotlin
+    // Foo<? extends Bar> -> Foo<out Bar!>!
+    // Foo<? super Bar> -> Foo<in Bar!>!
+    // List  ->  List<out Any?>!   or -> List<*>!
 
-    var obs3 : Observable<ArrayList<String>> = Observable.create{subscriber ->
-        var list : ArrayList<String> = ArrayList()
-        list.add("b12")
-        list.add("a23")
-        subscriber.onNext(list)
+
+    // "aobj is List<Int>" is error, the compiler cannot tell it
+    // "aobj is List<*>" is right.
+}
+
+
+fun testJavaArrays() {
+    // arrays in Kotlin are invariant, unlike java
+    // this means Kotlin does not let us assign an Array<String> to an Array<Any> !!!
+
+    // passing an array of a subclass as an array of superclass to a kotlin method is also prohibited !!!
+
+    // Kotlin : IntArray, DoubleArray, CharArray ...
+    var ary1: IntArray = intArrayOf(1, 2, 3, 4)
+    var ary2: Array<String> = arrayOf("a", "b")
+
+    val array = arrayOf(1, 2, 3, 4)
+    for (x in array) {
+        //x = x + 1        // error!!! because "x" here is a val
+        print(x)
     }
-
-    // error
-//    obs3.subscribe{list : ArrayList -> println(list)}
-      obs3.subscribe{list : ArrayList<String> -> println(list)}
-
-//    obs3.toSortedList()
-//        .subscribe{list : List<ArrayList<String>> -> println(list)}
-
-
-
 }
 
 
 fun main(args: Array<String>) {
     test()
+    testGenericsInJava()
+    testJavaArrays()
 }
