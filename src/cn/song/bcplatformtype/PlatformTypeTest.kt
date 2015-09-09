@@ -41,8 +41,8 @@ fun test(){
 //    obs3.subscribe{list : ArrayList -> println(list)}
       obs3.subscribe{list : ArrayList<String> -> println(list)}
 
-    obs3.toSortedList()
-        .subscribe{list : List<ArrayList<String>> -> println(list)}
+//    obs3.toSortedList()
+//        .subscribe{list : List<ArrayList<String>> -> println(list)}
 
 
 
