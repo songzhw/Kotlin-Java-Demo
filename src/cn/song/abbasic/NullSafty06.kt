@@ -3,7 +3,7 @@ package cn.song.abbasic
 /**
  * Created by hzsongzhengwang on 2015/8/21.
  */
-fun main(args: Array<String>) {
+fun nullSafe(args: Array<String>) {
     var a : String = "abc"
 //    a = null // Error!
 

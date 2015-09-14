@@ -10,8 +10,6 @@ package cn.song.cbFunctionRef
 fun max<T>(collection : Collection<out T>, less: (T,T)-> Boolean) : T? {
     var maxNum : T? = null
     collection.forEach {
-        // if this is "less(maxNum, it)", it is wrong. because maxNum may be null
-        // and our definition :"less(T,T) -> Boolean" requires a not-null T
         if(maxNum == null || less(maxNum!!, it)){
             maxNum = it
         }
