@@ -8,6 +8,7 @@ package cn.song.ccBuilder
 fun result() =
         html{
             head {
+                title("Hello Kotlin Builder")
             }
         }
 

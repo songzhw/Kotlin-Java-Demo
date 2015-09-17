@@ -3,6 +3,26 @@ package cn.song.ccBuilder
 /**
  * Created by hzsongzhengwang on 2015/9/11.
  */
+abstract class Tag(var name : String){
+    var children = arrayListOf<Any>()
+    protected fun initTag<T>(tag: T, init: T.()-> Unit) : T{
+        tag.init()
+        children.add(tag)
+        return tag
+    }
+
+    override fun toString(): String {
+        var sb = StringBuilder()
+        sb.append("<${name}>\n")
+        children.forEach {
+            sb.append("${it.toString()}")
+        }
+        sb.append("\n")
+        sb.append("</${name}>\n")
+        return sb.toString()
+    }
+}
+
 fun html(init: Html.()-> Unit) : Html {
     var html = Html()
     html.init()
@@ -10,30 +30,20 @@ fun html(init: Html.()-> Unit) : Html {
 }
 
 
-class Html(){
-    var children = arrayListOf<Any>()
+class Html() : Tag("html") {
+    fun head(init: Head.()->Unit) : Head = initTag(Head(), init)
+}
 
-    fun head(init: Head.()->Unit) : Head{
-        var head = Head()
-        head.init()
-        children.add(head)
-        return head
-    }
-
-    override fun toString(): String {
-        var sb = StringBuilder()
-        sb.append("<html>\n")
-        children.forEach {
-            sb.append("    ${it.toString()}")
-        }
-        sb.append("\n")
-        sb.append("</html>\n")
-        return sb.toString()
+class Head() : Tag("head"){
+    fun title(content : String) : Title {
+        var title = Title(content)
+        children.add(title)
+        return title
     }
 }
 
-class Head(){
+class Title(var content : String){
     override fun toString(): String {
-        return "<head></head>"
+        return "\t\t<title>${content}</title>"
     }
 }
