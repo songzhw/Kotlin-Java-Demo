@@ -5,7 +5,7 @@ package cn.song.ccBuilder
  */
 abstract class Tag(var name : String){
     var children = arrayListOf<Any>()
-    protected fun initTag<T>(tag: T, init: T.()-> Unit) : T{
+    protected fun initTag<T : Any>(tag: T, init: T.()-> Unit) : T{
         tag.init()
         children.add(tag)
         return tag
