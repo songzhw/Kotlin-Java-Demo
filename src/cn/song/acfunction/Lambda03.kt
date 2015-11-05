@@ -8,6 +8,7 @@ package cn.song.acfunction
 
 
 fun main(args: Array<String>) {
+/*
     val asc = Array(5, {i -> (i * i).toString()})
     println(asc) //=> ["0", "1", "4", "9", "16"]
 
@@ -24,5 +25,5 @@ fun main(args: Array<String>) {
     ints.filter { it > 0 }
         .forEach { sum += it }
     println("sum = ${sum}")//=> 30
-
+*/
 }

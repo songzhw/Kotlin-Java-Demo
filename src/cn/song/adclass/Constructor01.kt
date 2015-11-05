@@ -4,24 +4,24 @@ package cn.song.adclass
  * Created by hzsongzhengwang on 2015/8/14.
  */
 
-class Invoice1 {}
-
-// primary constructor
-class Person1(firstName: String) {}
-class Person2(val firstName: String, val lastName: String, var age: Int) { }
-
-// primary constructor with code
-class Customer1(name: String) {
-    var key = name.toUpperCase()
-    init {
-        println("Customer initialized with value ${name}")
-    }
-}
-
-// secondary constructor : needs delegate to the primary constructor, using the "this" keyword
-data class Person3(val name: String,  id: Long) {
-    constructor(name: String) : this(name, -1L){ }
-}
+//class Invoice1 {}
+//
+//// primary constructor
+//class Person1(firstName: String) {}
+//class Person2(val firstName: String, val lastName: String, var age: Int) { }
+//
+//// primary constructor with code
+//class Customer1(name: String) {
+//    var key = name.toUpperCase()
+//    init {
+//        println("Customer initialized with value ${name}")
+//    }
+//}
+//
+//// secondary constructor : needs delegate to the primary constructor, using the "this" keyword
+//data class Person3(val name: String,  id: Long) {
+//    constructor(name: String) : this(name, -1L){ }
+//}
 
 
 
