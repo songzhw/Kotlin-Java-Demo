@@ -1,4 +1,4 @@
-package cn.song.rxtest
+package cn.six.rxtest.observ
 
 import rx.Observable
 import rx.functions.Action1
@@ -34,15 +34,14 @@ var api4 = Observable.create<String> {
 fun zipTest(){
     var da = Date()
     println("zipTest() ${da.minutes}:${da.seconds}")
-    Observable.zip(api3, api4, object : Func2<String, String, String>{
-        override fun call(s1: String, s2: String): String {
-            da = Date()
-            println("zipTest() func2($s1, $s2) -- ${da.minutes}:${da.seconds}")
-            return "[$s1 || $s2]"
-        }
-    }).subscribe{
-        println("szw $it")
-    }
+    Observable .zip(api3, api4) {s1 : String, s2:  String->
+                        da = Date()
+                        println("zipTest() func2($s1, $s2) -- ${da.minutes}:${da.seconds}")
+                        "[--$s1 || $s2--]"  // last code is a "return" code
+                 }
+            .subscribe {
+                println("szw $it")
+            }
 }
 
 fun main(args: Array<String>) {

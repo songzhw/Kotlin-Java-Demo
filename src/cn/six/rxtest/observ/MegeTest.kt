@@ -1,7 +1,6 @@
-package cn.song.rxtest
+package cn.six.rxtest.observ
 
 import rx.Observable
-import rx.schedulers.Schedulers
 import java.util.*
 
 /**
@@ -27,7 +26,8 @@ var api2 = Observable.create<String> {
 fun accessMultiApi() {
     var d = Date();
     println("${d.minutes}:${d.seconds}  accessMultiApi()")
-    Observable.merge(api1, api2)
+    Observable
+            .merge(api1, api2)
             .subscribe {
                 d = Date()
                 println("${d.minutes}:${d.seconds} szw : trace -- accessMultiApi(${it})")
