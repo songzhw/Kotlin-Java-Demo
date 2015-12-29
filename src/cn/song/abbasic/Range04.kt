@@ -34,7 +34,7 @@ fun range4(args: Array<String>) {
 
     for (x in 1.0..2.0 step 0.3) print("$x ") // prints "1.0 1.3 1.6 1.9 "
 */
-    for (x in 2.0 downTo 1.0 step 0.3) print("$x ") // prints "2.0 1.7 1.4 1.1 "
+//    for (x in 2.0 downTo 1.0 step 0.3) print("$x ") // prints "2.0 1.7 1.4 1.1 "
 
     //for (str in "island".."isle") println(str) // error: string range cannot be iterated over
 

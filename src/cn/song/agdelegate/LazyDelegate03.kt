@@ -17,7 +17,7 @@ Copyright 2015 Six.
 import kotlin.properties.Delegates
 
 class LazySample {
-    val lazy: String by Delegates.lazy {
+    val lazy: String by lazy {
         println("computed!")
         "my lazy"
     }
