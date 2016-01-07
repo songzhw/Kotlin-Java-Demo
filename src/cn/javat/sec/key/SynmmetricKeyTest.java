@@ -28,7 +28,7 @@ public class SynmmetricKeyTest {
         System.out.println("222 len = "+key16.length);
         SecretKeySpec keySpec = new SecretKeySpec(key16, "DES");
         SecretKeyFactory keyFactory = SecretKeyFactory.getInstance("DES");
-        SecretKey key = keyFactory.generateSecret(keySpec);
+        SecretKey key = keyFactory.generateSecret(keySpec); // error : Inappropriate key specification
     }
 
     public static void main(String[] args) throws Exception {

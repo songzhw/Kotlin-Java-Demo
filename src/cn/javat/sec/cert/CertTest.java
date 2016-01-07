@@ -24,5 +24,7 @@ public class CertTest {
         System.out.println("IssuerDn = "+ x509Cert.getIssuerDN().getName());   // CN=Symantec Class 3 Secure Server CA - G4, OU=Symantec Trust Network, O=Symantec Corporation, C=US
         System.out.println("publicKey = "+ Util.bytesToHexString(x509Cert.getPublicKey().getEncoded()));  //publicKey = 30820122300D06092A864886F70D0101010500............
 
+        is.close();
+
     }
 }
