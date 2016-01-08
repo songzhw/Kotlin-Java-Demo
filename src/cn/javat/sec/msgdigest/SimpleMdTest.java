@@ -19,7 +19,7 @@ public class SimpleMdTest {
         String data = "msg from the future";
         md.update(data.getBytes());
         byte[] mdBytes = md.digest();
-        System.out.println("Simple Message Digest = "+ Util.bytesToHexString(mdBytes)); // 259E798B5EDD05F1ED2CA748BDABC37E
+        System.out.println("Simple Message Digest = "+ Util.bytesToHexString(mdBytes)); // 259E 798B 5EDD 05F1 ED2C A748 BDAB C37E
 
         md.reset(); // 重置MessageDigest对象，这样就能重复使用它 (szw: 好像不reset()也行)
         md.update("test2".getBytes());
