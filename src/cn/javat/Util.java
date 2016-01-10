@@ -1,4 +1,4 @@
-package cn.javat;
+package cn.six.sec;
 
 /**
  * Created by hzsongzhengwang on 2016/1/6.

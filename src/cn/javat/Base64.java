@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package cn.javat;
+package cn.six.sec;
 
 import java.io.UnsupportedEncodingException;
 
