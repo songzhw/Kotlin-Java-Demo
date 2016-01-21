@@ -1,11 +1,12 @@
 package cn.song.dalambda
 
+import java.awt.Button
 import java.awt.TextField
 
 /**
  * Created by hzsongzhengwang on 2015/11/5.
  */
-
+/*
 fun main(args: Array<String>) {
     var btn = Button()
 
@@ -20,3 +21,4 @@ fun main(args: Array<String>) {
     // https://kotlinlang.org/docs/reference/java-interop.html
     // SAM convertion
 }
+*/

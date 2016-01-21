@@ -1,4 +1,4 @@
-package cn.song.test;
+package kotlint.test;
 
 import java.util.Date;
 
