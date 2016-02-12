@@ -7,7 +7,7 @@ package cn.song.cbFunctionRef
 
 // "less : (T, T) -> Boolean" , means a function takes two parameters of type T,
 // and return a Boolean
-fun max<T>(collection : Collection<out T>, less: (T,T)-> Boolean) : T? {
+fun <T> max(collection : Collection<out T>, less: (T, T)-> Boolean) : T? {
     var maxNum : T? = null
     collection.forEach {
         if(maxNum == null || less(maxNum!!, it)){

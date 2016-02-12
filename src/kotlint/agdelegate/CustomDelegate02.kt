@@ -12,7 +12,7 @@ Copyright 2015 Six.
  * to provide methods named get() and set() to be called.</p>
  */
 
-
+/*
 class Example {
     var p: String by Delegate()
 
@@ -28,6 +28,8 @@ class Delegate() {
         println("$value has been assigned to ${prop.name} in $thisRef")
     }
 }
+*/
+
 
 //fun main(args: Array<String>) {
 //    val e = Example()

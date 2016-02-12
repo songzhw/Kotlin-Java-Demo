@@ -14,7 +14,7 @@ import java.util.concurrent.locks.ReentrantLock
 
 
 //2. demo
-fun lock00<T>(lock : Lock, body: ()-> T) : T {
+fun <T> lock00(lock : Lock, body: ()-> T) : T {
     lock.lock()
     try{
         return body()
