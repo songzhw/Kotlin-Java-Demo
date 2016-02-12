@@ -1,4 +1,4 @@
-package cn.song.ccBuilder
+package kotlin_sample.builder
 
 /**
  * Created by hzsongzhengwang on 2015/9/11.

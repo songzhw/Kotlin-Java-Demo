@@ -1,4 +1,4 @@
-package cn.song.ccBuilder
+package kotlin_sample.builder
 
 /**
  * Created by hzsongzhengwang on 2015/9/11.
@@ -6,9 +6,9 @@ package cn.song.ccBuilder
 
 // because html() return a Html, so the result of result() is a Html object
 fun result() =
-        html{
+        html {
             head {
-                title("Hello Kotlin Builder")
+                title("_Hello Kotlin Builder_")
             }
         }
 

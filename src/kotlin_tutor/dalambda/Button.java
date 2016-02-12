@@ -1,4 +1,4 @@
-package kotlint.dalambda;
+package kotlin_tutor.dalambda;
 
 /**
  * Created by hzsongzhengwang on 2015/11/5.
