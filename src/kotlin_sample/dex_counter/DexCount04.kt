@@ -12,7 +12,7 @@ class DexCount04 {
     fun testType(type : String) : String {
         if(type.startsWith("L")){
             var name = type.substring(1 .. type.length-1)
-            return name.replace('/', ',')
+            return name.replace('/', '.')
         }
         return "void"
     }
