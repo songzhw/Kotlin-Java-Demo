@@ -1,8 +1,8 @@
 package cn.song.agdelegate
-/**
-Administrator - 2015/8/16
-Copyright 2015 Six.
- */
+
+import kotlin.reflect.KProperty
+
+/** songzhw - 2016/2/17 */
 
 /**
  * There's some new syntax: you can say `val 'property name': 'Type' by 'expression'`.
@@ -12,30 +12,31 @@ Copyright 2015 Six.
  * to provide methods named get() and set() to be called.</p>
  */
 
-/*
+
 class Example {
-    var p: String by Delegate()
+    var p: String by MyDelegate()
 
     override fun toString() = "Example Class"
 }
 
-class Delegate() {
-    fun get(thisRef: Any?, prop: PropertyMetadata): String {
+class MyDelegate() {
+    operator fun getValue(thisRef: Any?, prop: KProperty<*>): String {
         return "$thisRef, thank you for delegating '${prop.name}' to me!"
     }
 
-    fun set(thisRef: Any?, prop: PropertyMetadata, value: String) {
+    operator fun setValue(thisRef: Any?, prop: KProperty<*>, value: String) {
         println("$value has been assigned to ${prop.name} in $thisRef")
     }
 }
-*/
 
 
-//fun main(args: Array<String>) {
-//    val e = Example()
-//    println(e.p) //=> NEW has been assigned to p in Example Class
-//    e.p = "NEW" //=> Example Class, thank you for delegating 'p' to me!
-//    println(e.p) //=> NEW has been assigned to p in Example Class
-//}
+
+fun main(args: Array<String>) {
+    val e = Example()
+    println(e.p) //=> NEW has been assigned to p in Example Class
+
+    e.p = "NEW" //=> Example Class, thank you for delegating 'p' to me!
+    println(e.p) //=> NEW has been assigned to p in Example Class
+}
 
 

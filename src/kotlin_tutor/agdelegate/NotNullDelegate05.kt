@@ -25,9 +25,9 @@ class User2 {
     }
 }
 
-//fun main(args: Array<String>) {
-//    val user = User2()
-//    // user.name -> IllegalStateException
-//    user.init("Carl")
-//    println(user.name) //Carl
-//}
+fun main(args: Array<String>) {
+    val user = User2()
+    // user.name -> IllegalStateException
+    user.init("Carl")
+    println(user.name) //Carl
+}
