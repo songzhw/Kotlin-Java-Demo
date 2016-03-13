@@ -10,16 +10,16 @@ fun nullSafe(args: Array<String>) {
     var b : String? = "abc"
     b = null  // OK
 
-    println(a.length)
+    println(a.length())
 //    println(b.length())// Error!
 
     //two way to do the "b.length()", and compiler doesn't complain
     // 1.
-    val len1 = if(b != null) b.length else -1
+    val len1 = if(b != null) b.length() else -1
 
     //2.
-    val len2 = b?.length //This returns b.length() if b is not null, and null otherwise. The type of this expression is Int?.
-    val len3 = b?.length ?: -1 //效果赞同于 if(b != null) b.length() else -1
+    val len2 = b?.length() //This returns b.length() if b is not null, and null otherwise. The type of this expression is Int?.
+    val len3 = b?.length() ?: -1 //效果赞同于 if(b != null) b.length() else -1
 
     // elvis operator
 //    fun foo(node: Node): String? {
@@ -30,7 +30,7 @@ fun nullSafe(args: Array<String>) {
 
 
     // "!!" operator
-    val len4 = b!!.length // return a non-null value of b or throw an NPE if b is null
+    val len4 = b!!.length() // return a non-null value of b or throw an NPE if b is null
 
 
     // safe cast： "as?" returns null on failure, rather than throws an exception

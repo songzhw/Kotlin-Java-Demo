@@ -1,25 +1,22 @@
 package cn.song.agdelegate
 
 
-/**
-Administrator - 2015/8/16
-Copyright 2015 Six.
- */
+/** songzhw - 2016/2/17 */
 
 
-interface Base {
+interface Base1 {
     fun print()
 }
 
-class BaseImpl(val x: Int) : Base {
+class BaseImpl1(val x: Int) : Base1 {
     override fun print() {
         print(x)
     }
 }
 
-class Derived(b: Base) : Base by b
+class Derived1(b: Base1) : Base1 by b
 
-//fun main(args: Array<String>) {
-//    val b = BaseImpl(10)
-//    Derived(b).print() // prints 10
-//}
+fun main(args: Array<String>) {
+    val b = BaseImpl1(10)
+    Derived1(b).print() // prints 10
+}
