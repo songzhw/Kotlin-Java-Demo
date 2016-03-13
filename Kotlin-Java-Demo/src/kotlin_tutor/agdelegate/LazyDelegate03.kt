@@ -2,7 +2,7 @@ package cn.song.agdelegate
 
 
 /**
-songzhw - 2015/8/16
+Administrator - 2015/8/16
 Copyright 2015 Six.
  */
 
@@ -23,9 +23,8 @@ class LazySample {
     }
 }
 
-fun main(args: Array<String>) {
-    val sample = LazySample()
-    println("lazy = ${sample.lazy}")  //=> "Computed", + "my lazy"
-
-    println("lazy = ${sample.lazy}")  //=> "my lazy"
-}
+//fun main(args: Array<String>) {
+//    val sample = LazySample()
+//    println("lazy = ${sample.lazy}")
+//    println("lazy = ${sample.lazy}")
+//}

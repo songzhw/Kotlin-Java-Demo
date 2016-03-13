@@ -16,13 +16,13 @@ import kotlin.properties.Delegates
 
 class User3 {
     var name: String by Delegates.observable("no name") {
-        prop, old, new ->
-        println("(${prop.name}) $old - $new")
+        d, old, new ->
+        println("$old - $new")
     }
 }
 
-fun main(args: Array<String>) {
-    val user = User3()
-    user.name = "Carl"  //(name) no name - Carl
-    user.name = "szw"   //(name) Carl - szw
-}
+//fun main(args: Array<String>) {
+//    val user = User3()
+//    user.name = "Carl"  //no name - Carl
+//    user.name = "szw"   //Carl - szw
+//}
