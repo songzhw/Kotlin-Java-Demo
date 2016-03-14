@@ -5,6 +5,7 @@ import com.sun.xml.internal.ws.policy.privateutil.PolicyUtils;
 import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.Callable;
+import java.util.function.BiFunction;
 import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Predicate;
@@ -32,6 +33,9 @@ public class ObjectOrNot {
 
         // 4. pre-defined functional interface
         Function<Integer, String> s;
+        BiFunction<String, String, Integer> bf = (first, second) -> {
+            return Integer.compare(first.length(), second.length());
+        };
         Consumer<Integer> c;
         Predicate<Integer> p;
 
