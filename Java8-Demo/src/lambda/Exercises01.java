@@ -17,14 +17,14 @@ public class Exercises01 {
         obj.exer02();
         obj.printDivider();
 
-
+        obj.exer04();
         obj.printDivider();
 
 
         obj.printDivider();
     }
 
-    private void printDivider(){
+    private void printDivider() {
         System.out.println("====================================");
     }
 
@@ -46,7 +46,9 @@ public class Exercises01 {
     // Repeat with a method expression.
     public void exer02() {
         File root = new File("E:/temp");
-        File[] subs = root.listFiles((File parent, String name)->{
+
+        // 01. FilenameFilter
+        File[] subs = root.listFiles((File parent, String name) -> {
             File me = new File(parent, name);
             return me.isDirectory();
         });
@@ -54,5 +56,42 @@ public class Exercises01 {
         for (File sub : subs) {
             System.out.println(sub.getName());
         }
+
+        // ----- Or --------
+
+        // 02. FileFilter
+        File[] subs2 = root.listFiles((File file) -> file.isDirectory());
+        for (File sub2 : subs2) {
+            System.out.println(sub2.getName());
+        }
+
     }
+
+    // 4. Given an arry of "File" objects, sort it so that the directories come before the files,
+    // and within each group, elements are sorted by path name.
+    // Use a lambda expression, not a "Comparator"
+    public void exer04() {
+        File root = new File("E:/temp");
+        File[] files = root.listFiles();
+
+        // Comparator : int compare(T o1, T o2);
+        Arrays.sort(files, (File f1, File f2) -> {
+            boolean isDir1 = f1.isDirectory();
+            boolean isDir2 = f2.isDirectory();
+            String name1 = f1.getName();
+            String name2 = f2.getName();
+            if (isDir1 && !isDir2) {
+                return -1;
+            } else if(!isDir1 && isDir2){
+                return 1;
+            }
+            return name1.compareTo(name2);
+        });
+
+        for (File sub : files) {
+            System.out.println(sub.getName());
+        }
+    }
+
+
 }
