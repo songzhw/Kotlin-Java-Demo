@@ -33,4 +33,11 @@ public class SimpleDemos {
                 .get();
         System.out.println("Total = "+bill);
     }
+
+    public void foo(int count){
+        Runnable r = () -> {
+//            count--; // Error!  "Variables in lambda expression should be final or effectivly final"
+            System.out.println("count = "+count);
+        };
+    }
 }
