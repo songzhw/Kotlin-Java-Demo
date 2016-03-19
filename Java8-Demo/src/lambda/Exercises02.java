@@ -1,9 +1,6 @@
 package lambda;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.List;
+import java.util.*;
 import java.util.concurrent.Callable;
 import java.util.function.Consumer;
 import java.util.function.Predicate;
@@ -87,6 +84,7 @@ public class Exercises02 {
         Collection2<String> tmp = null; // just for example
         tmp.forEachIf(System.out::println,
                 (String str) -> str.length() > 2);
+        Comparator c;
     }
 
 }
