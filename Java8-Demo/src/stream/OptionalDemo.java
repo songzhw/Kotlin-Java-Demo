@@ -25,7 +25,7 @@ public class OptionalDemo {
 
         // 4. Optional . flatMap()
         Optional result = Optional.of(0.25).flatMap(this::inverse).flatMap(this::sqrt);
-        System.out.println("last result = "+result);
+        System.out.println("last result = "+result);                //=> Optional[2.0]
 
     }
 
