@@ -27,7 +27,7 @@ public class SimpleStreamDemo {
         Stream<String> emptyStream = Stream.empty();
 
         Stream<String> echos = Stream.generate( ()-> "Echo") ;
-        Stream<Double> randoms = Stream.generate(Math::random);
+        Stream<Double> randoms = Stream.generate(Math::random).limit(1000); // 1000 random number
 
         Stream<BigInteger> ints = Stream.iterate(BigInteger.ZERO,
                 n -> n.add(BigInteger.ONE));
