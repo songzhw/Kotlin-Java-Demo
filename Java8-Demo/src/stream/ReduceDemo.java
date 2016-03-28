@@ -17,6 +17,9 @@ public class ReduceDemo {
 //        Optional<Integer> sum = values.reduce(Integer::sum);
         Optional<Integer> sum = values.reduce((x, y) -> x + y);
         System.out.println("sum = " + sum.get());   //=> 15
+        int newValue = values.reduce(100, (x,y) -> x + y );
+        System.out.println("sum2 = " + newValue);   //=> 115
+
 
 
 
