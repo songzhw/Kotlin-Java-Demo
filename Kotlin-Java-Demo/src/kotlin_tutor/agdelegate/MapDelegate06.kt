@@ -12,12 +12,12 @@ Copyright 2015 Six.
  * names of properties). Of course, you can have var's as well (with mapVar() function),
  * that will modify the map upon assignment (note that you'd need MutableMap instead of read-only Map).
  */
-import kotlin.properties.Delegates
-
-class User1(val map: Map<String, Any?>) {
-    val name: String by Delegates.mapVal(map)
-    val age: Int     by Delegates.mapVal(map)
-}
+//import kotlin.properties.Delegates
+//
+//class User1(val map: Map<String, Any?>) {
+//    val name: String by Delegates.mapVal(map)
+//    val age: Int     by Delegates.mapVal(map)
+//}
 
 //fun main(args: Array<String>) {
 //    val user = User1(mapOf(

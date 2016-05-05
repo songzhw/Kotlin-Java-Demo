@@ -9,7 +9,7 @@ fun double(x: Int): Int {
 }
 
 // default arguments
-fun readByte(b:Array<Byte>,  off : Int = 0 , len : Int = b.size() ){
+fun readByte(b:Array<Byte>,  off : Int = 0 , len : Int = b.size ){
     // ...
 }
 

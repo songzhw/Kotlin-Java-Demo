@@ -21,8 +21,8 @@ class User3 {
     }
 }
 
-//fun main(args: Array<String>) {
-//    val user = User3()
-//    user.name = "Carl"  //no name - Carl
-//    user.name = "szw"   //Carl - szw
-//}
+fun main(args: Array<String>) {
+    val user = User3()
+    user.name = "Carl"  //no name - Carl
+    user.name = "szw"   //Carl - szw
+}
