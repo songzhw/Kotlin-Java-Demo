@@ -1,9 +1,6 @@
 package rxjavat.file;
 
-import java.io.BufferedInputStream;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.InputStream;
+import java.io.*;
 
 /**
  * Created by songzhw on 2016-06-16.
@@ -25,6 +22,23 @@ public class FileUtils {
             return null;
         }
 
-    };
+    }
+
+    public static void saveFileContent(String content, File file) {
+        try {
+            if (!file.exists()) {
+                file.createNewFile();
+            }
+
+            FileOutputStream fos = new FileOutputStream(file);
+            fos.write(content.getBytes());
+            fos.flush();
+            fos.close();
+        } catch (Exception e) {
+            System.out.println("szw saveFileContent() : error = " + e.toString());
+            e.printStackTrace();
+        }
+
+    }
 
 }
