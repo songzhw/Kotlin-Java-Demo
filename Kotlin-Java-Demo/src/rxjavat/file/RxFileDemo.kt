@@ -51,12 +51,12 @@ fun rxWrite(file : File) {
     println(" szw : thread0 = "+Thread.currentThread().name) //=> main
     Observable.just(file)
             .map {
-                println(" szw : thread4 = "+Thread.currentThread().name) //=> RxCachedThreadScheduler-1
+                println(" szw : thread4 = "+Thread.currentThread().name) //=> RxCachedThreadScheduler-2
                 FileUtils.saveFileContent("abc", file)
             }
             .subscribeOn(Schedulers.io())
             .subscribe{
-                println(" szw : thread5 = "+Thread.currentThread().name) //=> RxCachedThreadScheduler-1
+                println(" szw : thread5 = "+Thread.currentThread().name) //=> RxCachedThreadScheduler-2
                 println("szw : content6 = "+it)
             }
 }
