@@ -2,6 +2,7 @@ package javat.thread.Semaphore;
 
 import javat.thread.ThreadUtils;
 
+import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.Semaphore;
 
 /**
@@ -78,6 +79,8 @@ public class Foo2 {
 
         new Thread(() -> foo2.third())
                 .start();
+
+        BlockingQueue s;
     }
 
 }

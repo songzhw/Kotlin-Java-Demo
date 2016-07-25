@@ -29,27 +29,11 @@ public class Foo1 {
         Foo1 foo1 = new Foo1();
 
 
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                foo1.first();
-            }
-        }).start();
+        new Thread(() -> foo1.first()).start();
 
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                foo1.second();
-            }
-        }).start();
+        new Thread(() -> foo1.second()).start();
 
-
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                foo1.third();
-            }
-        }).start();
+        new Thread(() -> foo1.third()).start();
     }
 
 }
