@@ -21,7 +21,6 @@ public class Queue1Demo {
     public static void main(String[] args) throws InterruptedException {
         BlockingQueue<String> queue = new ArrayBlockingQueue<>(16);
 
-
         for (int i = 0; i < 4; i++) {
             new Thread(new Runnable() {
                 int index = 0;
