@@ -22,6 +22,7 @@ public class LoginPresenter3 {
             @Override
             public void onSucc(String resp) {
                 // view.onSuccLogin();
+                System.out.println("szw || "+resp);
             }
 
             @Override

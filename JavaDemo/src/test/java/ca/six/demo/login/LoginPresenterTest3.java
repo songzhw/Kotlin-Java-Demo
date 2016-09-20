@@ -29,20 +29,20 @@ public class LoginPresenterTest3 {
         when(validator.validate("222")).thenReturn(false);
         presenter.validator = validator;
 
-        presenter.login("szw","111");
-        verify(userManager).doLogin(anyString(),anyString(), any(ILoginCallback.class));
-//        doAnswer(new Answer() {
-//            @Override
-//            public Object answer(InvocationOnMock invocation) throws Throwable {
-//                //这里可以获得传给performLogin的参数
-//                Object[] arguments = invocation.getArguments();
-//                //callback是第三个参数
-//                ILoginCallback callback = (ILoginCallback) arguments[2];
-//                callback.onSucc("mock success!");
-//                return 0;
-//            }
-//        })
-//        .when(userManager)
-//        .doLogin(anyString(), anyString(), any(ILoginCallback.class));
+        presenter.login("szw","33");
+//        verify(userManager).doLogin(anyString(),anyString(), any(ILoginCallback.class));
+
+        // TODO? 这里不管什么密码，都能测试通过！ 奇怪了！！！
+        doAnswer(new Answer() {
+            @Override
+            public Object answer(InvocationOnMock invocation) throws Throwable {
+                Object[] arguments = invocation.getArguments();
+                ILoginCallback callback = (ILoginCallback) arguments[2];
+                callback.onSucc("mock success!");
+                return 0;
+            }
+        })
+        .when(userManager)
+        .doLogin(anyString(), anyString(), any(ILoginCallback.class));
     }
 }
