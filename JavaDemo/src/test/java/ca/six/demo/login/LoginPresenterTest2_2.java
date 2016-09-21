@@ -26,7 +26,8 @@ public class LoginPresenterTest2_2 {
         presenter.validator = validator;
 
 
-        presenter.login("szw","12");
+//        presenter.login("szw","12"); // failed
+        presenter.login("szw","123"); // succ
         verify(userManager).doLogin(anyString(),anyString());
     }
 }
