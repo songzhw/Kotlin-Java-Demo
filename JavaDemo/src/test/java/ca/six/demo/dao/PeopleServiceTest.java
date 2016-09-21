@@ -11,6 +11,7 @@ import org.mockito.MockitoAnnotations;
 
 import static junit.framework.TestCase.assertFalse;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.*;
@@ -39,13 +40,14 @@ public class PeopleServiceTest {
         verify(dao).fetchPerson(1);
         verify(dao).update(any(Person.class)); // verify(dao).update(p1)会报错。因为p1对象不一样！
 
+        assertEquals("david", p1.getPersonName());
 
         // ArgumentCaptor ：参数捕获器
-        ArgumentCaptor<Person> personCaptor = ArgumentCaptor.forClass(Person.class);
-        verify(dao).update(personCaptor.capture());
-
-        Person updatedPerson = personCaptor.getValue();
-        assertEquals("david", updatedPerson.getPersonName());
+//        ArgumentCaptor<Person> personCaptor = ArgumentCaptor.forClass(Person.class);
+//        verify(dao).update(personCaptor.capture());
+//
+//        Person updatedPerson = personCaptor.getValue();
+//        assertEquals("david", updatedPerson.getPersonName());
 
     }
 
@@ -56,8 +58,6 @@ public class PeopleServiceTest {
         assertFalse(isUpdated);
 
         verify(dao).fetchPerson(1);
-
     }
-
 
 }
