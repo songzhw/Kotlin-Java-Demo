@@ -35,4 +35,5 @@ public class OnePresenter {
         view.openNoteDetails(requestedNote.id);
     }
 
+
 }

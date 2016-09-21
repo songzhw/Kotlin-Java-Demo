@@ -11,6 +11,7 @@ import org.mockito.MockitoAnnotations;
 
 import static org.mockito.Matchers.any;
 import static org.mockito.Matchers.anyInt;
+import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
 
 /**
@@ -51,6 +52,16 @@ public class NotePresenterTest {
     public void longClickOneItem_showNote(){
         presenter.loadNotes(true);
         verify(model).refresh();
+
+        verify(model).getNote(argumentCaptor.capture());
+        argumentCaptor.getValue().onNotesLoaded(any(Note.class));
+        verify(view).openNoteDetails(anyInt());
+    }
+
+    @Test
+    public void longClickOneItem_showNoNote(){
+        presenter.loadNotes(false);
+        verify(model, never()).refresh(); // never call this method
 
         verify(model).getNote(argumentCaptor.capture());
         argumentCaptor.getValue().onNotesLoaded(any(Note.class));
