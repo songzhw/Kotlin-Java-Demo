@@ -30,6 +30,6 @@ public class LoginPresenter3 implements ILoginCallback {
 
     @Override
     public void onFail(Throwable throwable) {
-// view.onError();
+        // view.onError();
     }
 }

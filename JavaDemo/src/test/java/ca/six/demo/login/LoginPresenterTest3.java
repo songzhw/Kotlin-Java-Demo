@@ -5,9 +5,12 @@ import ca.six.demo.lib.mock.login3.ILoginCallback;
 import ca.six.demo.lib.mock.login3.LoginPresenter3;
 import ca.six.demo.lib.mock.login3.UserManager3;
 import org.junit.Test;
+import org.mockito.ArgumentCaptor;
+import org.mockito.Captor;
 import org.mockito.invocation.InvocationOnMock;
 import org.mockito.stubbing.Answer;
 
+import static org.junit.Assert.assertEquals;
 import static org.mockito.Matchers.anyString;
 import static org.mockito.Mockito.*;
 
@@ -17,6 +20,8 @@ import static org.mockito.Mockito.*;
  * : 指定mock对象的某些方法的行为
  */
 public class LoginPresenterTest3 {
+    @Captor
+    private ArgumentCaptor<ILoginCallback> captor;
 
     @Test
     public void testLogin3(){
@@ -26,23 +31,22 @@ public class LoginPresenterTest3 {
 
         PasswordValidate2 validator = mock(PasswordValidate2.class);
         when(validator.validate("111")).thenReturn(true);
-        when(validator.validate("222")).thenReturn(false);
         presenter.validator = validator;
 
-        presenter.login("szw","33");
-//        verify(userManager).doLogin(anyString(),anyString(), any(ILoginCallback.class));
 
-        // TODO? 这里不管什么密码，都能测试通过！ 奇怪了！！！
         doAnswer(new Answer() {
             @Override
             public Object answer(InvocationOnMock invocation) throws Throwable {
-                Object[] arguments = invocation.getArguments();
-                ILoginCallback callback = (ILoginCallback) arguments[2];
+                Object[] arguments = invocation.getArguments(); //login("","", callback)共3个参数
+                ILoginCallback callback = (ILoginCallback) arguments[2]; // callback是第3个， 所以是[2]
                 callback.onSucc("mock success!");
-                return 0;
+                return null;
             }
         })
         .when(userManager)
-        .doLogin(anyString(), anyString(), any(ILoginCallback.class));
+        .doLogin("szw","111", any(ILoginCallback.class));
+
+        presenter.login("szw","111");
+        assertEquals("mock success!", presenter.code);
     }
 }
