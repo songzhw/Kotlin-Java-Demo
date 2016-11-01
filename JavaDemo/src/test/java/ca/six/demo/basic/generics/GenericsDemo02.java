@@ -1,4 +1,4 @@
-package ca.six.demo.generics;
+package ca.six.demo.basic.generics;
 
 /*
 虽然有类型擦除的存在，使得编译器在泛型内部其实完全无法知道有关T的任何信息，但是编译器可以保证重要的一点：内部一致性，

@@ -1,4 +1,4 @@
-package ca.six.demo.generics;
+package ca.six.demo.basic.generics;
 
 import java.util.*;
 
