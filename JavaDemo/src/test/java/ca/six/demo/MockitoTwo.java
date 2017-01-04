@@ -1,6 +1,7 @@
 package ca.six.demo;
 
 import ca.six.demo.lib.mock.MyCounter;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
@@ -10,6 +11,7 @@ import java.util.List;
 import static junit.framework.TestCase.assertEquals;
 import static org.mockito.Mockito.mock;
 
+@Ignore
 @RunWith(JUnit4.class)
 public class MockitoTwo {
 

@@ -5,6 +5,7 @@ import ca.six.demo.lib.mock.login3.ILoginCallback;
 import ca.six.demo.lib.mock.login3.LoginPresenter3;
 import ca.six.demo.lib.mock.login3.UserManager3;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.mockito.ArgumentCaptor;
 import org.mockito.Captor;
@@ -16,6 +17,7 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
+@Ignore
 public class LoginPresenterTest4 {
     @Captor
     private ArgumentCaptor<ILoginCallback> captor;

@@ -4,6 +4,7 @@ import ca.six.demo.lib.mock.login2.PasswordValidate2;
 import ca.six.demo.lib.mock.login3.ILoginCallback;
 import ca.six.demo.lib.mock.login3.LoginPresenter3;
 import ca.six.demo.lib.mock.login3.UserManager3;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.mockito.ArgumentCaptor;
 import org.mockito.Captor;
@@ -19,6 +20,7 @@ import static org.mockito.Mockito.*;
  *
  * : 指定mock对象的某些方法的行为
  */
+@Ignore
 public class LoginPresenterTest3 {
     @Captor
     private ArgumentCaptor<ILoginCallback> captor;

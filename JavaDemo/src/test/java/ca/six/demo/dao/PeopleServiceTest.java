@@ -4,6 +4,7 @@ import ca.six.demo.lib.mock.dao.Person;
 import ca.six.demo.lib.mock.dao.PersonDao;
 import ca.six.demo.lib.mock.dao.PersonService;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.mockito.ArgumentCaptor;
 import org.mockito.Mock;
@@ -19,6 +20,7 @@ import static org.mockito.Mockito.*;
 /**
  * Created by songzhw on 2016-09-20.
  */
+@Ignore
 public class PeopleServiceTest {
     @Mock
     private PersonDao dao;
