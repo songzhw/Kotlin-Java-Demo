@@ -14,7 +14,11 @@ public class FileIODemo {
 
     public static void main(String[] args) {
         readFile();
+        System.out.println("============");
         write2File();
+        System.out.println("============");
+        readFileByLine();
+        System.out.println("============");
     }
 
     public static void write2File() {
@@ -43,6 +47,20 @@ public class FileIODemo {
             String str = bufferedSource.readByteString()
                     .string(Charset.forName("utf-8"));
             System.out.println("szw : " + str);
+        } catch (Exception e) {
+            System.err.println("szw : " + e);
+        }
+    }
+
+    private static void readFileByLine() {
+        try {
+            File file = new File("b"); // 位置得在工程根目录下！
+            BufferedSource source = Okio.buffer(Okio.source(file));
+            String line = null;
+            // 没有source.getLineCount()这样的方法，只好用while循环了. 到底了就会返回null的
+            while( (line = source.readUtf8Line()) != null){
+                System.out.println("szw 3 : line = "+line);
+            }
         } catch (Exception e) {
             System.err.println("szw : " + e);
         }
