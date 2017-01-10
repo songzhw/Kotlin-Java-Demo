@@ -20,7 +20,7 @@ public class Consumer implements Runnable{
             //获取并处理消息直到接收到“exit”消息
             while(!(msg = queue.take()).msg.equals("exit")){
                 Thread.sleep(10);
-                System.out.println("Consumed "+msg.msg +"————————"+System.currentTimeMillis());
+                System.out.println("    Consumed "+msg.msg +"————————"+System.currentTimeMillis());
             }
         }catch(InterruptedException e) {
             e.printStackTrace();
