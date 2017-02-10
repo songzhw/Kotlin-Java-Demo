@@ -19,8 +19,8 @@ public class Producer implements Runnable {
     public void run() {
         for (int i = 0; i < 30; i++) {
             Message msg = new Message("" + i);
-            Sleeper.sleep(i);
             try {
+                Thread.sleep(i);
                 queue.put(msg);
                 System.out.println("Produce (" + i + ") ： "+System.currentTimeMillis());
                 System.out.println("after produce : size = "+queue.size());
