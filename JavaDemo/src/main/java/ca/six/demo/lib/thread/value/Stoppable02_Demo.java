@@ -26,5 +26,7 @@ public class Stoppable02_Demo {
     }
 
     // t1停止后， t2也停止了。 因为isRun这次成了static了
+    // 不过可能刚置为false后， 置false的线程就没了时间碎片
+    // 所以isRun设置为volatile最好了
 
 }

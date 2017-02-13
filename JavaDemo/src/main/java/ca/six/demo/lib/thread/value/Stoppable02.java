@@ -4,7 +4,7 @@ package ca.six.demo.lib.thread.value;
  * Created by songzhw on 2017-02-12.
  */
 public class Stoppable02 extends Thread {
-    private static boolean isRun;
+    private volatile static boolean isRun;
     private int lap;
 
     public void setRun(boolean run) {
