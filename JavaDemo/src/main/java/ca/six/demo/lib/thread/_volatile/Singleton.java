@@ -9,8 +9,12 @@ public class Singleton {
     private Singleton(){}
 
     private Singleton getInstance(){
-        if(instance != null){
-            instance = new Singleton();
+        if(instance == null){
+            synchronized (this) {
+                if(instance == null) {
+                    instance = new Singleton();
+                }
+            }
         }
         return instance;
     }
