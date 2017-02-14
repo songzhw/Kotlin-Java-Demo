@@ -1,23 +1,25 @@
 package ca.six.demo.lib.thread._volatile;
 
+import java.util.concurrent.atomic.AtomicInteger;
+
 public class WhyVolatileExist {
-    int a = 1;
-    int b = 2;
+    volatile AtomicInteger a = new AtomicInteger(1);
+    volatile AtomicInteger b = new AtomicInteger(2);
 
     public void change() {
-        a = 3;
-        b = a;
+        a = new AtomicInteger(3);
+        b = new AtomicInteger(3);
     }
 
     public void print() {
-        if (a == 1 && b == 3) {
+        if (a.get() == 1 && b.get() == 3) {
             // why this is happening?
             System.out.println("Thread[" + Thread.currentThread().getName() + "]Confused1 : a = 1, b = 3");
-        } else if (a == 3 && b == 2) {
+        } else if (a.get() == 3 && b.get() == 2) {
             // never happened. Why?
             System.out.println("Thread[" + Thread.currentThread().getName() + "]Confused2 : a = 1, b = 3");
         } else {
-            System.out.println("Thread[" + Thread.currentThread().getName() + "] b=" + b + ";a=" + a);
+//            System.out.println("Thread[" + Thread.currentThread().getName() + "] b=" + b + ";a=" + a);
         }
     }
 
