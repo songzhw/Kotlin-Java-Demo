@@ -1,7 +1,5 @@
 package ca.six.demo.lib.thread.cons_prod;
 
-import ca.six.demo.lib.thread.Sleeper;
-
 import java.util.concurrent.BlockingQueue;
 
 /**
