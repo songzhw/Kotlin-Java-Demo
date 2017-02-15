@@ -29,6 +29,7 @@ public class OrderExecuteDemo {
     private Thread t2 = new Thread() {
         @Override
         public void run() {
+            ThreadUtils.join(t1);
             ThreadUtils.sleep(500);
             System.out.println("szw r2 finished "+ System.currentTimeMillis());
         }
@@ -37,6 +38,7 @@ public class OrderExecuteDemo {
     private Thread t3 = new Thread() {
         @Override
         public void run() {
+            ThreadUtils.join(t2);
             ThreadUtils.sleep(1200);
             System.out.println("szw r3 finished "+ System.currentTimeMillis());
         }
