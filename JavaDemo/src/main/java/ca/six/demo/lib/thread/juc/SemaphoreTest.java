@@ -4,7 +4,7 @@ import java.util.concurrent.Semaphore;
 
 public class SemaphoreTest {
 
-    Semaphore binary = new Semaphore(1);
+    Semaphore binary = new Semaphore(0); // ▼
 
     public static void main(String args[]) {
         final SemaphoreTest test = new SemaphoreTest();
@@ -27,6 +27,7 @@ public class SemaphoreTest {
 
     private void mutualExclusion() {
         try {
+            System.out.println("I'm waiting ("+Thread.currentThread().getName()+")");
             binary.acquire();
 
             //mutual exclusive region
@@ -45,8 +46,10 @@ public class SemaphoreTest {
 
 /*
 Output:
-    Thread-0inside mutual exclusive region
-    Thread-0outside of mutual exclusive region
-    Thread-1inside mutual exclusive region
-    Thread-1outside of mutual exclusive region
+    I'm waiting (Thread-0)
+    Thread-0 inside mutual exclusive region
+    I'm waiting (Thread-1)
+    Thread-0 outside of mutual exclusive region
+    Thread-1 inside mutual exclusive region
+    Thread-1 outside of mutual exclusive region
 */
