@@ -28,6 +28,7 @@ public class SemaphoreTest {
     private void mutualExclusion() {
         try {
             System.out.println("I'm waiting ("+Thread.currentThread().getName()+")");
+            binary.release(); // ▼
             binary.acquire();
 
             //mutual exclusive region
