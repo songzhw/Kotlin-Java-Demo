@@ -4,16 +4,16 @@ import ca.six.demo.lib.thread.ThreadUtils;
 
 import java.util.concurrent.Semaphore;
 
-/**
- * Created by songzhw on 2017-02-15.
- */
-public class Producer_Consumer02 {
+public class Producer_Consumer03 {
     public static void main(String[] args) {
-        Semaphore semaphoreProducer = new Semaphore(1);
-        Semaphore semaphoreConsumer = new Semaphore(0);
+        Semaphore semaphoreProducer = new Semaphore(2); // 空位最多2个，可用来生产
+        Semaphore semaphoreConsumer = new Semaphore(2); // 货物最多2个，可供消费
 
-        Producer2 producer=new Producer2(semaphoreProducer,semaphoreConsumer);
-        Consumer2 consumer=new Consumer2(semaphoreConsumer,semaphoreProducer);
+        ThreadUtils.requirePermit(semaphoreConsumer);
+        ThreadUtils.requirePermit(semaphoreConsumer);
+
+        Producer3 producer=new Producer3(semaphoreProducer,semaphoreConsumer);
+        Consumer3 consumer=new Consumer3(semaphoreConsumer,semaphoreProducer);
 
         Thread producerThread = new Thread(producer, "ProducerThread");
         Thread consumerThread = new Thread(consumer, "ConsumerThread");
@@ -25,11 +25,11 @@ public class Producer_Consumer02 {
 }
 
 
-class Producer2 implements Runnable {
+class Producer3 implements Runnable {
     Semaphore semaphoreProducer;
     Semaphore semaphoreConsumer;
 
-    public Producer2(Semaphore semaphoreProducer, Semaphore semaphoreConsumer) {
+    public Producer3(Semaphore semaphoreProducer, Semaphore semaphoreConsumer) {
         this.semaphoreProducer = semaphoreProducer;
         this.semaphoreConsumer = semaphoreConsumer;
     }
@@ -37,6 +37,7 @@ class Producer2 implements Runnable {
     @Override
     public void run() {
         for(int i = 0; i < 3; i++){
+            ThreadUtils.sleep(500);
             ThreadUtils.requirePermit(semaphoreProducer);
             System.out.println("produced "+i);
             semaphoreConsumer.release();
@@ -44,18 +45,19 @@ class Producer2 implements Runnable {
     }
 }
 
-class Consumer2 implements Runnable {
+class Consumer3 implements Runnable {
 
     Semaphore semaphoreConsumer;
     Semaphore semaphoreProducer;
 
-    public Consumer2(Semaphore semaphoreConsumer, Semaphore semaphoreProducer) {
+    public Consumer3(Semaphore semaphoreConsumer, Semaphore semaphoreProducer) {
         this.semaphoreConsumer = semaphoreConsumer;
         this.semaphoreProducer = semaphoreProducer;
     }
 
     public void run() {
         for (int i = 0; i < 3; i++) {
+            ThreadUtils.sleep(2200);
             ThreadUtils.requirePermit(semaphoreConsumer);
             System.out.println("consumed "+i);
             ThreadUtils.releasePermit(semaphoreProducer);
@@ -64,9 +66,9 @@ class Consumer2 implements Runnable {
 }
 /*
 produced 0
-consumed 0
 produced 1
-consumed 1
+consumed 0
 produced 2
+consumed 1
 consumed 2
  */
