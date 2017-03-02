@@ -32,6 +32,7 @@ public class FileReadDemo {
             buf.clear();
             bytesReadCount = in.read(buf);
         }
+        in.close();
         file.close();
     }
 }

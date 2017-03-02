@@ -22,7 +22,7 @@ public class FileWriteDemo {
         while(buf.hasRemaining()){
             channel.write(buf);
         }
-        channel.close();
+        channel.close(); // 用完FileChannel后必须将其关闭
         file.close();
     }
 }
