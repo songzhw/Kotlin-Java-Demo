@@ -4,7 +4,7 @@ import java.util.ServiceLoader;
 
 public class NewWayDemo {
     public static void main(String[] args) {
-        Student student = new Student("xl", false, 21);
+        Student student = new Student("xl", true, 21);
 
         ServiceLoader<IStudentHandler> serviceLoader = ServiceLoader.load(IStudentHandler.class);
         for (IStudentHandler handler : serviceLoader) {
