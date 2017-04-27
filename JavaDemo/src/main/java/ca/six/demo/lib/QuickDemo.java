@@ -9,5 +9,16 @@ public class QuickDemo {
         for(String s: splited){
             System.out.println("s = "+s);
         }
+
+//        String s1 = "xd";
+        String s1 = "ab";
+        String s2 = "xxd";
+        String s3 = s2.replace(s1, "**");
+        System.out.println(" === s3 = "+s3);
+
     }
 }
+
+
+
+
