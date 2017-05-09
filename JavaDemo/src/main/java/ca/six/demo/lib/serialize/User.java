@@ -2,7 +2,7 @@ package ca.six.demo.lib.serialize;
 
 import java.io.Serializable;
 
-public class User {
+public class User implements Serializable {
     private int id;
     public String name;
     public static int index = 0;
