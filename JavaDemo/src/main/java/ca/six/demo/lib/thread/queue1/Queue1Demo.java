@@ -1,6 +1,6 @@
 package ca.six.demo.lib.thread.queue1;
 
-import javat.thread.ThreadUtils;
+import ca.six.demo.lib.thread.ThreadUtils;
 
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.BlockingQueue;

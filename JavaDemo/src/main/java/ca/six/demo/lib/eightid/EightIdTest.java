@@ -1,8 +1,5 @@
 package ca.six.demo.lib.eightid;
 
-import cn.song.cdgenerics.Source;
-import com.sun.javafx.binding.StringFormatter;
-
 import java.text.DecimalFormat;
 
 /**

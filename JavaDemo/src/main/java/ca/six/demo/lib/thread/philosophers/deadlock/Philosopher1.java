@@ -1,6 +1,7 @@
 package ca.six.demo.lib.thread.philosophers.deadlock;
 
-import javat.thread.ThreadUtils;
+
+import ca.six.demo.lib.thread.ThreadUtils;
 
 import java.util.Random;
 

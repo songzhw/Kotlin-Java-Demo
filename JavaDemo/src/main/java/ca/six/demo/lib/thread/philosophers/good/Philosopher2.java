@@ -1,6 +1,6 @@
 package ca.six.demo.lib.thread.philosophers.good;
 
-import javat.thread.ThreadUtils;
+import ca.six.demo.lib.thread.ThreadUtils;
 
 import java.util.Random;
 

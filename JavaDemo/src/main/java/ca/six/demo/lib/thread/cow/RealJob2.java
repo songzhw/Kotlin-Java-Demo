@@ -1,6 +1,6 @@
 package ca.six.demo.lib.thread.cow;
 
-import javat.thread.ThreadUtils;
+import ca.six.demo.lib.thread.ThreadUtils;
 
 /**
  * Created by songzhw on 2016-08-01.

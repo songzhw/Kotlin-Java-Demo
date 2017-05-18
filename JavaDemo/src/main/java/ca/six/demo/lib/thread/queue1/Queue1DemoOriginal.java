@@ -1,6 +1,6 @@
 package ca.six.demo.lib.thread.queue1;
 
-import javat.thread.ThreadUtils;
+import ca.six.demo.lib.thread.ThreadUtils;
 
 /**
  * Created by songzhw on 2016-07-29.

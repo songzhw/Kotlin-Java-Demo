@@ -1,6 +1,6 @@
 package ca.six.demo.lib.thread.Semaphore;
 
-import javat.thread.ThreadUtils;
+import ca.six.demo.lib.thread.ThreadUtils;
 
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.Semaphore;
