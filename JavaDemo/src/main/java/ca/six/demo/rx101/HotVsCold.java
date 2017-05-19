@@ -19,10 +19,10 @@ public class HotVsCold {
         ConnectableObservable<Long> connectableObservable = hotMusicCoffeeCafe.publish();
         connectableObservable.connect(); //  Cafe open on this line and cafe boy start the system
 
-        Consumer client1 = poem-> System.out.println("Client 1 poem"+poem);
-        Consumer client2 = poem-> System.out.println("Client 2 poem"+poem);
-        Consumer client3 = poem-> System.out.println("Client 3 poem"+poem);
-        Consumer client4 = poem-> System.out.println("Client 4 poem"+poem);
+        Consumer client1 = poem -> System.out.println("Client 1 poem" + poem);
+        Consumer client2 = poem -> System.out.println("Client 2 poem" + poem);
+        Consumer client3 = poem -> System.out.println("Client 3 poem" + poem);
+        Consumer client4 = poem -> System.out.println("Client 4 poem" + poem);
 
         Thread.sleep(2000); // After two poems already played client 1 enter. So he should listens from poem 2.
         connectableObservable.subscribe(client1);
@@ -33,7 +33,7 @@ public class HotVsCold {
         connectableObservable.subscribe(client3);
         connectableObservable.subscribe(client4);
 
-        while (true);
+        while (true) ;
     }
 
     public static void coldCafe() throws Exception {
