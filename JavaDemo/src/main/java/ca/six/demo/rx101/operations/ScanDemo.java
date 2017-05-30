@@ -1,4 +1,4 @@
-package ca.six.demo.rx101;
+package ca.six.demo.rx101.operations;
 
 import io.reactivex.Observable;
 
