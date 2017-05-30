@@ -1,7 +1,6 @@
 package ca.six.demo.lib.mock.login3;
 
 import ca.six.demo.lib.mock.login2.PasswordValidate2;
-import ca.six.demo.lib.mock.login2.UserManager2;
 
 /**
  * Created by songzhw on 2016-09-19.

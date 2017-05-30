@@ -1,10 +1,5 @@
 package ca.six.demo.lib.nio;
 
-import java.nio.channels.SelectionKey;
-import java.nio.channels.Selector;
-import java.util.Iterator;
-import java.util.Set;
-
 /**
  * Created by songzhw on 2017-03-01.
  */

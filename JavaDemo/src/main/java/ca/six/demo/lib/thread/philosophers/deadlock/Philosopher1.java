@@ -3,8 +3,6 @@ package ca.six.demo.lib.thread.philosophers.deadlock;
 
 import ca.six.demo.lib.thread.ThreadUtils;
 
-import java.util.Random;
-
 /**
  * Created by songzhw on 2016-07-25.
  */
