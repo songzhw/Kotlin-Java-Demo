@@ -4,7 +4,6 @@ import ca.six.demo.lib.design.factory.normal.ChinesePizza;
 import ca.six.demo.lib.design.factory.normal.Pizza;
 
 public class CnPizzaFactoryService implements IPizzaFactoryService {
-
     @Override
     public Pizza getPizza(String type) {
         if (type.equals("cn")) {

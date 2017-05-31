@@ -4,6 +4,7 @@ import ca.six.demo.lib.design.factory.normal.Pizza;
 
 import java.util.ServiceLoader;
 
+
 public class PizzaFactory2 {
     public Pizza getPizza(String type) {
         ServiceLoader<IPizzaFactoryService> services = ServiceLoader.load(IPizzaFactoryService.class);
