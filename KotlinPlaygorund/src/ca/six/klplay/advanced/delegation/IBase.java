@@ -21,3 +21,15 @@ fun main(args: Array<String>) {
     Derived(b).print() //=> 30    println(Derived(b).add(1, 2)) //=> 3
 }
 
+/*
+How kotlin do it?
+:
+class Derived(b : IBase){
+    fun add(a, b){
+        b.add(a,b)
+    }
+    fun print(){
+        b.print()
+    }
+}
+ */
