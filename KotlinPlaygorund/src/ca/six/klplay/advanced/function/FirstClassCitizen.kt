@@ -25,4 +25,8 @@ fun main(args: Array<String>) {
     println("result = $ret")
 }
 
-
+/*
+how Kotlin do it?
+use kotlin's Function0 class as the second argument of lock() method
+This is like Java8's Function class.
+ */
