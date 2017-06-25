@@ -10,3 +10,24 @@ fun main(args: Array<String>) {
     demo.textView="23"
     println("${demo.textView}")
 }
+
+/*
+//=> .class
+public final class LazyInitDemo extends Activity {
+  public String textView;
+
+  public final void setTextView(@NotNull String <set-?>) {
+    this.textView = <set-?>;
+  }
+
+  public final String getTextView() {
+    String tmp4_1 = this.textView;
+    if (tmp4_1 == null) {
+      Intrinsics.throwUninitializedPropertyAccessException("textView");
+    }
+    return tmp4_1;
+  }
+}
+
+
+ */
