@@ -13,3 +13,7 @@ fun main(args: Array<String>) {
     user.name = "first"
     user.name = "second"
 }
+
+/*
+User has a delegation member : ReadWriteProperty
+ */
