@@ -1,8 +1,5 @@
 package ca.six.demo.lib.time;
 
-import sun.text.resources.zh.FormatData_zh_CN;
-
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.TimeZone;
@@ -22,7 +19,7 @@ public class Ca2Cn {
         SimpleDateFormat formatCa = new SimpleDateFormat("yyyyMMdd HH:mm");
         formatCa.setTimeZone(TimeZone.getTimeZone("Canada/Eastern"));
         String timeCa = formatCa.format(dateCa);
-        System.out.println("szw ca : "+timeCa);
+        System.out.println("szw ca : "+timeCa); //=> 20170716 21:00
 
     }
 }
