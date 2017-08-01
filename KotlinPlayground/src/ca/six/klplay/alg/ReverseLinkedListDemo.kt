@@ -2,6 +2,8 @@ package ca.six.klplay.alg
 
 import kotlin.properties.Delegates
 
+// http://blog.csdn.net/xiaozhuaixifu/article/details/9366733
+
 class Node {
     var num: Int  by Delegates.notNull<Int>()
     var next: Node by Delegates.notNull<Node>()
