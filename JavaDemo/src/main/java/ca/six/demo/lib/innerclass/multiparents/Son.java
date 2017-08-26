@@ -1,22 +1,12 @@
 package ca.six.demo.lib.innerclass.multiparents;
 
 public class Son extends Father {
-    void foo(){
-        strength(); //=> from father
-
-        Son2 son2 = new Son2();
-        son2.inherit();
-    }
+    private int age = 10;
 
     class Son2 extends Mother {
         void inherit(){
-            calm();
+            System.out.println("Inner class : "+age); //=> Inner class : 10
         }
-    }
-
-    public static void main(String[] args) {
-        Son son = new Son();
-        son.foo();
     }
 }
 
