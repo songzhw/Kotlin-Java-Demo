@@ -27,3 +27,14 @@ fun array2(args: Array<String>) {
 
 
 }
+
+
+// IntArray不用每取次值都自动封箱, 直接存为int[]
+// Array<Int>其实存的是Integer[], 都得去封箱
+fun twoTypeIntArray() {
+    val intArray = intArrayOf(1, 2, 3)
+    val arrayOfInt = arrayOf(1, 2, 3)
+
+    println("intArray = ${intArray}")          //=> [I@27c170f0
+    println("arrayOfInt = ${arrayOfInt}")      //=> [Ljava.lang.Integer;@5451c3a8
+}
