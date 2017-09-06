@@ -1,5 +1,6 @@
 package ca.six.demo.lib.collections;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -11,10 +12,14 @@ public class ListRemoveDemo {
 
     public void foo(){
         String[] arys = {"a","b"};
-        List<String> list = Arrays.asList(arys);
+        List<String> list = new ArrayList<>();
+        list.add("1");
+        list.add("2");
         System.out.println("01 list = "+list);
 
-        list.remove(0); // UnsupportedOperationException. at java.util.AbstractList.remove(AbstractList.java:161)
+        list.remove(0);
+        System.out.println("02 list = "+list);
     }
+
 
 }
