@@ -9,7 +9,6 @@
 *.class
 
 # generated files
-out/
 bin/
 gen/
 /build
@@ -17,7 +16,7 @@ gen/
 gradle/
 gradlew
 gradlew.bat
-local.properties
+
 
 # Local configuration file (sdk path, etc)
 local.properties
