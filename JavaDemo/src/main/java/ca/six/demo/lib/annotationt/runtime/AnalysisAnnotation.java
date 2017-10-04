@@ -14,6 +14,7 @@ public class AnalysisAnnotation {
 
             boolean flag = rt_class.isAnnotationPresent(Description.class);
 
+            //<editor-fold defaultstate="collapsed" desc="if has annotation">
             if (flag) {
                 Description description = (Description) rt_class.getAnnotation(Description.class);
                 System.out.println("Utility's Description--->" + description.value());
@@ -25,6 +26,7 @@ public class AnalysisAnnotation {
                     }
                 }
             }
+            //</editor-fold>
 
 
         } catch (ClassNotFoundException e) {
