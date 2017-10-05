@@ -37,6 +37,16 @@ fun fo3() = runBlocking<Unit> {
 } //=> 效果类似foo(), 但其实不像Thread.sleep一样会堵塞住
 
 
+fun fo4() = runBlocking<Unit> {
+    launch(CommonPool) {
+        delay(1000L)
+        println("World!")
+    }
+
+    print("Hello ")
+    delay(600L)
+} //=> 效果类似fo2(), 但其实不像Thread.sleep一样会堵塞住
+
 
 fun main(args: Array<String>) {
     fo3()
