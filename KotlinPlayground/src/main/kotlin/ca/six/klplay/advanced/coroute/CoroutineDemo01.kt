@@ -25,8 +25,18 @@ fun fo2(){
 } //=> Hello, 半秒后应用结束. (始终没有打印出来world)
 
 
+fun fo3(){
+    launch(CommonPool) {
+        delay(1000L)
+        println("World")
+    }
+
+    print("Hello ")
+    delay(100L)
+} //=> Hello, 半秒后应用结束. (始终没有打印出来world)
+
 
 
 fun main(args: Array<String>) {
-    fo2()
+    fo3()
 }
