@@ -3,6 +3,7 @@ package ca.six.klplay.advanced.coroute
 import kotlinx.coroutines.experimental.CommonPool
 import kotlinx.coroutines.experimental.delay
 import kotlinx.coroutines.experimental.launch
+import kotlinx.coroutines.experimental.runBlocking
 
 fun foo(){
     launch(CommonPool) {
@@ -25,15 +26,15 @@ fun fo2(){
 } //=> Hello, 半秒后应用结束. (始终没有打印出来world)
 
 
-fun fo3(){
+fun fo3() = runBlocking<Unit> {
     launch(CommonPool) {
         delay(1000L)
-        println("World")
+        println("World!")
     }
 
     print("Hello ")
-    delay(100L)
-} //=> Hello, 半秒后应用结束. (始终没有打印出来world)
+    delay(2000L)
+} //=> 效果类似foo(), 但其实不像Thread.sleep一样会堵塞住
 
 
 
