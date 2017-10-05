@@ -14,7 +14,19 @@ fun foo(){
     Thread.sleep(2000L)
 }//=> Hello, 1秒后world. 再1秒后结束应用
 
+fun fo2(){
+    launch(CommonPool) {
+        delay(1000L)
+        println("World")
+    }
+
+    print("Hello ")
+    Thread.sleep(500L)
+} //=> Hello, 半秒后应用结束. (始终没有打印出来world)
+
+
+
 
 fun main(args: Array<String>) {
-    foo()
+    fo2()
 }
