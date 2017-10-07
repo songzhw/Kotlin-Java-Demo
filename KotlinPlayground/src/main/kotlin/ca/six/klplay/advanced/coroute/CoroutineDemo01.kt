@@ -1,9 +1,6 @@
 package ca.six.klplay.advanced.coroute
 
-import kotlinx.coroutines.experimental.CommonPool
-import kotlinx.coroutines.experimental.delay
-import kotlinx.coroutines.experimental.launch
-import kotlinx.coroutines.experimental.runBlocking
+import kotlinx.coroutines.experimental.*
 
 fun foo() {
     launch(CommonPool) {
@@ -75,6 +72,22 @@ fun world6(){
     println("World6")
 }
 
+/*
+//往数据库插入10条数据，然后界面提示
+fun insertDBData() {
+    val addJob = async(CommonPool,false) {
+        val arrays = mutableListOf<DBBo>()
+        for(i in 1..10){ random {
+            arrays.add(DBBo("id$i${it.nextInt(1000)}",it.nextInt(1000),"info${it.nextInt(1000)}"))
+        } }
+        kApplication.dbOpt!!.getDao(DBBo::class.java).replaceObjs(arrays)
+    }
+    launch(UI) {
+        showComfirmCrouton("${addJob.await()}条数据添加成功!")
+    }
+}
+*/
+
 fun main(args: Array<String>) {
 //    fo6(world6()) //=> This is just like "fo6(Unit)"
     // 传递函数, 下面二方法都行
@@ -87,3 +100,4 @@ fun main(args: Array<String>) {
 }
 
 // https://baiyangcao.github.io/notes/2017/06/20/kotlin-coroutines.html
+// http://www.jianshu.com/p/d4a8358e843e
