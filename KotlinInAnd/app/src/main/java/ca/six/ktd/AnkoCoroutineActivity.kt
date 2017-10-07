@@ -4,6 +4,7 @@ import android.app.Activity
 import android.os.Bundle
 import android.view.View
 import kotlinx.android.synthetic.main.activity_anko_coroutine.*
+import org.jetbrains.anko.coroutines.experimental.bg
 
 class AnkoCoroutineActivity : Activity(), View.OnClickListener {
 
@@ -12,7 +13,9 @@ class AnkoCoroutineActivity : Activity(), View.OnClickListener {
         setContentView(R.layout.activity_anko_coroutine)
 
         btnCoroutineDemo.setOnClickListener(this)
-        getData()
+        bg {
+            getData()
+        }
     }
 
     override fun onClick(p0: View?) {
