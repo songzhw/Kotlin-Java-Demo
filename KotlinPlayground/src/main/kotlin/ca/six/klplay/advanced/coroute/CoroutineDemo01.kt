@@ -99,12 +99,13 @@ fun refresh(value : Int) {
 }
 
 fun requestAndRefresh(){
-    async {
+    val outter = async {
         val job : Deferred<Int> = async (CommonPool){
             getData()
         }
         refresh(job.await())
     }
+    outter.join()
 }
 
 
