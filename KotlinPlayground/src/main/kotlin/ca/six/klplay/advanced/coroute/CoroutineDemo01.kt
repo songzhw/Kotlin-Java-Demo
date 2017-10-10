@@ -99,13 +99,14 @@ fun refresh(value : Int) {
 }
 
 fun requestAndRefresh(){
-    val outter = async {
+    async() {
         val job : Deferred<Int> = async (CommonPool){
             getData()
         }
         refresh(job.await())
     }
-    outter.join()
+
+    Thread.sleep(5000) // 不能低于getData()中的4000ms, 不然拿不到数据,也不会刷新
 }
 
 
