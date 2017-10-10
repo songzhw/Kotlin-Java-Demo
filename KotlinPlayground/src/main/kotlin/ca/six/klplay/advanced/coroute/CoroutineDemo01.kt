@@ -88,11 +88,33 @@ fun insertDBData() {
 }
 */
 
+fun getData() : Int {
+    Thread.sleep(4000)
+    println("szw sleep over")
+    return 100
+}
+
+fun refresh(value : Int) {
+    println("szw : refresh $value")
+}
+
+fun requestAndRefresh(){
+    async {
+        val job : Deferred<Int> = async (CommonPool){
+            getData()
+        }
+        refresh(job.await())
+    }
+}
+
+
 fun main(args: Array<String>) {
+    requestAndRefresh()
+
 //    fo6(world6()) //=> This is just like "fo6(Unit)"
     // 传递函数, 下面二方法都行
-    fo6({ world6()})
-    fo6 { world6() }
+/*    fo6({ world6()})
+    fo6 { world6() }*/
     /*
     fo6 {world6()} 的结果, 是第一个World6和第二个Hello一起出现
     因为我们前面在join()了嘛, 所以没有两个Hellow一起出来!

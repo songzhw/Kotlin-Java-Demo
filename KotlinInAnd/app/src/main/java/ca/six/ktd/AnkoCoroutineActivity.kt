@@ -3,6 +3,7 @@ package ca.six.ktd
 import android.app.Activity
 import android.os.Bundle
 import android.view.View
+import android.widget.EditText
 import kotlinx.android.synthetic.main.activity_anko_coroutine.*
 import kotlinx.coroutines.experimental.Deferred
 import kotlinx.coroutines.experimental.android.UI
