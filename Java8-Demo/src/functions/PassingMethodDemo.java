@@ -16,19 +16,10 @@ public class PassingMethodDemo {
     }
 
     public void workAll(){
-        Grade grade = getGrade();
-        grade.id = 100;
-        List<User> students = grade.students;
-
-        for(User user : students){
-            user.id += 10;
-        }
-
-        for(User user: students){
-            System.out.println("szw user = "+user);
-        }
-
+        work(PassingMethodDemo::getAllStudents); //=> error. getAllStudents() is not a static method.
     }
+
+
 
     public void work(){
         Grade grade = getGrade();
