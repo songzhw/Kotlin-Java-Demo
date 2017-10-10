@@ -68,8 +68,18 @@ fun fo6(myFun: () -> Unit) = runBlocking<Unit> {
 }
 
 
-fun world6(){
+fun world6() {
     println("World6")
+}
+
+suspend fun job7() {
+    println("szw 7")
+}
+
+fun fo7() {
+    async {
+        job7()
+    }
 }
 
 /*
@@ -88,19 +98,19 @@ fun insertDBData() {
 }
 */
 
-fun getData() : Int {
+fun getData(): Int {
     Thread.sleep(4000)
     println("szw sleep over")
     return 100
 }
 
-fun refresh(value : Int) {
+fun refresh(value: Int) {
     println("szw : refresh $value")
 }
 
-fun requestAndRefresh(){
+fun requestAndRefresh() {
     async() {
-        val job : Deferred<Int> = async (CommonPool){
+        val job: Deferred<Int> = async(CommonPool) {
             getData()
         }
         refresh(job.await())
