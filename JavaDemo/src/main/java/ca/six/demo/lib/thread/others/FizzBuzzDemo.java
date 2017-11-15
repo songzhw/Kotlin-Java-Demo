@@ -15,4 +15,19 @@ public class FizzBuzzDemo {
         }
 
     }
+
+    public static void main(String[] args) {
+        int n = 20;
+        Thread[] threads = {
+                new FiBuzzThread(i -> i%3 == 0 && i % 5 == 0, i -> "FizzBuzz", n),
+                new FiBuzzThread(i -> i%3 == 0 && i % 5 != 0, i -> "Fizz", n),
+                new FiBuzzThread(i -> i%3 != 0 && i % 5 == 0, i -> "Buzz", n),
+                new FiBuzzThread(i -> i%3 != 0 && i % 5 != 0, i -> ""+i, n),
+        };
+
+        for (Thread t : threads){
+            t.start();
+        }
+    }
+
 }
