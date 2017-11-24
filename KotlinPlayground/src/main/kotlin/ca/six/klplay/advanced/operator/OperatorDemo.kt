@@ -2,7 +2,11 @@ package ca.six.klplay.advanced.operator
 
 
 data class Point(val x: Int, val y: Int) {
-} //用data关键字, 就有toString的写法帮我们写好了
+    operator fun plus(other : Point) : Point {
+        return Point(x + other.x, y + other.y)
+    }
+}
+ //用data关键字, 就有toString的写法帮我们写好了
 
 // ============= Unary Prefix Operators =============
 operator fun Point.unaryMinus() = Point(-x, -y)
@@ -33,4 +37,8 @@ fun main(args: Array<String>) {
     println("szw point = $point")  //=> Point(11, 21).
     println("szw ${point--}")   //=> Point(11, 21)
     println("szw point = $point\n")  //=> Point(10, 20).
+
+
+    println("szw p1 + p2 = "+ (Point(10, 20) + Point(20, 30))) //=> Point(30, 50)
+
 }
