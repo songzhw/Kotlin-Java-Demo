@@ -1,3 +1,4 @@
+/*
 package ca.six.klplay.dsl
 
 class Html {
@@ -18,3 +19,4 @@ fun main(args: Array<String>) {
         body()
     }
 }
+*/
