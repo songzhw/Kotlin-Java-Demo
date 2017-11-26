@@ -14,3 +14,14 @@ class Html {
     }
 }
 
+fun html(block : Html.() -> Unit) : Unit {
+    val html = Html()
+    html.block()
+}
+
+fun main(args: Array<String>) {
+    html {
+        head {  }
+        body {  }
+    }
+}
