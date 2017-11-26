@@ -7,6 +7,19 @@ fun Long.sleep(workLater: () -> Unit) {
     }.start()
 }
 
+/*
+fun mainThread(block : () -> Unit){
+    Handler(Looper.mainLooper()).post {
+        block()
+    }
+}
+
+使用时就用:
+mainThread {
+    tv.setText("result = ")
+}
+*/
+
 fun main(args: Array<String>) {
     println("szw start  ${Thread.currentThread().name}")
     2000L.sleep {
