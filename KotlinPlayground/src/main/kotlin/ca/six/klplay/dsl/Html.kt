@@ -6,6 +6,10 @@ class Html : Tag(){
 
     fun body(work: Body.()->Unit) : Body =  childWork(Body(), work)
 
+    fun test(a : Int) : String {
+        return "$a"
+    }
+
 }
 
 fun html(block : Html.() -> Unit) : Unit {
@@ -23,5 +27,6 @@ fun main(args: Array<String>) {
             println("${this.sb}") //=> [head] \n head -title
         }
         body {  }
+        test(23)
     }
 }
