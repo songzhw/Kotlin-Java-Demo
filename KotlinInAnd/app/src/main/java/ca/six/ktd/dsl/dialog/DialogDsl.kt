@@ -4,8 +4,9 @@ package ca.six.ktd.dsl.dialog
 import android.app.Activity
 import android.app.AlertDialog
 import android.content.Context
+import android.content.DialogInterface
 import android.os.Bundle
-import android.test.mock.MockContext
+import ca.six.ktd.R
 
 /*
 -       title
@@ -26,6 +27,21 @@ class DialogDsl(val context: Context) {
         return builder
     }
 
+    fun yes(stringResId : Int, listener : (DialogInterface, Int) -> Unit) : AlertDialog.Builder {
+        builder.setPositiveButton(stringResId, listener)
+        return builder
+    }
+
+    fun no(stringResId : Int, listener : (DialogInterface, Int) -> Unit) : AlertDialog.Builder {
+        builder.setNegativeButton(stringResId, listener)
+        return builder
+    }
+
+    fun icon(iconResId : Int): AlertDialog.Builder {
+        builder.setIcon(iconResId)
+        return builder
+    }
+
 }
 
 fun Activity.dialog(block: DialogDsl.() -> AlertDialog.Builder): AlertDialog {
@@ -41,6 +57,14 @@ class DislogDstDemo : Activity(){
         dialog {
             -"Title"
             +"Message, Content, Others"
+            icon(R.drawable.ic_launcher)
+            yes(R.string.app_name) { dialog, which ->
+                println("press ok : ${dialog} at $which")
+            }
+            no(R.string.app_name) { dialog, which ->
+                println("press no : ${dialog} at $which")
+            }
         }.show()
     }
 }
+
