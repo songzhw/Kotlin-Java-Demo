@@ -11,10 +11,12 @@ class Html : Tag(){
 fun html(block : Html.() -> Unit) : Unit {
     val html = Html()
     html.block()
+    println("szw block : ${block.toString()}")
 }
 
 fun main(args: Array<String>) {
     html {
+        println("szw")
         head {
             +"[head]"
             title {
