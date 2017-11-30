@@ -1,6 +1,5 @@
 package ca.six.ktd.dsl.dialog
 
-
 import android.app.Activity
 import android.app.AlertDialog
 import android.content.Context
@@ -17,40 +16,36 @@ noBtn   click listener
 class DialogDsl(val context: Context) {
     val builder: AlertDialog.Builder = AlertDialog.Builder(context)
 
-    operator fun String.unaryMinus(): AlertDialog.Builder {
+    operator fun String.unaryMinus() {
         builder.setTitle(this)
-        return builder
     }
 
-    operator fun String.unaryPlus(): AlertDialog.Builder {
+    operator fun String.unaryPlus() {
         builder.setMessage(this)
-        return builder
     }
 
-    fun yes(stringResId : Int, listener : (DialogInterface, Int) -> Unit) : AlertDialog.Builder {
+    fun yes(stringResId: Int, listener: (DialogInterface, Int) -> Unit) {
         builder.setPositiveButton(stringResId, listener)
-        return builder
     }
 
-    fun no(stringResId : Int, listener : (DialogInterface, Int) -> Unit) : AlertDialog.Builder {
+    fun no(stringResId: Int, listener: (DialogInterface, Int) -> Unit) {
         builder.setNegativeButton(stringResId, listener)
-        return builder
     }
 
-    fun icon(iconResId : Int): AlertDialog.Builder {
+    fun icon(iconResId: Int) {
         builder.setIcon(iconResId)
-        return builder
     }
 
 }
 
-fun Activity.dialog(block: DialogDsl.() -> AlertDialog.Builder): AlertDialog {
+fun Activity.dialog(block: DialogDsl.() -> Unit): AlertDialog {
     val dsl = DialogDsl(this)
-    return dsl.block().create();
+    dsl.block()
+    return dsl.builder.create()
 
 }
 
-class DislogDstDemo : Activity(){
+class DislogDstDemo : Activity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -67,4 +62,3 @@ class DislogDstDemo : Activity(){
         }.show()
     }
 }
-
