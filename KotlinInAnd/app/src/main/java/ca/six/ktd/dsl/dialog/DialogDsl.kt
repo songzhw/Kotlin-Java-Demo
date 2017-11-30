@@ -1,27 +1,18 @@
 package ca.six.ktd.dsl.dialog
 
+
 import android.app.Activity
 import android.app.AlertDialog
 import android.content.Context
-import android.content.DialogInterface
 import android.os.Bundle
-import org.jetbrains.anko.alert
-import org.jetbrains.anko.noButton
-import org.jetbrains.anko.toast
-import org.jetbrains.anko.yesButton
+import android.test.mock.MockContext
 
 /*
 -       title
 +       message
 yesBtn  click listener
 noBtn   click listener
- */
-fun Activity.dialog(block: () -> Unit): Unit {
-    val dsl = DialogDsl(this)
-
-    // TODO dialog.show()
-}
-
+*/
 class DialogDsl(val context: Context) {
     val builder: AlertDialog.Builder = AlertDialog.Builder(context)
 
@@ -35,36 +26,21 @@ class DialogDsl(val context: Context) {
         return builder
     }
 
-    fun yesButton(text: String, listener: DialogInterface.OnClickListener): AlertDialog.Builder {
-        builder.setPositiveButton(text, listener)
-        return builder
-    }
-
-    fun noButton(text: String, listener: DialogInterface.OnClickListener): AlertDialog.Builder {
-        builder.setNegativeButton(text, listener)
-        return builder
-    }
 }
 
+fun Activity.dialog(block: DialogDsl.() -> AlertDialog.Builder): AlertDialog {
+    val dsl = DialogDsl(this)
+    return dsl.block().create();
 
-class DialogDslDemo : Activity() {
+}
+
+class DislogDstDemo : Activity(){
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-/*        dialog {
-            +"title"
-            -"message and content"
-            yesButton("ok") {
-
-            }
-            noButton("cancel") {
-
-            }
-        }*/
-
-        alert("title", "message") {
-            yesButton { toast("oh...") }
-            noButton {  }
+        dialog {
+            -"Title"
+            +"Message, Content, Others"
         }.show()
     }
 }
