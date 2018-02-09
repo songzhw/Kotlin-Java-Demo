@@ -12,7 +12,6 @@ import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.time.temporal.ChronoUnit;
 
-import javax.sound.midi.Soundbank;
 
 public class NewTimeDemo {
     public static void main(String[] args) {
@@ -46,13 +45,17 @@ public class NewTimeDemo {
 
         // Instant也是表示时间戳
         System.out.println("time stamp = "+ Instant.now().toEpochMilli());//=> 1518100917811
+        System.out.println("");
 
         // ZoneId; ZoneDateTime处理某时区下的时间; (替代了以前的GregorianCalendar类了)
-        ZoneId sh = ZoneId.of("Asia/Shanghai");
-        LocalDateTime now2 = LocalDateTime.now(); //=> Toronto = 2018-02-08T09:50:33.768
-        ZonedDateTime timeInSh  = ZonedDateTime.of(now2, sh );
-        System.out.println("Shanghai = " + timeInSh); //=> Shanghai = 2018-02-08T09:50:33.768+08:00[Asia/Shanghai]
-        // szw: 时区计算有误?
+        System.out.println("[zone] = "+ZoneId.systemDefault()); //=> GMT-5:00
+
+        ZoneId shanghai = ZoneId.of("Asia/Shanghai");
+        LocalDateTime shanghaiTime = LocalDateTime.now(shanghai);
+        System.out.println("[zone] sh = "+shanghaiTime); //=> 现在02-08 19:39. sh = 2018-02-09T08:39:08.306
+
+        ZonedDateTime shZone = ZonedDateTime.now(shanghai);
+        System.out.println("[zone] sh2 = "+shZone); //=>  2018-02-09T08:39:56.229+08:00[Asia/Shanghai]
 
         // 信用卡的expiry time是"月/年"的形式. 在java8中是用YearMonth类
         System.out.println("expired = "+ YearMonth.of(2019, Month.MARCH)); //=> expired = 2019-03
@@ -67,4 +70,4 @@ public class NewTimeDemo {
     }
 }
 
-
+// https://www.jianshu.com/p/2949db9c3df5
