@@ -1,9 +1,18 @@
 package time;
 
 import java.time.Clock;
+import java.time.Instant;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.time.Month;
+import java.time.Period;
+import java.time.YearMonth;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
 import java.time.temporal.ChronoUnit;
+
+import javax.sound.midi.Soundbank;
 
 public class NewTimeDemo {
     public static void main(String[] args) {
@@ -14,7 +23,7 @@ public class NewTimeDemo {
         System.out.println("after one week = "+today.plus(1, ChronoUnit.WEEKS)); //=> after one week = 2018-02-15
 
         System.out.println("year = " + today.getYear()); //=>2018.  (可以由LocalDate取到年, 月, 日)
-        System.out.println("one day = " + LocalDate.parse("2018-02-02"));//string参的格式得左边所示
+        System.out.println("one day = " + LocalDate.parse("2018-02-02"));//string参的格式可以设置为parse()的第二参
         LocalDate yuanDan = LocalDate.of(2018, 1, 1);
         System.out.println("one day = " + yuanDan);//=> one day = 2018-01-01
 
@@ -35,7 +44,27 @@ public class NewTimeDemo {
         Clock defaultClock = Clock.systemDefaultZone(); // Returns time based on system clock zone
         System.out.println("Clock : " + defaultClock.millis());  //=> 1518100917811
 
+        // Instant也是表示时间戳
+        System.out.println("time stamp = "+ Instant.now().toEpochMilli());//=> 1518100917811
 
+        // ZoneId; ZoneDateTime处理某时区下的时间; (替代了以前的GregorianCalendar类了)
+        ZoneId sh = ZoneId.of("Asia/Shanghai");
+        LocalDateTime now2 = LocalDateTime.now(); //=> Toronto = 2018-02-08T09:50:33.768
+        ZonedDateTime timeInSh  = ZonedDateTime.of(now2, sh );
+        System.out.println("Shanghai = " + timeInSh); //=> Shanghai = 2018-02-08T09:50:33.768+08:00[Asia/Shanghai]
+        // szw: 时区计算有误?
+
+        // 信用卡的expiry time是"月/年"的形式. 在java8中是用YearMonth类
+        System.out.println("expired = "+ YearMonth.of(2019, Month.MARCH)); //=> expired = 2019-03
+
+        // 闰年
+        System.out.println("leapYear? = "+LocalDate.now().isLeapYear()); //=> false
+
+        // 计算2个日子间的天数, 周数, 月数
+        LocalDate java8Release = LocalDate.of(2018, 12, 14);
+        Period gap = Period.between(today, java8Release);
+        System.out.println("gap = "+gap.getMonths()); //=> 10
     }
 }
+
 
