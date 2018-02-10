@@ -1,4 +1,4 @@
-package ca.six.ktd.dsl.dialog
+package ca.six.ktd.dsl
 
 import android.app.Activity
 import android.app.AlertDialog
