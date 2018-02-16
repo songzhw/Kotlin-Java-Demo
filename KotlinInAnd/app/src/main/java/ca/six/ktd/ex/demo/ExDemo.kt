@@ -2,7 +2,6 @@ package ca.six.ktd.ex.demo
 
 import android.app.Activity
 import android.content.Context
-import android.content.SharedPreferences
 import android.os.Bundle
 import ca.six.ktd.ex.does
 
