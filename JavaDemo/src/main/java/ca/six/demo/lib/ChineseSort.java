@@ -17,6 +17,11 @@ public class ChineseSort {
         List<String> names2 = Arrays.asList("第一", "无双", "苹果", "啊", "不");
         Collections.sort(names2, new CN());
         names2.forEach(System.out::println); // 啊, 不, 第一, 苹果, 无双,
+
+        List<String> frNames = Arrays.asList("Mise à jour", "Négociation", "Installer","Activité");
+        Collections.sort(frNames, (n1, n2) -> n1.compareTo(n2));
+        frNames.forEach(System.out::println); // Activité, Installer, Mise à jour, Négociation
+
     }
 }
 
