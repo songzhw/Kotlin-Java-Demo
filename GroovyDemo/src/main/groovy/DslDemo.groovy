@@ -73,4 +73,14 @@ task 'second', { println "szw task $it"}
 // task second {}  //=> error. No signature of method DslDemo.second()
 
 
+// =============================================
+
+def group
+def name
+
+task('name'){
+    group = "23"
+    name = "test"
+}
+
 
