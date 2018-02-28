@@ -22,5 +22,20 @@ def then(arg2) {
 
 // 等同于 first(23).then(9)
 first 23 then 9
+// => first(23)
+// => then(9)
 
 // =============================================
+
+def action(closure){
+    closure.call()
+    this
+}
+
+first 23 action {
+    println "test dsl"
+}
+
+// =============================================
+
+
