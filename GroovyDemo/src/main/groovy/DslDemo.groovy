@@ -57,3 +57,10 @@ def apply(Map<String, String> args) {
 apply([plugin: 'java'])
 // apply [plugin: 'java']  // 这种不行, 会出错. 可能是在省了()后只用[]有歧义
 apply plugin: "groovy"   // 若key是普通字符串, 还可以省略掉绰号
+
+// =============================================
+def compile(Map<String, String> args) {}
+
+compile group:'junit', name:'junit', version: '4.12'
+
+// =============================================
