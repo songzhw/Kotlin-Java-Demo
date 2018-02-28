@@ -64,3 +64,13 @@ def compile(Map<String, String> args) {}
 compile group:'junit', name:'junit', version: '4.12'
 
 // =============================================
+
+def task(name, closure){
+    closure.call(name)
+}
+
+task 'second', { println "szw task $it"}
+// task second {}  //=> error. No signature of method DslDemo.second()
+
+
+
