@@ -20,6 +20,7 @@ def first(arg1) {
     println "first($arg1)"
     this
 }
+
 def then(arg2) {
     println "then($arg2)"
 }
@@ -31,7 +32,7 @@ first 23 then 9
 
 // =============================================
 
-def action(closure){
+def action(closure) {
     closure.call()
     this
 }
@@ -41,5 +42,9 @@ first 23 action {
 }
 
 // =============================================
+
+def fun1(a){}
+
+fun1 13  //只要不是无参, 方法调用时就可以省略()
 
 
