@@ -1,12 +1,13 @@
 package cinoketabke;
 
-import com.sun.xml.internal.ws.util.CompletedFuture;
 
 import org.junit.Test;
 
 import static org.junit.Assert.*;
 
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 public class CompletableDemoTest {
 
@@ -79,6 +80,31 @@ public class CompletableDemoTest {
         testStagesAsync() : 02 Thread = main
         testStagesAsync() : 01 Thread = ForkJoinPool.commonPool-worker-1
     */
+
+
+
+
+    // thenApplyAsync(function, executor)还可以指定线程池
+    private static int count = 0;
+    @Test
+    public void testWithExecutor() {
+        ExecutorService executor = Executors.newFixedThreadPool(3, runnable -> {
+            count++;
+            return new Thread(runnable, "mine" + count);
+        });
+
+        CompletableFuture future =
+            CompletableFuture.completedFuture("pool")
+                .thenApplyAsync(str -> {
+                    assertTrue(Thread.currentThread().getName().startsWith("mine"));
+                    SystemClock.sleep(200);
+                    return str.toUpperCase();
+                }, executor);
+
+        assertEquals("not finished", future.getNow("not finished"));
+        assertEquals("POOL", future.join());
+
+    }
 
 
 
