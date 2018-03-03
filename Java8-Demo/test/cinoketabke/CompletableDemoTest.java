@@ -108,6 +108,15 @@ public class CompletableDemoTest {
 
 
 
+    @Test
+    public void testConsumeLastResult(){
+        StringBuilder sb = new StringBuilder();
+        CompletableFuture.completedFuture("tmp")
+            .thenAccept(str -> sb.append(str)); //注意thenAccept()的返回值不是一个CompletableFuture了, 而是void
+        assertTrue("empty result", sb.length() > 0); //若第二参condition为false, 就提示第一参
+    }
+
+
 
 }
 
