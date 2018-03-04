@@ -83,7 +83,6 @@ public class CompletableDemoTest {
 
 
 
-
     // thenApplyAsync(function, executor)还可以指定线程池
     private static int count = 0;
     @Test
@@ -114,9 +113,36 @@ public class CompletableDemoTest {
         CompletableFuture.completedFuture("tmp")
             .thenAccept(str -> sb.append(str)); //注意thenAccept()的返回值不是一个CompletableFuture了, 而是void
         assertTrue("empty result", sb.length() > 0); //若第二参condition为false, 就提示第一参
+
+        // thenAcceptAsync()就是异步执行
     }
 
 
+    @Test
+    public void testEither(){
+        String msg = "input";
+        CompletableFuture job1 = CompletableFuture.completedFuture(msg)
+                .thenApplyAsync(str -> delayedUpperCase(str));
+        CompletableFuture job2 = CompletableFuture.completedFuture(msg)
+                .thenApplyAsync(str -> delayedLowerCase(str));
+        CompletableFuture result = job1.applyToEither(job2, str -> str + " (after)");
+
+        assertEquals("INPUT (after)", result.join());
+        // job1耽误了150ms, job2耽误了220ms. 所以自然是job1先完成, 所以结果就是"INPUT"了.
+    }
+
+
+
+
+    private String delayedUpperCase(String in){
+        SystemClock.sleep(150);
+        return in.toUpperCase();
+    }
+
+    private String delayedLowerCase(String in){
+        SystemClock.sleep(220);
+        return in.toLowerCase();
+    }
 
 }
 
