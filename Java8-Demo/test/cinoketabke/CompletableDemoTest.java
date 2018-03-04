@@ -150,14 +150,35 @@ public class CompletableDemoTest {
 
     }
 
+    @Test
+    public void applyBoth(){
+        String msg = "input";
+        StringBuilder sb = new StringBuilder();
+
+        CompletableFuture job1 = CompletableFuture.completedFuture(msg)
+                .thenApply(str -> delayedUpperCase(str));
+        CompletableFuture job2 = CompletableFuture.completedFuture(msg)
+                .thenApply(str -> delayedLowerCase(str));
+        job1.runAfterBoth(job2, () -> sb.append("done"));
+
+        System.out.println("szw "+sb.toString());
+    }
+    /*
+        delay 150ms upper case
+        delay 220ms lower case
+        szw done
+     */
+
 
     private String delayedUpperCase(String in){
         SystemClock.sleep(150);
+        System.out.println("delay 150ms upper case");
         return in.toUpperCase();
     }
 
     private String delayedLowerCase(String in){
         SystemClock.sleep(220);
+        System.out.println("delay 220ms lower case");
         return in.toLowerCase();
     }
 
