@@ -128,10 +128,27 @@ public class CompletableDemoTest {
         CompletableFuture result = job1.applyToEither(job2, str -> str + " (after)");
 
         assertEquals("INPUT (after)", result.join());
-        // job1耽误了150ms, job2耽误了220ms. 所以自然是job1先完成, 所以结果就是"INPUT"了.
+        // job1耽误了150ms, job2耽误了220ms. 所以自然是job1先完成, 所以就是"INPUT"了.
     }
 
+    @Test
+    public void acceptEither(){
+        String msg = "input";
+        StringBuilder sb = new StringBuilder();
 
+        CompletableFuture job1 = CompletableFuture.completedFuture(msg)
+                .thenApplyAsync(str -> delayedUpperCase(str));
+        CompletableFuture job2 = CompletableFuture.completedFuture(msg)
+                .thenApplyAsync(str -> delayedLowerCase(str));
+        CompletableFuture result = job1.acceptEither(job2, str -> sb.append(str + " (accept)")); //即无返回值了
+
+        assertEquals("", sb.toString()); //没执行完, 自然是空字符串
+
+        result.join();
+        assertEquals("INPUT (accept)", sb.toString());
+        // job1耽误了150ms, job2耽误了220ms. 所以自然是job1先完成, 所以就是"INPUT"了.
+
+    }
 
 
     private String delayedUpperCase(String in){
