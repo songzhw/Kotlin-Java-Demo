@@ -1,13 +1,18 @@
 package cinoketabke;
 
 
+import functions.User;
 import org.junit.Test;
 
 import static org.junit.Assert.*;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.CompletionStage;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.stream.Collectors;
 
 public class CompletableDemoTest {
 
@@ -168,6 +173,43 @@ public class CompletableDemoTest {
         delay 220ms lower case
         szw done
      */
+
+
+    @Test
+    public void testThenCompose(){
+        String str = "msg";
+        CompletableFuture future = CompletableFuture.completedFuture(str)
+                .thenApply(s -> delayedUpperCase(s))
+                .thenCompose(upper ->   /*thenCompose(): Returns a new CompletionStage that, when this stage completes normally, is executed with this stage as the argument to the supplied function. */
+                    CompletableFuture.completedFuture(str)
+                            .thenApply(s -> delayedLowerCase(s))
+                            .thenApply(s -> upper + s)
+
+                );
+
+        assertEquals("MSGmsg", future.join());
+    }
+
+
+
+//    @Test
+//    public void test(){
+//        users().thenCompose()
+//
+//        List<User> updatedUsers = users.stream()
+//                .map(user -> {
+//
+//                    return user;
+//                })
+//                .collect(Collectors.toList());
+//
+//    }
+//
+//    private CompletionStage<List<User>> users(){
+//        return null;
+//    }
+
+
 
 
     private String delayedUpperCase(String in){
