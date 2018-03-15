@@ -12,6 +12,7 @@ public class SmStringReader {
         if (index < string.length() - 1) {
             return string.charAt(index++);
         } else {
+            System.out.println("end of message!");
             throw new IndexOutOfBoundsException();
         }
     }
