@@ -7,7 +7,7 @@ public class StateModelABStateMachine implements IABStateMachine {
     enum State {
         Init {
             @Override
-            public void process(StateModelABStateMachine stateModelABStateMachine, SmStringReader reader) throws SmStringReader.EOFException {
+            public void process(StateModelABStateMachine stateModelABStateMachine, SmStringReader reader) {
                 char ch = reader.read();
                 if (ch == 'a') {
                     stateModelABStateMachine.state = AfterA;
@@ -18,7 +18,7 @@ public class StateModelABStateMachine implements IABStateMachine {
 
         Accept {
             @Override
-            public void process(StateModelABStateMachine stateModelABStateMachine, SmStringReader reader) throws SmStringReader.EOFException {
+            public void process(StateModelABStateMachine stateModelABStateMachine, SmStringReader reader) {
                 System.out.println("find " + stateModelABStateMachine.accum.toString());
                 stateModelABStateMachine.accum = new StringBuilder();
                 stateModelABStateMachine.state = Init;
@@ -28,7 +28,7 @@ public class StateModelABStateMachine implements IABStateMachine {
 
         AfterA {
             @Override
-            public void process(StateModelABStateMachine stateModelABStateMachine, SmStringReader reader) throws SmStringReader.EOFException {
+            public void process(StateModelABStateMachine stateModelABStateMachine, SmStringReader reader) {
                 char ch = reader.read();
                 if (ch == 'b') {
                     stateModelABStateMachine.accum.append(ch);
@@ -41,7 +41,7 @@ public class StateModelABStateMachine implements IABStateMachine {
 
         AfterB {
             @Override
-            public void process(StateModelABStateMachine stateModelABStateMachine, SmStringReader reader) throws SmStringReader.EOFException {
+            public void process(StateModelABStateMachine stateModelABStateMachine, SmStringReader reader) {
                 char ch = reader.read();
                 if (ch == 'b') {
                     stateModelABStateMachine.accum.append(ch);
@@ -52,12 +52,12 @@ public class StateModelABStateMachine implements IABStateMachine {
             }
         };
 
-        public void process(StateModelABStateMachine stateModelABStateMachine, SmStringReader reader) throws SmStringReader.EOFException {
+        public void process(StateModelABStateMachine stateModelABStateMachine, SmStringReader reader) {
         }
     }
 
     @Override
-    public void process(SmStringReader reader) throws SmStringReader.EOFException {
+    public void process(SmStringReader reader) {
         state.process(this, reader);
     }
 
@@ -65,11 +65,8 @@ public class StateModelABStateMachine implements IABStateMachine {
         IABStateMachine abStateMachine = new StateModelABStateMachine();
         String text = "abbbababbbaa";
         SmStringReader reader = new SmStringReader(text);
-        try {
-            while (true) {
-                abStateMachine.process(reader);
-            }
-        } catch (SmStringReader.EOFException e) {
+        while (true) {
+            abStateMachine.process(reader);
         }
     }
 }
