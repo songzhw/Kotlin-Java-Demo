@@ -60,8 +60,9 @@ public class StateModelABStateMachine implements IABStateMachine {
             }
         };
 
-        public void process(StateModelABStateMachine machine, SmStringReader reader) {
-        }
+        // 各个子State都要继承这个方法
+        public void process(StateModelABStateMachine machine, SmStringReader reader) { }
+
     }
 
     public static void main(String[] args) {
