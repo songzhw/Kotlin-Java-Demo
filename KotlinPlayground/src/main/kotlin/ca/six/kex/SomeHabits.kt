@@ -1,5 +1,7 @@
 package ca.six.kex
 
+import java.io.File
+
 private fun getInfo(jsonObject: JSONObject?): Info? {
     return jsonObject?.let {
         val uri = it.optString("uri")
@@ -17,6 +19,7 @@ class Info(val uri : String, var length: String){
 }
 
 // =========================================================
+
 
 
 
