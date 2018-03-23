@@ -1,7 +1,6 @@
 package ca.six.demo.juc;
 
 import java.util.concurrent.Callable;
-import java.util.concurrent.ExecutionException;
 import java.util.concurrent.FutureTask;
 
 public abstract class AsyncTask<Params, Progress, Result> {
@@ -14,11 +13,9 @@ public abstract class AsyncTask<Params, Progress, Result> {
     private Handler handler;
 
     protected AsyncTask() {
-        handler = new Handler(Looper.getMainLooper());
-
         worker = new WorkerRunnable<Params, Result>() {
             @Override
-            public Result call() throws Exception {
+            public Result call() {
                 Result result = doInBackground(params);
                 return result;
             }
@@ -38,9 +35,19 @@ public abstract class AsyncTask<Params, Progress, Result> {
                 }
             }
         };
+
+        handler = new Handler(Looper.getMainLooper()) {
+            @Override
+            void handleMessage(Message msg) {
+                Result result = (Result) msg.obj;
+                onPostExecute(result);
+            }
+        };
     }
 
     protected abstract Result doInBackground(Params... params);
+
+    protected void onPostExecute(Result result) {}
 
     private static abstract class WorkerRunnable<Params, Result> implements Callable<Result> {
         Params[] params;
@@ -48,12 +55,14 @@ public abstract class AsyncTask<Params, Progress, Result> {
 }
 
 class Message {
-    void sendToTarget() {};
+    Object obj;
+    void sendToTarget() {}
 }
 
 class Handler {
-    Handler(Looper loop){};
-    Message obtainMessage(int what, Object obj) {return null;};
+    Handler(Looper loop){}
+    Message obtainMessage(int what, Object obj) {return null;}
+    void handleMessage(Message msg){}
 }
 
 class Looper{

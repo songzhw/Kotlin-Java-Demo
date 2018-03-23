@@ -11,7 +11,7 @@ public class FutureDemo {
             return 23;
         };
 
-        ExecutorService executor = Executors.newFixedThreadPool(4);
+        ExecutorService executor = Executors.newCachedThreadPool();
 
         Future<Integer> future = executor.submit(callable);
         int result = future.get();
