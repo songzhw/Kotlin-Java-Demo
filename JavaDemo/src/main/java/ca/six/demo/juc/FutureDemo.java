@@ -16,6 +16,15 @@ public class FutureDemo {
         Future<Integer> future = executor.submit(callable);
         int result = future.get();
         System.out.println("[main] result = "+result);
+
+        FutureTask<Integer> f2 = new FutureTask<Integer>(callable){
+            @Override
+            protected void done() {
+                // TODO when done, do soemthing
+            }
+        };
+        executor.execute(f2);
+
     }
 }
 
