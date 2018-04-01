@@ -21,8 +21,6 @@ public abstract class AsyncTask<Params, Progress, Result> {
             }
         };
 
-
-
         future = new FutureTask<Result>(worker){
             @Override
             protected void done() {
