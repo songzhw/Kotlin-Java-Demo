@@ -29,7 +29,7 @@ public class UniqueStack<E> {
     }
 
     void print() {
-        for (E e : deque) {
+        for (E e : deque) { //从栈顶到栈底打印
             System.out.println("szw e = " + e);
         }
     }
