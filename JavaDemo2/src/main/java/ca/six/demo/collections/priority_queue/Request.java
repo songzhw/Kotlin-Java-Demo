@@ -1,4 +1,4 @@
-package ca.six.demo.collections;
+package ca.six.demo.collections.priority_queue;
 
 import java.util.Objects;
 
