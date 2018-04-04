@@ -11,10 +11,17 @@ public class Request {
         this.priority = priority;
     }
 
+    public Request(String url, String headers) {
+        this.url = url;
+        this.headers = headers;
+    }
+
     @Override
     public String toString() {
         return "Request{" +
                 "priority=" + priority +
+                ", url='" + url + '\'' +
+                ", headers='" + headers + '\'' +
                 '}';
     }
 
