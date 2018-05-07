@@ -26,9 +26,11 @@ fun main(args: Array<String>) {
      */
 
 
+    // =================== 1. interval 坑 ===================
     Observable.interval(1500, TimeUnit.MILLISECONDS, Schedulers.trampoline())
             .subscribe { println("$it ${Thread.currentThread().name}") } //=> 0 main; 1 main; ...
 
     // Schdulers.immediate() is okay too, just not recommended for this type of work(interval)
+
 
 }
