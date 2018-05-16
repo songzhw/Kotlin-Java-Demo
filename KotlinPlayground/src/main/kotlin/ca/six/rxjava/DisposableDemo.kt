@@ -1,29 +1,45 @@
 package ca.six.rxjava
 
-import io.reactivex.BackpressureStrategy
-import io.reactivex.Flowable
-import io.reactivex.FlowableOnSubscribe
+import io.reactivex.*
+import io.reactivex.disposables.Disposable
 import org.reactivestreams.Subscriber
 import org.reactivestreams.Subscription
 
 fun dispose2() {
-    val flow = Flowable.create(FlowableOnSubscribe<Int> { ev ->
-        ev.onNext(31)
-        ev.onNext(32)
-        ev.onComplete()
+    val flow = Flowable.create(FlowableOnSubscribe<Int> { emitter ->
+        emitter.onNext(31)
+        emitter.onNext(32)
+        emitter.onComplete()
     }, BackpressureStrategy.BUFFER)
 
     val disposable = flow.map { "$it" } //转成string
             .subscribe { println(it) }
+}
 
-    // 但flow.subscribe(Subscriber)就是返回void. 因为在Subscriber内部已经处理了Disposable
-    flow.subscribe(object : Subscriber<Int>{
-        override fun onSubscribe(s: Subscription?) {}
-        override fun onNext(t: Int?) {}
-        override fun onComplete() {}
-        override fun onError(t: Throwable?) {}
+fun dispose1(){
+    val obs = Observable.create(ObservableOnSubscribe<Int> {emitter ->
+        emitter.onNext(23)
+        emitter.onNext(33)
+        emitter.onComplete()
     })
 
+    obs.subscribe(object : Observer<Int> {
+        override fun onSubscribe(d: Disposable) {
+
+        }
+
+        override fun onNext(integer: Int) {
+
+        }
+
+        override fun onError(e: Throwable) {
+
+        }
+
+        override fun onComplete() {
+
+        }
+    })
 }
 
 fun main(args: Array<String>) {
