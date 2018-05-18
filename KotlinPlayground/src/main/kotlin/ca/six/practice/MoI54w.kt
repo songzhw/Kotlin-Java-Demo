@@ -2,6 +2,8 @@ package ca.six.practice
 
 import java.net.URL
 
+// =============================================
+
 fun urlAndString() {
     val url = URL("https://github.com/abc/a/issues/12")
     println("host = ${url.host}, path = ${url.path}")  //=> host = github.com, path = /abc/a/issues/12
@@ -11,6 +13,8 @@ fun urlAndString() {
     querys.forEach { println(it) }
 
 }
+
+// =============================================
 
 fun jumpOutofOneLoop() {
     // 跳出内层循环. 3-4后是4-1, 打到4-4, 接着是5-1, ..., 一直到10-3, 10-4
@@ -69,9 +73,27 @@ fun success_jumpOutOfInnerLoop() {
     }
 }
 
+// =============================================
+data class A(val id: Int, val time: Long) {
+}
+
+fun listStream() {
+    val rawList: List<A> = arrayListOf<A>(A(11, 20), A(23, 20), A(11, 23), A(17, 24))
+    rawList
+            .sortedWith(Comparator<A> { a1, a2 ->
+                a2.id.compareTo(a1.id)
+            })
+            .take(3)
+            .forEach { A ->
+                println("$A")
+            }
+}
+
+// =============================================
 
 fun main(args: Array<String>) {
     urlAndString()
 //    jumpOutOfTwoLoops()
-    success_jumpOutOfInnerLoop()
+//    success_jumpOutOfInnerLoop()
+    listStream()
 }
