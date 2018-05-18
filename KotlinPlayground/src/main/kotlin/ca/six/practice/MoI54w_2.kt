@@ -69,7 +69,11 @@ class SimpleSearchModel : SearchModel {
         // order alphabetically
         val optimizedResults = searchResults
                 .sortedWith(kotlin.Comparator<SearchResult> { result1, result2 ->
-                    result2.score.compareTo(result1.score)
+                    if (result2.score == result1.score) {
+                        result2.timeStamp.compareTo(result1.timeStamp)
+                    } else {
+                        result2.score.compareTo(result1.score)
+                    }
                 })
                 .take(5)
 
