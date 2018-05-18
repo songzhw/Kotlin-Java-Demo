@@ -24,21 +24,10 @@ fun dispose1(){
     })
 
     obs.subscribe(object : Observer<Int> {
-        override fun onSubscribe(d: Disposable) {
-
-        }
-
-        override fun onNext(integer: Int) {
-
-        }
-
-        override fun onError(e: Throwable) {
-
-        }
-
-        override fun onComplete() {
-
-        }
+        override fun onSubscribe(d: Disposable) {}
+        override fun onNext(integer: Int) {}
+        override fun onError(e: Throwable) {}
+        override fun onComplete() {}
     })
 }
 
