@@ -36,9 +36,9 @@ class SimpleSearchModel : SearchModel {
                 val url = urlItem.url
 
                 // calculate the score
-                if (keyword.equals(url)) {
+                if (keyword == urlItem.host) {
                     scoreInThisKeyword += 50
-                } else if (url.contains(keyword)) {
+                } else if (urlItem.host.contains(keyword)) {
                     scoreInThisKeyword += 25
                 }
 
@@ -80,4 +80,30 @@ class SimpleSearchModel : SearchModel {
         return optimizedResults
     }
 
+}
+
+
+fun main(args: Array<String>) {
+    val searchModel = SimpleSearchModel()
+    val raw = arrayOf(
+            "https://www.youtube.com/watch?v=dC9vdQkU-xI",
+            "https://arxiv.org/abs/1804.07612",
+            "https://medium.com/bings/blog/ruby-introduction/",
+            "https://medium.com/running-rails-on-aws-elastic-beanstalk-con",
+            "https://medium.com/@pavisj/convolutions-and-backpropagations-46026a8f5d2c",
+            "https://www.youtube.com/watch?v=BMHUKij1yUE",
+            "http://semantic-domain.blogspot.com/2018/04/are-functional-programs-easier-to.html"
+    )
+
+    var timestamp = 347237L
+    for (url in raw) {
+        searchModel.load(url, Date(timestamp), url.contains("ruby"))
+        timestamp += 1500
+    }
+
+    val queryKeyWords = readLine()
+    val results = searchModel.search(queryKeyWords!!)
+    for (result in results) {
+        println("${result.score}  ${result.url}")
+    }
 }
