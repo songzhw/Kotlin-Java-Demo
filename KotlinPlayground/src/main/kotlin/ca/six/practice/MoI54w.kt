@@ -81,12 +81,17 @@ fun listStream() {
     val rawList: List<A> = arrayListOf<A>(A(11, 20), A(23, 20), A(11, 23), A(17, 24))
     rawList
             .sortedWith(Comparator<A> { a1, a2 ->
-                a2.id.compareTo(a1.id)
+                if (a1.id == a2.id) {
+                    a2.time.compareTo(a1.time)
+                } else {
+                    a2.id.compareTo(a1.id)
+                }
             })
             .take(3)
             .forEach { A ->
                 println("$A")
             }
+    // 原来的rawList仍是没有变. 这个take(3)取出来的list是个新List
 }
 
 // =============================================
