@@ -32,7 +32,46 @@ fun jumpOutOfTwoLoops() {
     }
 }
 
+fun error_jumpOutOfTwoLoops() {
+    /* 编译会失败: Back-end (JVM) Internal error:
+    Couldn't inline method call 'forEach' into local final func <anonymous> ..
+     */
+
+    /*
+    val ary1 = arrayOf(1, 2, 3, 4)
+    val ary2 = arrayOf(1, 2, 3)
+    ary1.forEach { n1 ->
+        inner@ ary2.forEach { n2 ->
+            println("$n1, $n2")
+            if(n1 > 2 && n2 > 1) {
+                return@inner
+            }
+        }
+    }
+    */
+
+}
+
+// 1-11, 1-12, 1-13
+// 2-11, 2-12, 2-13
+// 3-11, 3-12
+// 4-11, 4-12
+fun success_jumpOutOfInnerLoop() {
+    val num1 = listOf(1, 2, 3, 4)
+    val num2 = listOf(11, 12, 13)
+    num1.forEach inner@ { n1 ->
+        num2.forEach { n2 ->
+            println("$n1, $n2")
+            if (n1 > 2 && n2 > 11) {
+                return@inner  //不能在这用break, continue. 但这个效果等同于continue
+            }
+        }
+    }
+}
+
 
 fun main(args: Array<String>) {
     urlAndString()
+//    jumpOutOfTwoLoops()
+    success_jumpOutOfInnerLoop()
 }
