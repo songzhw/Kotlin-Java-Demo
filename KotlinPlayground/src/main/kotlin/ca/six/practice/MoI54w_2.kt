@@ -65,8 +65,8 @@ class SimpleSearchModel : SearchModel {
             searchResults.add(result)
         }
 
-        // only get five
         // order alphabetically
+        // only get five
         val optimizedResults = searchResults
                 .sortedWith(kotlin.Comparator<SearchResult> { result1, result2 ->
                     if (result2.score == result1.score) {
