@@ -31,5 +31,16 @@ fun lambda_() {
     obj.change()
 }
 
+// 6. 数字字面值, 也能有分隔 (也能适应中国的万字间隔)
+fun bigNumber(){
+    val oneMillion = 1_000_000
+    val oneMillionInChinese = 100_0000
+    println(" $oneMillion \n $oneMillionInChinese")
+
+    val hex = 0xFF_1e1e1e  //备注: 0x_FF_1e1e1e可不行
+    val bytes = 0b1101_1101_0011
+}
+
 fun main(args: Array<String>) {
+    bigNumber()
 }
