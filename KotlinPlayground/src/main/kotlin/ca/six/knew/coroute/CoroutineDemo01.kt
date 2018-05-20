@@ -1,4 +1,4 @@
-package ca.six.klplay.advanced.coroute
+package ca.six.knew.coroute
 
 import kotlinx.coroutines.experimental.*
 
@@ -121,7 +121,9 @@ fun requestAndRefresh() {
 
 
 fun main(args: Array<String>) {
-    requestAndRefresh()
+//    requestAndRefresh()
+
+    foo()
 
 //    fo6(world6()) //=> This is just like "fo6(Unit)"
     // 传递函数, 下面二方法都行
