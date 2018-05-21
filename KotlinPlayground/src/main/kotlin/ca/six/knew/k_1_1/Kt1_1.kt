@@ -125,9 +125,18 @@ fun streamDemo() {
     println("groupBy = $groupedBy")  //=> groupBy = {1=kotlin.Unit, 0=kotlin.Unit, 2=kotlin.Unit}
 }
 
+// 14. list的实例化更灵活了
+fun initList() {
+    val squares = List(4) { idx -> idx * idx }
+    val mutable = MutableList(4) { 0 }
+    println("$squares")   //=> [0, 1, 4, 9]
+    println("==================")
+    println("$mutable")   //=> [0, 0, 0, 0]
+}
+
 
 // *. 委托属性绑定的拦截
 
 fun main(args: Array<String>) {
-    streamDemo()
+    initList()
 }
