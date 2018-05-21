@@ -96,8 +96,38 @@ fun onEachDemo() {
             }
 }
 
+// 12. takeIf(), takeUnless()
+fun takeDemo() {
+    val result = "".takeUnless(String::isEmpty)
+    println("takeUnless : $result")  //=> null
+
+    inString("in") //=> 3
+    inString("sb") //=> crash: java.lang.IllegalStateException: keyword not found
+}
+
+fun inString(keyword: String) {
+    val index = "string".indexOf(keyword)
+            .takeIf { it >= 0 }
+            ?: error("keyword not found")
+    println("takeDemo $index")
+}
+
+// 13. groupBy()
+fun streamDemo() {
+    val list = listOf<Int>(1, 3, 2, 8, 4, 7, 6)
+    val groupedBy = list.groupBy { it % 3 }
+            .mapValues { (key, sublist) -> println("$key, $sublist") }
+    /* =>
+        1, [1, 4, 7]
+        0, [3, 6]
+        2, [2, 8]
+     */
+    println("groupBy = $groupedBy")  //=> groupBy = {1=kotlin.Unit, 0=kotlin.Unit, 2=kotlin.Unit}
+}
+
+
 // *. 委托属性绑定的拦截
 
 fun main(args: Array<String>) {
-    onEachDemo()
+    streamDemo()
 }
