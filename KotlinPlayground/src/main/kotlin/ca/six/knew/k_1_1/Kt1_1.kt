@@ -40,6 +40,8 @@ fun bigNumber() {
 
     val hex = 0xFF_1e1e1e  //备注: 0x_FF_1e1e1e可不行
     val bytes = 0b1101_1101_0011
+
+    val hexColor : Int = 0xFF_1e1e1e.toInt()
 }
 
 // 7. 局部变量也可以委托了
@@ -132,6 +134,16 @@ fun initList() {
     println("$squares")   //=> [0, 1, 4, 9]
     println("==================")
     println("$mutable")   //=> [0, 0, 0, 0]
+
+
+    // Map的初始化也能有withDeafult. 但只能用getValue()来提取
+    val map = mapOf<String, Int>()
+    val map2 = map.withDefault { k -> k.length}
+    println("${map["bing"]}")  //=> null
+    println("${map2["szw"]}")  //=> null
+    // println("${map.getValue("bing")}")  //=> crash : java.util.NoSuchElementException: Key bing is missing in the map.
+    println("${map2.getValue("xxx")}")  //=> 3
+    println("${map2["xxx"]}")  //=> null (getValue()后, 用切片符仍是null
 }
 
 
