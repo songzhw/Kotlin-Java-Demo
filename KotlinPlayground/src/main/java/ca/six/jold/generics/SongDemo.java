@@ -20,6 +20,10 @@ public class SongDemo {
         all.addAll(sub);
         return all;
     }
+
+    private void superTypes(List<? super Fruit> arg){
+
+    }
 }
 
 

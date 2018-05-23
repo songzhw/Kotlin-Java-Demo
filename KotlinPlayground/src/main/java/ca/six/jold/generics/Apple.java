@@ -1,3 +1,8 @@
 package ca.six.jold.generics;
 
-public class Apple extends Fruit {}
+public class Apple extends Fruit {
+    @Override
+    public String toString() {
+        return "Apple{"+hashCode()+"}";
+    }
+}
