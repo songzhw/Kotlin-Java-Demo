@@ -24,6 +24,7 @@ public class SongDemo {
     private void superTypes(List<? super Fruit> arg){
 
     }
+
 }
 
 

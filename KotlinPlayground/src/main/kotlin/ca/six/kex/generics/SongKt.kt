@@ -14,8 +14,10 @@ class SongKt<T>(val helper: T) {
     fun cast(){
         val apples = ArrayList<Apple>()
         val fruits : List<Fruit> = apples
-
     }
+
+    // Error: 因为kotlin与java全是伪泛型
+//    fun <K> fakeGene() =  println("${K.class}")
 
     private fun subtypes(sub: List<Fruit>): List<Fruit> {
         val all = ArrayList<Fruit>()
@@ -24,8 +26,6 @@ class SongKt<T>(val helper: T) {
     }
 
     // Error
-    private fun superTypes(arg: List<in Fruit>) {
-
-    }
+//    private fun superTypes(arg: List<in Fruit>) {}
 
 }
