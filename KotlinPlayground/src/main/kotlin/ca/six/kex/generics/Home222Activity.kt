@@ -10,7 +10,7 @@ class Home222Activity : Activity() {
     }
 
     fun click02(){
-
+        jump<SettingActivity>()
     }
 
 }
