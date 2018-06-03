@@ -1,12 +1,15 @@
 package msg_queue
 
+import java.util.concurrent.TimeUnit
 import java.util.concurrent.locks.ReentrantLock
 
 class MessageQueue {
     val lock = ReentrantLock()
-    var messages = Message()
-    var isQuitting = false
     val emptyMessage = EmptyMessage()
+    var messages: Message = emptyMessage  //初始状态是empty状态
+    var isQuitting = false
+
+    val notEmpty = lock.newCondition()
 
     fun next(): Message {
         var waitTimeMillis = 0L; //需要的时间. 0是无限休眠, 正数表示实际的休眠时间, 负数表示不休眠
@@ -24,7 +27,7 @@ class MessageQueue {
                 } else {
                     // 缓冲区内有数据, 要么取出msg并返回, 要么就计算下等待时间并重新休眠
                     if (now < msg._when) {
-                        waitTimeMillis = msg._when - now
+                        waitTimeMillis = msg._when - now  //后面waitMessage(long)时会休息的
                     } else {
                         messages = messages.next
                         msg.next = emptyMessage
@@ -35,10 +38,19 @@ class MessageQueue {
                 lock.unlock()
             }
         }
+
     }
 
     private fun waitMessag(waitTimeMillis: Long) {
+        if(waitTimeMillis < 0) return
 
+        if(waitTimeMillis == 0L){
+            while(messages is EmptyMessage){
+                notEmpty.await()
+            }
+        } else {
+            notEmpty.await(waitTimeMillis, TimeUnit.MILLISECONDS)
+        }
     }
 
 }
