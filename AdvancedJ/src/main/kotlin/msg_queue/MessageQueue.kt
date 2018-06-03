@@ -3,6 +3,7 @@ package msg_queue
 import java.util.concurrent.TimeUnit
 import java.util.concurrent.locks.ReentrantLock
 
+/* 队列里都是按_when来执行的. 这样保证queue只要执行第一个就正是下一个要执行的message*/
 class MessageQueue {
     val lock = ReentrantLock()
     val emptyMessage = EmptyMessage()
@@ -73,6 +74,7 @@ class MessageQueue {
         return false
     }
 
+    // 正常入列, 要用Handler(本质上是用enqueue方法). 所以这个方法是private
     private fun insertMessage(msg : Message) {
         var currentInQueue = messages
         // 若队列为空, 或是队首的执行时间比我们msg还晚, 那就我们msg放队首
