@@ -41,7 +41,7 @@ class MessageQueue {
 
     }
 
-    private fun waitMessag(waitTimeMillis: Long) {
+    fun waitMessag(waitTimeMillis: Long) {
         if(waitTimeMillis < 0) return
 
         if(waitTimeMillis == 0L){
@@ -53,4 +53,27 @@ class MessageQueue {
         }
     }
 
+    fun quit(){
+        lock.lock()
+        isQuitting = true
+        notEmpty.signal()
+        lock.unlock()
+    }
+
+    fun enqueue(msg : Message) : Boolean {
+        try{
+            lock.lockInterruptibly()
+            if(isQuitting) return false
+            insertMessage(msg)
+            notEmpty.signal()  //唤醒消费者线程了
+            return true
+        } finally {
+            lock.unlock()
+        }
+        return false
+    }
+
+    private fun insertMessage(msg : Message) {
+
+    }
 }
