@@ -74,6 +74,22 @@ class MessageQueue {
     }
 
     private fun insertMessage(msg : Message) {
+        var currentInQueue = messages
+        // 若队列为空, 或是队首的执行时间比我们msg还晚, 那就我们msg放队首
+        if(messages is EmptyMessage || messages._when < currentInQueue._when){
+            msg.next = messages
+            messages = msg
+            return
+        }
 
+        // 若msg执行时间比队首messages更晚, 那就先插入, 再遍历地来调整好顺序
+        var pre = currentInQueue
+        currentInQueue = currentInQueue.next
+        while(currentInQueue !is EmptyMessage && currentInQueue._when < msg._when){
+            pre = currentInQueue
+            currentInQueue = currentInQueue.next
+        }
+        msg.next = currentInQueue
+        pre.next = msg  // 插入到[pre, currentInQueue]之间
     }
 }
