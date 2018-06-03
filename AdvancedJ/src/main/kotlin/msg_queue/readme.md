@@ -1,4 +1,5 @@
 一个跨平台的消息循环机制，可以做到线程间通讯并支持发送延时消息。
+(生产者是Handler, 负责发消息; 消费者是Looper, 在消费Message)
 
 与AndroidSDK类似，通过MessageQueue对象实现消息队列，通过Handler对象实现消息的发送与处理。
 但Message与Looper都相应做了简化，只实现核心部分。
