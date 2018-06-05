@@ -2,14 +2,9 @@ import java.util.function.Supplier;
 
 public class Temp {
 
-    static ThreadLocal<String> localLooper = ThreadLocal.withInitial(new Supplier<String>() {
-        @Override
-        public String get() {
-            return "";
-        }
-    });
+    static ThreadLocal<User> localLooper = ThreadLocal.withInitial(User::new);
 
-    public static String myLooper() {
+    public static User myLooper() {
         return localLooper.get();
     }
 
@@ -26,3 +21,5 @@ public class Temp {
     }
 
 }
+
+class User{}
