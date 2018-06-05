@@ -2,24 +2,25 @@ import java.util.function.Supplier;
 
 public class Temp {
 
-    static ThreadLocal<User> localLooper = ThreadLocal.withInitial(User::new);
+    private String looper;
+    private String callback;
 
-    public static User myLooper() {
-        return localLooper.get();
+    public Temp(String looper) {
+        this(looper, null);
     }
 
-    public static void loop() {
-
+    public Temp() {
+        this("", null);
     }
 
-    public void getMessageQueue() {
-
+    public Temp(String looper, String callback) {
+        this.looper = looper;
+        this.callback = callback;
     }
 
-    public void quit() {
+    public void sendMessage(){
 
     }
-
 }
 
 class User{}
