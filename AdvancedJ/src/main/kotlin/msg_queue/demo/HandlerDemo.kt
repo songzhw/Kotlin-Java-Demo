@@ -10,7 +10,7 @@ class HandlerDemo {
 fun main(args: Array<String>) {
     val handler = object: Handler() {
         override fun handleMessage(msg: Message) {
-            println("szw handler handleMesage(${msg.what} - ${msg.obj})")
+            println("szw handler handleMesage(${msg.what})")
         }
     }
 
@@ -19,6 +19,9 @@ fun main(args: Array<String>) {
     msg.obj = "test" //要是obj是Object类型, 这就会报错. 正确得是Any类型
 
     handler.sendMessage(msg)
+    handler.sendMessageDelay(Message(), 1000)
+    handler.sendMessageDelay(Message(), 2000)
+    handler.sendMessageDelay(Message(), 4000)
 
     // 省略了Looper.prepare()
     println("01")
