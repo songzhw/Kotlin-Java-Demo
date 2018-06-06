@@ -20,4 +20,9 @@ fun main(args: Array<String>) {
 
     handler.sendMessage(msg)
 
+    // 省略了Looper.prepare()
+    println("01")
+    Looper.loop()
+    println("02")  //=> 这一句永远就不执行了
+
 }
