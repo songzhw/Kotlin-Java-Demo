@@ -1,6 +1,6 @@
 package msg_queue
 
-class Handler @JvmOverloads constructor(
+open class Handler @JvmOverloads constructor(
         private val looper: Looper = Looper.myLooper(),
         private val callback: Callback? = null) {
 
@@ -23,7 +23,7 @@ class Handler @JvmOverloads constructor(
         }
     }
 
-    protected fun handleMessage(msg: Message){
+    protected open fun handleMessage(msg: Message){
     }
 
     fun sendMessage(msg : Message){

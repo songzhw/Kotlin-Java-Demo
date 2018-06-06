@@ -17,6 +17,6 @@ fun main(args: Array<String>) {
     func() //=> 3
     func() //=> 4
 
-    foo()
-    foo()
+    foo() // nothing happens
+    foo() // nothing happens
 }

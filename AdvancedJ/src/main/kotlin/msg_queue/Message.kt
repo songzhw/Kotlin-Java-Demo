@@ -2,7 +2,7 @@ package msg_queue
 
 open class Message {
     var what: Int = -1
-    lateinit var obj: Object
+    lateinit var obj: Any
     lateinit var target: Handler
     var runnableCallback: Runnable? = null
 
