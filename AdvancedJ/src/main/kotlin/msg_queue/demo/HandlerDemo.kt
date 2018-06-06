@@ -43,7 +43,7 @@ fun main(args: Array<String>) {
 
         println("011")
         Looper.loop()
-        println("022")
+        println("022") // 不会执行到这一句
 
-    }
+    }.join() //加了join, 就一直在等此线程完结. 但此线程因为loop()死循环, 一直不结束, 所以main()方法也一直不结束
 }
