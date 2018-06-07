@@ -1,5 +1,5 @@
 
-class Human:
+class People:
     def __init__(self, name, age):
         self.name = name
         self.age = age
@@ -9,22 +9,17 @@ class Human:
 
     def __getattr__(self, item):  #调用type(item)也总是<class 'str'>. 因为item就是属性的名字, 是个String类型
         print(item + " is called. But it does not exist")
-
-        return 'default attr'
+        def missingMethod(*args, **kwargs):
+            return 'called %s with %s and %s' % (item, args, kwargs)
+        return missingMethod
 
 
 if __name__ == '__main__':
-    man = Human("bing", 11)
+    man = People("bing", 11)
     print(man.name)  # => bing
     print(man.eat)  # => <bound method Human.eat of <__main__.Human object at 0x10a976710>>
 
-    print(man.weight)
-    #=> weight is called. But it does not exist.
-    #=> <class 'str'>
-    #=>  default attr
-
-'''
-    man.drink()
+    ret = man.drink(23, id = 100, name = 's')
+    print(ret)
     #=> drink is called. But it does not exist
-    #=> Crash: 'str' object is not callable. (因为你返回的"default attr"是一个string, 它不是函数, is not callable)
-'''
+    #=> called drink with (23,) and {'id': 100, 'name': 's'}
