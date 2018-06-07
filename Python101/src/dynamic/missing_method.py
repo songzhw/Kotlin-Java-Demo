@@ -1,7 +1,3 @@
-'''
-成员/方法, 全是对象
-'''
-
 
 class Human:
     def __init__(self, name, age):
@@ -13,6 +9,7 @@ class Human:
 
     def __getattr__(self, item):  #调用type(item)也总是<class 'str'>. 因为item就是属性的名字, 是个String类型
         print(item + " is called. But it does not exist")
+
         return 'default attr'
 
 
