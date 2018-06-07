@@ -54,5 +54,6 @@ proguard/
 *.out
 *.app
 
-
+# python
+venv/
 
