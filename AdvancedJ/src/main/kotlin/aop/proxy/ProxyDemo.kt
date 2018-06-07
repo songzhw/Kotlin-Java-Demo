@@ -32,14 +32,14 @@ class TraceHelper(val listener: IClickListener) : InvocationHandler {
 
 fun main(args: Array<String>) {
     val listener: IClickListener = ButtonClickListener()
-    val tracedLIstener = TraceHelper(listener)
+    val tracedListener = TraceHelper(listener)
 
     val classLoader = IClickListener::class.java.classLoader
     val proxyed: IClickListener =
             Proxy.newProxyInstance(
                     classLoader,
                     arrayOf<Class<*>>(IClickListener::class.java),
-                    tracedLIstener
+                    tracedListener
             ) as IClickListener
 
     proxyed.onClick()
