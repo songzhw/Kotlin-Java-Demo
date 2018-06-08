@@ -9,28 +9,38 @@ interface IClickListener {
     fun onClick()
 }
 
+// 函数有入参, 有返回值时
+interface IRvItemClickListener {
+    fun onClickItemAt(position: Int): Boolean
+}
+
 class ButtonClickListener : IClickListener {
     override fun onClick() {
         println("szw click button")
     }
 }
 
-class TraceHelper(val listener: IClickListener) : InvocationHandler {
-    override fun invoke(proxy: Any, method: Method, args: Array<out Any>?): Any {
+class TraceHelper(val listener: Any) : InvocationHandler {
+    var result: Any? = null  // 返回void的函数, 如void onClick(), method.invoke()返回的是Null, 所以这里要设置为Any?
+
+    override fun invoke(proxy: Any, method: Method, args: Array<out Any>?): Any? {
         println("szw before click")  // proxy参数是"com.sun.proxy.$Proxy0"类型
-        println("$args, ${args?.size}") //=> onClick()这样没有入参的情况下, args是null. 所以反射时要注意, 得传一个空Array进去才行
+
         if (args == null) {
-            method?.invoke(listener)  // method?.invoker(listener, *arrayOf())也是行的
+            result = method.invoke(listener)  // method?.invoker(listener, *arrayOf())也是行的
         } else {
-            method?.invoke(listener, *args)
+            result = method.invoke(listener, *args)
         }
+
         println("szw trace.track click event")
-        return Unit
+
+        return result  //这个就是函数返回值. 若这里return Unit, 而实际方法是返回bool, 那就会有crash: ClassCastException: kotlin.Unit cannot be cast to java.lang.Boolean
     }
 }
 
 
 fun main(args: Array<String>) {
+    // =================== View Click ===================
     val listener: IClickListener = ButtonClickListener()
     val tracedListener = TraceHelper(listener)
 
@@ -43,37 +53,26 @@ fun main(args: Array<String>) {
             ) as IClickListener
 
     proxyed.onClick()
+
+    // =================== RvItemClick ===================
+    println("=================== =================== ")
+    val itemListener = object : IRvItemClickListener {
+        override fun onClickItemAt(position: Int): Boolean {
+            println("click item $position")
+            return false
+        }
+    }
+    val traced2 = TraceHelper(itemListener)
+    val proxyed2: IRvItemClickListener =
+            Proxy.newProxyInstance(
+                    classLoader,
+                    arrayOf<Class<*>>(IRvItemClickListener::class.java),
+                    traced2
+            ) as IRvItemClickListener
+    val ret2 = proxyed2.onClickItemAt(23)
+    println("ret2 = $ret2")
+
+    // =================== ===================
+
 }
 
-
-// 带参数时
-//interface IClickListener {
-//    fun onClick(view: String)
-//}
-//
-//class ButtonClickListener : IClickListener {
-//    override fun onClick(view: String) {
-//        println("I clicked $view")
-//    }
-//
-//}
-//
-//class TraceHelper(private val target: IClickListener) : InvocationHandler {
-//
-//    override fun invoke(proxy: Any, method: Method, args: Array<Any>): Any? {
-//        println("before print")
-//        method.invoke(target, *args)  // 不加*, 就会有错: IllegalArgumentException: argument type mismatch
-//        println("after print")
-//        return null
-//    }
-//
-//}
-//
-//fun main(args: Array<String>) {
-//    val wrapped = Proxy.newProxyInstance(
-//            IClickListener::class.java.classLoader,
-//            arrayOf<Class<*>>(IClickListener::class.java),
-//            TraceHelper(ButtonClickListener())
-//    ) as IClickListener
-//    wrapped.onClick("TextView")
-//}
