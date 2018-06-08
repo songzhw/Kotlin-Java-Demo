@@ -14,9 +14,21 @@ interface IRvItemClickListener {
     fun onClickItemAt(position: Int): Boolean
 }
 
+// 有泛型时
+interface ISwipeListener {
+    fun <T> onSwipe(t : T) : T
+}
+
 class ButtonClickListener : IClickListener {
     override fun onClick() {
         println("szw click button")
+    }
+}
+
+class SwipeListener : ISwipeListener {
+    override fun <T> onSwipe(t : T): T {
+        println("swipe $t")
+        return t
     }
 }
 
@@ -72,7 +84,16 @@ fun main(args: Array<String>) {
     val ret2 = proxyed2.onClickItemAt(23)
     println("ret2 = $ret2")
 
-    // =================== ===================
-
+    // =================== Swipe ===================
+    println("=================== =================== ")
+    val swipeListener = SwipeListener()
+    val traced3 = TraceHelper(swipeListener)
+    val proxyed3: ISwipeListener =
+            Proxy.newProxyInstance(
+                    classLoader,
+                    arrayOf<Class<*>>(ISwipeListener::class.java),
+                    traced3
+            ) as ISwipeListener
+    proxyed3.onSwipe("test")
 }
 
