@@ -11,5 +11,6 @@ interface HttpApi {
 
 fun main(args: Array<String>) {
     val retrofit = Retrofit("http://api.songzhw.ca")
-    val http = retrofit.create(HttpApi::class.java)
+    val http: HttpApi = retrofit.create(HttpApi::class.java)
+    val users = http.getUsers()
 }
