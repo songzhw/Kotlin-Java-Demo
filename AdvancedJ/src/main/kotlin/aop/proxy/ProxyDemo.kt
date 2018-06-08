@@ -16,8 +16,8 @@ class ButtonClickListener : IClickListener {
 }
 
 class TraceHelper(val listener: IClickListener) : InvocationHandler {
-    override fun invoke(proxy: Any?, method: Method?, args: Array<out Any>?): Any {
-        println("szw before click")
+    override fun invoke(proxy: Any, method: Method, args: Array<out Any>?): Any {
+        println("szw before click")  // proxy参数是"com.sun.proxy.$Proxy0"类型
         println("$args, ${args?.size}") //=> onClick()这样没有入参的情况下, args是null. 所以反射时要注意, 得传一个空Array进去才行
         if (args == null) {
             method?.invoke(listener)  // method?.invoker(listener, *arrayOf())也是行的
