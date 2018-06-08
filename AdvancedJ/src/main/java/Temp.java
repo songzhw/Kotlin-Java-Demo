@@ -3,20 +3,20 @@ import java.lang.reflect.Method;
 import java.lang.reflect.Proxy;
 
 interface IClickListener {
-    void say(String s);
+    void click(String view);
 
 }
 
 class ButtonClickListener implements IClickListener {
     @Override
-    public void say(String s) {
-        System.out.println("hello " + s);
+    public void click(String view) {
+        System.out.println("click " + view);
     }
 
 }
 
 class TraceHelper implements InvocationHandler {
-    private IClickListener target;  // 原始对象
+    private IClickListener target;
 
     public TraceHelper(IClickListener target) {
         this.target = target;
@@ -24,9 +24,9 @@ class TraceHelper implements InvocationHandler {
 
     @Override
     public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
-        System.out.println("before print");
-        method.invoke(target, args);  // 调用原始对象的方法
-        System.out.println("after print");
+        System.out.println("before tracking");
+        method.invoke(target, args);
+        System.out.println("done with tracking");
         return null;
     }
 
@@ -35,7 +35,7 @@ class TraceHelper implements InvocationHandler {
 public class Temp {
     public static void main(String[] args) {
         IClickListener hello = enhanceHello(new ButtonClickListener());
-        hello.say("world");
+        hello.click("ImageView");
     }
 
     public static IClickListener enhanceHello(IClickListener target) {
