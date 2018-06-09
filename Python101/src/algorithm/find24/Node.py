@@ -7,9 +7,7 @@ class TreeNode:
         if num is None:
             expression = "{} {} {}".format(self.left.num, self.operator, self.right.num)  # 2 * 3
             self.num = eval(expression)  # 6
+            self.expression = "({} {} {})".format(self.left.expression, self.operator, self.right.expression)
         else:
             self.num = num
-
-
-    def __repr__(self):
-        return self.num if self.operator is None else self.operator
+            self.expression = str(self.num)
