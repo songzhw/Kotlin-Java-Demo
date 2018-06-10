@@ -40,11 +40,14 @@ def buildTrees(left, right):
     return trees
 
 
-if __name__ == '__main__':
-    ary = [4, 10, 2, 5]
+def calculate24(ary):
     trees = findAllTrees(ary)
     for item in trees:
         expression = "{} {} {}".format(item.left.num, item.operator, item.right.num)
         result = eval(expression)
         if result == 24 or result == 24.0: # math.isclose()也行
             print(item.expression)
+
+if __name__ == '__main__':
+    ary = [4, 10, 2, 5]
+    calculate24(ary)
