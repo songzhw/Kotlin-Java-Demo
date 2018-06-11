@@ -1,9 +1,6 @@
 package aop.proxy.retrofit
 
-import aop.proxy.retrofit.Demo.HttpApi
-import java.lang.reflect.InvocationHandler
-import java.lang.reflect.Method
-import java.lang.reflect.Proxy
+import java.lang.reflect.*
 
 class Retrofit(val baseUrl: String) {
     fun <T> create(targetClass: Class<T>): T {
@@ -28,13 +25,11 @@ class HttpProxy(val baseUrl: String) : InvocationHandler {
         val getAnnotation = method.getAnnotation(GET::class.java)
         val subUrl = getAnnotation.value
         val url = "${baseUrl}/${subUrl}"
-        println("url = $url")
 
         // TODO when arguments is not null
-
-
-
-
+        val tmp = method.genericReturnType as ParameterizedType //=> Call<List<User>>; 有泛型时是Call<List<T>>
+        val returnedType = tmp.actualTypeArguments[0]      //=> List<User>; 有泛型时是List<T>
+        println("${returnedType}}")
         return Unit
     }
 

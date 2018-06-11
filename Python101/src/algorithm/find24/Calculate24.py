@@ -7,8 +7,6 @@ from algorithm.find24.Node import TreeNode
 每个TreeNode都是一个树的根结点. 
 所以这其实是返回一系列树
 """
-
-
 def findAllTrees(ary):
     length = len(ary)
 
