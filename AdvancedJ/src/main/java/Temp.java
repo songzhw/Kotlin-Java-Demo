@@ -1,3 +1,6 @@
+import aop.proxy.retrofit.Call;
+import aop.proxy.retrofit.Demo.User;
+
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
 import java.lang.reflect.Proxy;
@@ -45,7 +48,17 @@ public class Temp {
                 new TraceHelper(target)
         );
     }
+
+    public void a(){
+        Call<User> c = new Call<User>() {
+            @Override
+            public void call(User user) {
+
+            }
+        };
+    }
 }
+
 
 
 

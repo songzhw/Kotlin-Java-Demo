@@ -1,5 +1,6 @@
 package aop.proxy.retrofit
 
+import aop.proxy.retrofit.Demo.User
 import sun.reflect.generics.reflectiveObjects.ParameterizedTypeImpl
 import java.lang.reflect.*
 
@@ -38,7 +39,12 @@ class HttpProxy(val baseUrl: String) : InvocationHandler {
         } else {
             // 无泛型时, 如Call<User>
             val clz = tmp2 as Class<*>
-            return clz.newInstance()
+            val c = object : Call<User> { // 不能用Call<User>这样写死的数据
+                override fun call(user: User) {
+
+                }
+            }
+            return c
         }
     }
 
