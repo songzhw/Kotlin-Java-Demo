@@ -29,9 +29,17 @@ class HttpProxy(val baseUrl: String) : InvocationHandler {
         println("http url = ${url}")
 
         val tmp = method.genericReturnType as ParameterizedType //=> Call<List<User>>; 有泛型时是Call<List<T>>
-        val returnedType = tmp.actualTypeArguments[0]  as ParameterizedTypeImpl     //=> List<User>; 有泛型时是List<T>
-        val clz = returnedType.rawType
-        return clz.newInstance()
+        val tmp2 = tmp.actualTypeArguments[0]
+        if(tmp2 is ParameterizedTypeImpl) {
+            // 有泛型时, 如Call<List<User>
+            val returnedType = tmp2 as ParameterizedTypeImpl     //=> List<User>; 有泛型时是List<T>
+            val clz = returnedType.rawType
+            return clz.newInstance()
+        } else {
+            // 无泛型时, 如Call<User>
+            val clz = tmp2 as Class<*>
+            return clz.newInstance()
+        }
     }
 
 }
