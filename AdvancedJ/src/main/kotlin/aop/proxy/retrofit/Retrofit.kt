@@ -1,5 +1,6 @@
 package aop.proxy.retrofit
 
+import sun.reflect.generics.reflectiveObjects.ParameterizedTypeImpl
 import java.lang.reflect.*
 
 class Retrofit(val baseUrl: String) {
@@ -25,12 +26,12 @@ class HttpProxy(val baseUrl: String) : InvocationHandler {
         val getAnnotation = method.getAnnotation(GET::class.java)
         val subUrl = getAnnotation.value
         val url = "${baseUrl}/${subUrl}"
+        println("http url = ${url}")
 
-        // TODO when arguments is not null
         val tmp = method.genericReturnType as ParameterizedType //=> Call<List<User>>; 有泛型时是Call<List<T>>
-        val returnedType = tmp.actualTypeArguments[0]      //=> List<User>; 有泛型时是List<T>
-        println("${returnedType}}")
-        return Unit
+        val returnedType = tmp.actualTypeArguments[0]  as ParameterizedTypeImpl     //=> List<User>; 有泛型时是List<T>
+        val clz = returnedType.rawType
+        return clz.newInstance()
     }
 
 }
