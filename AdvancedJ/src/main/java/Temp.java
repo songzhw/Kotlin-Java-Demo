@@ -50,12 +50,7 @@ public class Temp {
     }
 
     public void a(){
-        Call<User> c = new Call<User>() {
-            @Override
-            public void call(User user) {
 
-            }
-        };
     }
 }
 
