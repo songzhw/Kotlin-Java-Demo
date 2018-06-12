@@ -1,5 +1,4 @@
-import aop.proxy.retrofit.Call;
-import aop.proxy.retrofit.Demo.User;
+package tmp;
 
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;

@@ -47,3 +47,5 @@ class HttpProxy<T>(val baseUrl: String) : InvocationHandler {
     }
 
 }
+
+
