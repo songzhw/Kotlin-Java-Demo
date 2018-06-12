@@ -47,5 +47,5 @@ def calculate24(ary):
             print(item.expression)
 
 if __name__ == '__main__':
-    ary = [4, 10, 2, 5]
+    ary = [2, 9, 3, 4]
     calculate24(ary)

@@ -11,6 +11,9 @@ class _const:
 import sys
 sys.modules[__name__] = _const()
 
-from pythonic.utils import const
+from src.pythonic.utils import const
 const.NAME = "szw"
 const.ERROR_CODE = 40
+
+# 若不先设置, 而是直接使用const.NAME, 那就报错 "_const' object has no attribute 'NAME'
+# 这时也可以考虑 __getattr__
