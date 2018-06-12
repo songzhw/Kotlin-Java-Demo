@@ -1,16 +1,17 @@
 package tmp;
 
 import java.lang.reflect.Field;
+import java.lang.reflect.Method;
 import java.lang.reflect.Type;
 
 class Exp<T> {
     T name;
     long id;
 
-    public void f1(T t) {
+    public void fIn(T t) {
     }
 
-    public T f2() {
+    public T fOut() {
         return null;
     }
 }
@@ -35,17 +36,16 @@ public class ReflectionGenericsDemo {
 
 
         System.out.println("三．  成员方法返回值的泛型参数。");
-
+        Method m1 = clz.getDeclaredMethod("fOut");
+        Type t3 = m1.getGenericReturnType();
+        System.out.println("t3.class = "+t3.getClass());  //class:  TypeVariableImpl
         System.out.println();
 
 
         System.out.println("四．  成员方法参数类型的泛型参数");
-
-        System.out.println();
-
-
-        System.out.println("五．  构造方法参数类型的泛型参数");
-
+        Method m2 = clz.getDeclaredMethod("fIn", Object.class); //第二参就是函数参数的class. 这里因为是泛型, 所以只能用Object.class. 不能用String.class这样具体的
+        Type[] t4 = m2.getGenericParameterTypes(); // t4.length = 1,
+        System.out.println("t4.class = "+t4[0].getClass()); // t4[0].class : TypeVariableImpl
         System.out.println();
 
     }
