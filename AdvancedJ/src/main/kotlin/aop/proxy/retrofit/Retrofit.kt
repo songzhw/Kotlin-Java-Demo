@@ -1,6 +1,5 @@
 package aop.proxy.retrofit
 
-import aop.proxy.retrofit.Demo.User
 import sun.reflect.generics.reflectiveObjects.ParameterizedTypeImpl
 import java.lang.reflect.*
 
@@ -18,7 +17,7 @@ class Retrofit(val baseUrl: String) {
 /*
 interface HttpApi {
     @GET("users")
-    fun getUsers(): Call<List<User>>
+    fun getUsers(): User
 }
  */
 class HttpProxy<T>(val baseUrl: String) : InvocationHandler {
@@ -31,18 +30,26 @@ class HttpProxy<T>(val baseUrl: String) : InvocationHandler {
 
         // 若返回Call<User>, 那这没问题
         // 若返回User, 那method.genericReturnType就是Class, 而不是ParametrizedType
-        val tmp = method.genericReturnType as ParameterizedType //=> Call<List<User>>; 有泛型时是Call<List<T>>
-        val tmp2 = tmp.actualTypeArguments[0]
-        if (tmp2 is ParameterizedTypeImpl) {
-            // 有泛型时, 如Call<List<User>
-            val returnedType = tmp2 as ParameterizedTypeImpl     //=> List<User>; 有泛型时是List<T>
-            val clz = returnedType.rawType
-            return clz.newInstance()
+        val returnType = method.genericReturnType  //=> Call<List<User>>; 有泛型时是Call<List<T>>
+
+        if (returnType is ParameterizedType) {
+            val returnedParaType = returnType as ParameterizedType
+            val tmp2 = returnedParaType.actualTypeArguments[0]
+            if (tmp2 is ParameterizedTypeImpl) {
+                // 有泛型时, 如Call<List<User>
+                val returnedType = tmp2 as ParameterizedTypeImpl     //=> List<User>; 有泛型时是List<T>
+                val clz = returnedType.rawType
+                return clz.newInstance()
+            } else {
+                // 无泛型时, 如Call<User>
+                val clz = tmp2 as Class<*>
+                val obj = clz.newInstance()
+                return obj
+            }
         } else {
-            // 无泛型时, 如Call<User>
-            val clz = tmp2 as Class<*>
-            val obj =  clz.newInstance()
-            return obj
+            // 返回的不是Call<User>, 而就是无泛型的, 如User
+            val clz = returnType as Class<*>
+            return clz.newInstance()
         }
     }
 

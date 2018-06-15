@@ -68,7 +68,7 @@ public class ReflectionGenericsDemo {
 
 
         System.out.println("六．  成员方法返回值的泛型参数。");
-        Method m4 = clz.getDeclaredMethod("fIn2", List.class); //第二参就是函数参数的class. 这里因为是泛型, 所以只能用Object.class. 不能用String.class这样具体的
+        Method m4 = clz.getDeclaredMethod("fIn2", List.class);
         Type[] t6 = m4.getGenericParameterTypes(); // length = 1
         System.out.println("class = " + t6[0].getClass()); // class : ParameterizedTypeImpl
         if (t6[0] instanceof ParameterizedType) {
