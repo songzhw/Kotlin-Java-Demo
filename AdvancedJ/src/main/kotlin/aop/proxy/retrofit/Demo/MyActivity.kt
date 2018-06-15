@@ -8,7 +8,8 @@ interface HttpApi {
     @GET("users")
 //    fun getUsers() : Call<List<User>>
 //    fun <T:User> getUsers(): Call<List<T>>
-    fun getUsers(): User
+
+    fun getUsers(): List<User>
 
 }
 
