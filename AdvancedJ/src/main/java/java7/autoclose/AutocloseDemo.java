@@ -1,5 +1,7 @@
 package java7.autoclose;
 
+import com.sun.tools.doclets.formats.html.SourceToHTMLConverter;
+
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.FileReader;
@@ -44,12 +46,37 @@ public class AutocloseDemo {
         }
     }
 
-    public void custom() {
+    public void custom1() {
 //        try(String str = "abc") {}
 
+        try (MyResource res1 = new MyResource()) {
+            System.out.println(res1);
+        }
+    }
+
+    public void custom() {
+        System.out.println("001");
         try (MyResource res = new MyResource()) {
             System.out.println(res);
+        } catch (Exception e) {
+            System.out.println("002");
+            e.printStackTrace();
+        } finally {
+            System.out.println("003");
         }
+        System.out.println("004");
+    }
+    /*
+    001
+    java7.autoclose.MyResource@66d3c617
+    MyResource close()
+    003
+    004
+     */
+
+    public static void main(String[] args) {
+        AutocloseDemo obj = new AutocloseDemo();
+        obj.custom();
     }
 
 }
