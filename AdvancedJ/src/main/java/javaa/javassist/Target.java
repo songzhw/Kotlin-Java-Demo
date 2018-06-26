@@ -2,7 +2,10 @@ package javaa.javassist;
 
 class Target {
     public void act() {
+        long start = System.nanoTime();
         System.out.println("Account act()");
+        long end = System.nanoTime();
+        System.out.println("szw origi act() : " + (end - start));
     }
 
     /* 一般来说, 是用StringBuilder来做这种"+"很多的场景.这里用于测试执行时间, 所以来看看区别*/

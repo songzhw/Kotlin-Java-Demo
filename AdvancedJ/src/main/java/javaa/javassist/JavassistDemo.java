@@ -10,14 +10,19 @@ public class JavassistDemo {
         ClassPool pool = ClassPool.getDefault();
 
         CtClass clazz = pool.get("javaa.javassist.Target");
-        if(clazz.isFrozen()){
+        if (clazz.isFrozen()) {
             clazz.defrost();
         }
 
         CtMethod[] allMethods = clazz.getDeclaredMethods();
 
-        for(CtMethod method : allMethods){
-            System.out.println("szw method = "+method.getName());
+        for (CtMethod method : allMethods) {
+            String name = method.getName();
+            method.insertBefore("long start = System.nanoTime();");
+            method.insertAfter("long end = System.nanoTime();");
+            method.insertAfter("System.out.println(\"szw javassit exec "+name+"() : \" + (end - start));");
         }
+
+        clazz.writeFile();
     }
 }
