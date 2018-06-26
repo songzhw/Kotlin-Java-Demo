@@ -18,9 +18,8 @@ public class JavassistDemo {
 
         for (CtMethod method : allMethods) {
             String name = method.getName();
-            method.insertBefore("long start = System.nanoTime();");
-            method.insertAfter("long end = System.nanoTime();");
-            method.insertAfter("System.out.println(\"szw javassit exec "+name+"() : \" + (end - start));");
+            method.insertBefore("long start = System.nanoTime();\n");
+            method.insertAfter("long end = System.nanoTime();\nSystem.out.println(\"szw javassit exec "+name+"() : \" + (end - start));\n");
         }
 
         clazz.writeFile();
