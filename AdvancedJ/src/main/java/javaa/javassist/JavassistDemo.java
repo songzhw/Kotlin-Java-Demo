@@ -1,12 +1,5 @@
 package javaa.javassist;
 
-import java.lang.reflect.Method;
-
-import javassist.ClassPool;
-import javassist.CtClass;
-import javassist.CtMethod;
-import javassist.util.proxy.MethodFilter;
-import javassist.util.proxy.MethodHandler;
 import javassist.util.proxy.ProxyFactory;
 
 public class JavassistDemo {
@@ -38,25 +31,4 @@ public class JavassistDemo {
     }
 
 
-    /*
-    // 出错: no such field: start -- javaassit找不到局部变量
-    public static void main(String[] args) throws Exception {
-        ClassPool pool = ClassPool.getDefault();
-
-        CtClass clazz = pool.get("javaa.javassist.Target");
-        if (clazz.isFrozen()) {
-            clazz.defrost();
-        }
-
-        CtMethod[] allMethods = clazz.getDeclaredMethods();
-
-        for (CtMethod method : allMethods) {
-            String name = method.getName();
-            method.insertBefore("long start = System.nanoTime();\n");
-            method.insertAfter("long end = System.nanoTime();\nSystem.out.println(\"szw javassit exec "+name+"() : \" + (end - start));\n");
-        }
-
-        clazz.writeFile();
-        clazz.detach();
-    }*/
 }
