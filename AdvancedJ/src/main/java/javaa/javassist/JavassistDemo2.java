@@ -20,6 +20,7 @@ public class JavassistDemo2 {
 
         for (CtMethod _method : allMethods) {
             String name = _method.getName();
+            System.out.println("-- 1. method name = "+name);
 
             String _name = "_"+name;
             _method.setName(_name);
@@ -31,9 +32,14 @@ public class JavassistDemo2 {
             sb.append("long end = System.nanoTime();\nSystem.out.println(\"szw javassit exec "+name+"() : \" + (end - start));\n");
             sb.append("}");
 
-            CtMethod method = CtNewMethod.make(sb.toString(), clazz);
+            CtMethod method = CtNewMethod.copy(_method, name, clazz, null);
+            method.setBody(sb.toString());
 
-            clazz.addMethod(method);
+            clazz.addMethod(method); //TODO 有个疑问, 这会不会是边循环边修改, 会不会有问题
+        }
+
+        for(CtMethod m : clazz.getDeclaredMethods()){
+            System.out.println("-- 2. method name = "+m.getName());
         }
 
         clazz.writeFile();
