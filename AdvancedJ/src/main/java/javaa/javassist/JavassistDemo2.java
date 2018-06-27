@@ -24,20 +24,21 @@ public class JavassistDemo2 {
             String _name = "_"+name;
             _method.setName(_name);
 
-            CtMethod method = CtNewMethod.copy(_method, name, clazz, null);
             StringBuilder sb = new StringBuilder();
-            sb.append("{");
-            sb.append("\nlong start = System.nanoTime();\n");
+            sb.append("{\n");
+            sb.append("long start = System.nanoTime();\n");
             sb.append(_name+"($$);\n"); //执行_foo(). $$是指原来的所有参数
             sb.append("long end = System.nanoTime();\nSystem.out.println(\"szw javassit exec "+name+"() : \" + (end - start));\n");
             sb.append("}");
-            method.setBody(sb.toString());
+
+            CtMethod method = CtNewMethod.make(sb.toString(), clazz);
 
             clazz.addMethod(method);
         }
 
         clazz.writeFile();
         clazz.detach();
+
 
 
 
