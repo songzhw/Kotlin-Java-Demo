@@ -1,7 +1,11 @@
 package javaa.javassist;
 
+import java.lang.reflect.Modifier;
+
+import javassist.ClassClassPath;
 import javassist.ClassPool;
 import javassist.CtClass;
+import javassist.CtField;
 import javassist.CtMethod;
 import javassist.CtNewMethod;
 
@@ -16,36 +20,24 @@ public class JavassistDemo2 {
             clazz.defrost();
         }
 
+        CtField start = new CtField(CtClass.longType, "start", clazz);
+        start.setModifiers(Modifier.STATIC);
+        clazz.addField(start);
+
+        CtField end = new CtField(CtClass.longType, "end", clazz);
+        end.setModifiers(Modifier.STATIC);
+        clazz.addField(end);
+
         CtMethod[] allMethods = clazz.getDeclaredMethods();
 
-        for (CtMethod _method : allMethods) {
-            String name = _method.getName();
-            System.out.println("-- 1. method name = "+name);
-
-            String _name = "_"+name;
-            _method.setName(_name);
-
-            StringBuilder sb = new StringBuilder();
-            sb.append("{\n");
-            sb.append("long start = System.nanoTime();\n");
-            sb.append(_name+"($$);\n"); //执行_foo(). $$是指原来的所有参数
-            sb.append("long end = System.nanoTime();\nSystem.out.println(\"szw javassit exec "+name+"() : \" + (end - start));\n");
-            sb.append("}");
-
-            CtMethod method = CtNewMethod.copy(_method, name, clazz, null);
-            method.setBody(sb.toString());
-
-            clazz.addMethod(method); //TODO 有个疑问, 这会不会是边循环边修改, 会不会有问题
-        }
-
-        for(CtMethod m : clazz.getDeclaredMethods()){
-            System.out.println("-- 2. method name = "+m.getName());
+        for (CtMethod method : allMethods) {
+            String name = method.getName();
+            method.insertBefore("start = System.nanoTime();\n");
+            method.insertAfter("end = System.nanoTime();\nSystem.out.println(\"szw javassit exec "+name+"() : \" + (end - start));\n");
         }
 
         clazz.writeFile();
         clazz.detach();
-
-
 
 
         Target2 obj = new Target2();
