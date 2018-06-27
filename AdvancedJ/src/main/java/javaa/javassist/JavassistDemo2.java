@@ -20,20 +20,14 @@ public class JavassistDemo2 {
             clazz.defrost();
         }
 
-        CtField start = new CtField(CtClass.longType, "start", clazz);
-        start.setModifiers(Modifier.STATIC);
-        clazz.addField(start);
-
-        CtField end = new CtField(CtClass.longType, "end", clazz);
-        end.setModifiers(Modifier.STATIC);
-        clazz.addField(end);
 
         CtMethod[] allMethods = clazz.getDeclaredMethods();
 
         for (CtMethod method : allMethods) {
             String name = method.getName();
+            method.addLocalVariable("start", CtClass.longType);
             method.insertBefore("start = System.nanoTime();\n");
-            method.insertAfter("end = System.nanoTime();\nSystem.out.println(\"szw javassit exec "+name+"() : \" + (end - start));\n");
+            method.insertAfter("long end = System.nanoTime();\nSystem.out.println(\"szw javassit exec "+name+"() : \" + (end - start));\n");
         }
 
         clazz.writeFile();
