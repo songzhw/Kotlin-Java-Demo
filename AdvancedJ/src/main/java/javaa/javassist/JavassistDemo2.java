@@ -9,6 +9,7 @@ import javassist.CtField;
 import javassist.CtMethod;
 import javassist.CtNewMethod;
 
+// TODO FAILED in JVM. However, running this code on Android Gradle Transformk will succeed!
 public class JavassistDemo2 {
 
     // 出错: no such field: start -- javaassit找不到局部变量
