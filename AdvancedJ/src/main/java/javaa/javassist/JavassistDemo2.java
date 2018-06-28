@@ -1,5 +1,6 @@
 package javaa.javassist;
 
+import java.io.File;
 import java.lang.reflect.Modifier;
 
 import javassist.ClassClassPath;
@@ -31,7 +32,8 @@ public class JavassistDemo2 {
             method.insertAfter("long end = System.nanoTime();\nSystem.out.println(\"szw javassit exec "+name+"() : \" + (end - start));\n");
         }
 
-        clazz.writeFile();
+        File thisFile = new File(".");
+        clazz.writeFile(thisFile.getAbsolutePath());
         clazz.detach();
 
 
