@@ -8,14 +8,16 @@ def generator101():
     print("no more yields")
 
 if __name__ == '__main__':
-    print(generator101())
+    aAenerator = generator101();
+    print(next(aAenerator))
     print("================")
 
-    print(generator101())
+    print(next(aAenerator))
     print("================")
 
-    print(generator101())
+    print(next(aAenerator))
     print("================")
 
-    print(generator101())
-    print("================")
+    #Error : StopIteration
+    # print(next(aAenerator))
+    # print("================")
