@@ -10,7 +10,7 @@ import java.beans.PropertyDescriptor;
 public class IntrospectDemo {
     public static void main(String[] args) throws Exception {
         Student student = new Student(23, "szw", true, "gaoke");
-        BeanInfo beanInfo = Introspector.getBeanInfo(Student.class);
+        BeanInfo beanInfo = Introspector.getBeanInfo(Student.class, User.class);
 
         System.out.println("=============== Properties ===============");
         PropertyDescriptor[] props = beanInfo.getPropertyDescriptors();
