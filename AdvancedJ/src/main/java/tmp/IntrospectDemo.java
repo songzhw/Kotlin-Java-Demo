@@ -16,6 +16,7 @@ public class IntrospectDemo {
         PropertyDescriptor[] props = beanInfo.getPropertyDescriptors();
         for (PropertyDescriptor p : props) {
             System.out.println("szw: " + p.getName() + " = " + p.getReadMethod().invoke(student));
+            // 若函数是private方法, 那可以使用反射的p.getReadMethod().setAccessible(true);
         }
 
         System.out.println("=============== Methods ");
