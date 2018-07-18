@@ -20,8 +20,10 @@ class Bean {
         return value;
     }
 
-    public void setValue(String value) {
-        this.value = value;
+    public void setValue(String newValue) {
+        String old = this.value;
+        this.value = newValue;
+        this.support.firePropertyChange("value", old, newValue);
     }
 
     // ========== property change ==========
