@@ -14,7 +14,6 @@ class DarkRoast : CoffeePart {
 }
 
 class Mocha(val before: CoffeePart) : CoffeePart {
-
     override fun cost(): Double {
         return 0.5 + before.cost()
     }
