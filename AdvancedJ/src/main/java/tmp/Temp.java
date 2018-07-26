@@ -4,52 +4,27 @@ import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
 import java.lang.reflect.Proxy;
 
-interface IClickListener {
-    void click(String view);
-
-}
-
-class ButtonClickListener implements IClickListener {
-    @Override
-    public void click(String view) {
-        System.out.println("click " + view);
-    }
-
-}
-
-class TraceHelper implements InvocationHandler {
-    private IClickListener target;
-
-    public TraceHelper(IClickListener target) {
-        this.target = target;
-    }
-
-    @Override
-    public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
-        System.out.println("before tracking");
-        method.invoke(target, args);
-        System.out.println("done with tracking");
-        return null;
-    }
-
-}
+import io.reactivex.Observable;
+import io.reactivex.ObservableSource;
+import io.reactivex.Observer;
+import io.reactivex.functions.Consumer;
+import io.reactivex.functions.Function;
 
 public class Temp {
     public static void main(String[] args) {
-        IClickListener hello = enhanceHello(new ButtonClickListener());
-        hello.click("ImageView");
-    }
-
-    public static IClickListener enhanceHello(IClickListener target) {
-        return (IClickListener) Proxy.newProxyInstance(
-                Temp.class.getClassLoader(),
-                new Class<?>[]{IClickListener.class},
-                new TraceHelper(target)
-        );
-    }
-
-    public void a(){
-
+        Observable.just(23)
+                .onErrorResumeNext(new Function<Throwable, ObservableSource<? extends Integer>>() {
+                    @Override
+                    public ObservableSource<? extends Integer> apply(Throwable throwable) throws Exception {
+                        return Observable.just(300);
+                    }
+                })
+                .subscribe(new Consumer<Integer>() {
+                    @Override
+                    public void accept(Integer integer) throws Exception {
+                        System.out.println("onNext() : " + integer);
+                    }
+                });
     }
 }
 
