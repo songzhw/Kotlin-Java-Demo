@@ -19,7 +19,8 @@ fun isLogin() : Boolean{
 
 fun main(args: Array<String>) {
     // =================== Maybe ===================
-    // Maybe: 发送0或1个数据. 要么成功, 要么失败. 没有onNext(), 用onSuccess()发送数据
+    // Maybe: 发送0或1个数据. 要么成功, 要么失败.  MaybeEmiter即使用多次onSuccess(data)来发送多个数据, 后面的数据也不会被处理.
+    // MaybeEmitter 没有onNext(), 用onSuccess()发送数据. 也有onComplete(), onError()
     Maybe.just(isLogin())
             .subscribe({ isLogin ->
                 println("maybe : $isLogin")
@@ -35,7 +36,7 @@ fun main(args: Array<String>) {
 
 
     // =================== Completable ===================
-    // Completable: 从不发送数据, 只处理onComplete, onError事件. 没有onNext(), onSuccess()事件
+    // Completable: 从不发送数据, 只处理onComplete与onError事件. 没有onNext(), onSuccess()事件. 也没有map, flatMap等操作
     // 多与andThen()配合起来用. 比如说Model中取数据, 返回一个Completable表示做完/出错了(不传数据时), presenter中用andThen()来让view工作
     Completable.create { emitter -> emitter.onComplete() }
             .andThen(Flowable.range(1, 10))
