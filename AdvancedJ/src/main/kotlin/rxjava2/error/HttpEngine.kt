@@ -1,8 +1,38 @@
 package rxjava2.error
 
 import io.reactivex.Observable
+import pojo.StoryResponse
 
 class HttpEngine {
+    fun getStory(): Observable<StoryResponse> {
+        val json = """
+            {
+              "code": 100,
+              "desp": "okay",
+              "data": {
+                    "id": 123,
+                    "content": "long long time ago"
+              }
+            }
+        """
+        val resp = StoryResponse(json)
+        return Observable.just(resp)
+    }
+
+
+    fun getStory_dbwrong() : Observable<StoryResponse> {
+        val json = """
+            {
+              "code": 200,
+              "desp": "database issue",
+              "data": {
+              }
+            }
+        """
+        val resp = StoryResponse(json)
+        return Observable.just(resp)
+    }
+
     fun getStory_E() : Observable<String>{
         return Observable.error(Exception("test"))
     }
