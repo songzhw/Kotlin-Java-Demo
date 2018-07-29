@@ -7,7 +7,7 @@ class HttpEngine {
     fun getStory(): Observable<StoryResponse> {
         val json = """
             {
-              "code": 100,
+              "code": 1000,
               "desp": "okay",
               "data": {
                     "id": 123,
@@ -20,7 +20,7 @@ class HttpEngine {
     }
 
 
-    fun getStory_dbwrong() : Observable<StoryResponse> {
+    fun getStory_dbWrong() : Observable<StoryResponse> {
         val json = """
             {
               "code": 200,

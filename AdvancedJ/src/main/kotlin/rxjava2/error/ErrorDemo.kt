@@ -2,14 +2,18 @@ package rxjava2.error
 
 val DEFAULT_ERROR = 0
 val DEFAULT_ERROR_100 = 100
+val SUCCESS_RESP = 1000
 
 fun main(args: Array<String>) {
-    var i = 1
     val http = HttpEngine()
 
     http.getStory()
+            .filter { resp -> resp.code == SUCCESS_RESP && resp.id != 0 }
+            .subscribe { resp ->
+                println("getStory() resp = $resp")
+            }
 
-    http.getStory_dbwrong()
+//    http.getStory_dbWrong()
 }
 
 /*

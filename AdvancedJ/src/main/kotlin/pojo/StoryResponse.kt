@@ -13,7 +13,7 @@ import org.json.JSONObject
 }
  */
 
-data class StoryResponse(val json : String) {
+class StoryResponse(val json : String) {
     var code: Int = 0
     var desp: String = ""
     var id : Int = 0
@@ -28,4 +28,10 @@ data class StoryResponse(val json : String) {
         id = tmpData?.getInt("id") ?: 0
         story = tmpData?.getString("content") ?: ""
     }
+
+    override fun toString(): String {
+        return "StoryResponse(code=$code, desp='$desp', id=$id, story='$story')"
+    }
+
+
 }
