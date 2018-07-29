@@ -3,11 +3,15 @@ package rxjava2.error
 import io.reactivex.Observable
 import pojo.StoryResponse
 
+val SUCCESS_RESP = 1000
+val DATABASE_ERROR = 200
+val SESSION_TIMEOUT = 300
+
 class HttpEngine {
     fun getStory(): Observable<StoryResponse> {
         val json = """
             {
-              "code": 1000,
+              "code": $SUCCESS_RESP,
               "desp": "okay",
               "data": {
                     "id": 123,
@@ -23,7 +27,7 @@ class HttpEngine {
     fun getStory_dbWrong() : Observable<StoryResponse> {
         val json = """
             {
-              "code": 200,
+              "code": $DATABASE_ERROR,
               "desp": "database issue",
               "data": {
               }
@@ -32,6 +36,21 @@ class HttpEngine {
         val resp = StoryResponse(json)
         return Observable.just(resp)
     }
+
+    fun getStory_timeout() : Observable<StoryResponse> {
+        val json = """
+            {
+              "code": $SESSION_TIMEOUT,
+              "desp": "session time out, please log in again",
+              "data": {
+              }
+            }
+        """
+        val resp = StoryResponse(json)
+        return Observable.just(resp)
+    }
+
+
 
     fun getStory_E() : Observable<String>{
         return Observable.error(Exception("test"))
