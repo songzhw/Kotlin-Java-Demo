@@ -1,5 +1,6 @@
 package rxjava2.error
 
+import io.reactivex.Maybe
 import io.reactivex.Observable
 import pojo.StoryResponse
 
@@ -61,3 +62,4 @@ class HttpEngine {
         return Observable.just(list)
     }
 }
+
