@@ -61,3 +61,11 @@ http.getStoryList()
                     {err -> println("error : $err")}) //error: java.lang.Exception: test
 
  */
+
+/*
+RxJava处理业务错误
+    interceptor;
+    compose();
+    switchIfEmpty();
+    重写Retrofit的converter;
+ */
