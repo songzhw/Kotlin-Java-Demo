@@ -37,10 +37,44 @@ fun appraoch01(nums: IntArray) : Int{
     }
 }
 
+// 检查每个数, +1或-1, 这样过半数的那个数字, 肯定times会>0
+fun appraoch02(nums : IntArray) : Int{
+    var ret = nums[0]
+    var times = 0
+
+    for(number in nums){
+        if(times == 0){
+            ret = number
+            times = 1
+        } else if(number == ret){
+            times++;
+        } else {
+            times--;
+        }
+    }
+
+    // 不能光用times>0来判断, 因为{1, 2, 3}也会让times > 0. 所以我们还要检查是否过半
+    times = 0
+    for(number in nums){
+       if(number == ret){
+           times++;
+       }
+    }
+    if(times > nums.size / 2){
+        return ret
+    } else {
+        throw Exception("no such item 222")
+    }
+
+    return times
+}
+
+
 fun main(args: Array<String>) {
     val ary1 = intArrayOf(6, 2, 2, 2, 3)
     val ary2 = intArrayOf(2, 4, 3)
 
+    // 方法一: 可行. 且适用于上面的各种变种情况. 但是, 需要额外的空间for hashmap
     try {
         println("ary1 = " + appraoch01(ary1))
         println("ary2 = " + appraoch01(ary2))
@@ -48,5 +82,12 @@ fun main(args: Array<String>) {
         println("no such item")
     }
 
+    // 方法二: 可行. 不需要HashMap额外空间, 但不适用于上面的各种变种问题.
+    try {
+        println("ary1 = " + appraoch02(ary1))
+        println("ary2 = " + appraoch02(ary2))
+    } catch(e : Exception){
+        println("no such item2")
+    }
 
 }
