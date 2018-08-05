@@ -29,6 +29,7 @@ fun minBribes(line: Array<Int>) {
     println(" - - - - - - - - - - -")
 }
 
+
 fun minBribes2(line: Array<Int>) {
 
     var minBribes = 0
@@ -42,19 +43,18 @@ fun minBribes2(line: Array<Int>) {
         }
     }
 
-    val size = line.size
-    for (pass in 0 until (size - 1)) {
-        for (currentPos in 0 until (size - pass - 1)) {
-            if (line[currentPos] > line[currentPos + 1]) {
-                line.exchange(currentPos, currentPos + 1)
+    val lastIndex = line.size -1 // 这样后面的line[j+1]才不会IndexOutOfBoundary
+    for(i in 0 until lastIndex){
+        for(j in 0 until lastIndex){
+            if(line[j] > line[j+1]){
+                line.exchange(j, j+1)
+                minBribes++
             }
         }
     }
 
-    for (i in line) {
-        print("$i,")
-    }
 
+    println("minBribes(2) = $minBribes")
     println("\n - - - - - - - - - - -")
 }
 
