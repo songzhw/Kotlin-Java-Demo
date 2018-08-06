@@ -1,6 +1,6 @@
 package algorithm.sort
 
-import utils.exchange
+import utils.swap
 import kotlin.math.max
 
 fun minBribes(line: Array<Int>) {
@@ -47,7 +47,7 @@ fun minBribes2(line: Array<Int>) {
     for(i in 0 until lastIndex){
         for(j in 0 until lastIndex){
             if(line[j] > line[j+1]){
-                line.exchange(j, j+1)
+                line.swap(j, j+1)
                 minBribes++
             }
         }
