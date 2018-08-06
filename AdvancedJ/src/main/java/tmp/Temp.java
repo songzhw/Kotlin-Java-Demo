@@ -25,7 +25,23 @@ public class Temp {
                         System.out.println("onNext() : " + integer);
                     }
                 });
+
     }
+
+    public int minSwap(int[] ary){
+        int swapTimes = 0;
+        int size = ary.length;
+        for(int i = 0; i < size; i++){
+            if(ary[i] == i){
+                continue;
+            }
+
+            swapTimes++;
+            i--;
+        }
+        return swapTimes;
+    }
+
 }
 
 

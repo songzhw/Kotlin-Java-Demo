@@ -8,17 +8,23 @@ fun minSwaps(ary: Array<Int>): Int {
     // 现在再对新的第零位, 重复一样的动作.
 
     var swapTimes = 0
-    ary.forEachIndexed { index, num ->
-        if(index == num){
-            return@forEachIndexed  //相当于continue
+    val size = ary.size
+    var i = 0
+    while (i < size) {
+        if (ary[i] == i) {
+            i++
+            continue
         }
-        ary.swap(index, num)
-        swapTimes++
-        index--
-    }
 
+        ary.swap(i, ary[i])
+        swapTimes++
+        //这里就不再 i++ 了, 因为我还要比较第i位的数字是不是i, 所以i仍是原样进入下一循环单次
+    }
     return swapTimes
+
 }
+
+
 
 fun main(args: Array<String>) {
     val ary1 = intArrayOf(3, 2, 0, 1).toTypedArray()
