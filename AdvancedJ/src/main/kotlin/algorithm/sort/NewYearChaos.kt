@@ -1,6 +1,6 @@
-package algorithm
+package algorithm.sort
 
-import exchange
+import utils.exchange
 import kotlin.math.max
 
 fun minBribes(line: Array<Int>) {
