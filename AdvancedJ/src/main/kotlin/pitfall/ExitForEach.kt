@@ -27,8 +27,26 @@ fun return03(){
 
 }
 
+fun returnStream(){
+    (1..4).takeWhile { it <= 2 }
+            .forEach{
+                println(it)
+            }
+    println("end")
+}
+
+fun returnStream05(){
+    (1..4).filter { it <= 2 }
+            .forEach{
+                println(it)
+            }
+    println("end")
+}
+
 fun main(args: Array<String>) {
 //    return01()
 //    returnForEach02()
-    return03()
+//    return03()
+//    returnStream()
+    returnStream05()
 }
