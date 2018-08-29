@@ -16,6 +16,7 @@ build/
 gradle/
 gradlew.bat
 .externalNativeBuild/
+out/
 
 
 # Local configuration file (sdk path, etc)
