@@ -23,6 +23,7 @@ fun readFile() {
         readedCount = stream.read(buff)
     }
 
+    stream.close()
 }
 
 
