@@ -42,6 +42,16 @@ public class Temp {
         }
         return swapTimes;
     }
+//
+//    public static String get(){
+//        return "";
+//    }
+//
+//    public static Integer get(){
+//        return 23;
+//    }
+
+
 
 }
 
