@@ -1,6 +1,8 @@
 package rxjava2
 
 import bean.User
+import io.reactivex.Flowable
+import io.reactivex.observers.TestObserver
 import io.reactivex.subscribers.TestSubscriber
 import org.junit.Assert.*
 import org.junit.Test
@@ -31,6 +33,15 @@ class UserModelTest {
     }
 
 
+    @Test
+    fun test03() {
+        val model = UserModel()
+        val subs = TestObserver<List<User>>()
+        model.getUsers().subscribe(subs)
 
+        // subs.assertValue(list<User>)
+
+        subs.assertValue { list -> list.size == 3}
+    }
 
 }
