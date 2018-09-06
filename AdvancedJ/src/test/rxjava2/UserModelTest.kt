@@ -1,17 +1,20 @@
 package rxjava2
 
+import bean.User
 import org.junit.Assert.*
 import org.junit.Test
 
 class UserModelTest {
+    lateinit var  users : List<User>
 
     @Test
     fun test01() {
         val model = UserModel()
         model.getUsers()
                 .subscribe { users ->
-                    assertEquals(0, users.size) // no matter the first argument is 0 or 3, the test is passed!
+                    this.users = users
                 }
+        assertEquals(0, users.size)
     }
 
 }
