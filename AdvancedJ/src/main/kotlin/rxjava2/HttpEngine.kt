@@ -1,14 +1,11 @@
 package rxjava2
 
-object HttpEngine {
-    fun getItemDetail(callback: HttpCallback<String>) {
-        Thread(Runnable {
-            Thread.sleep(2000)
-            callback.onSucc("from server")
-        }).start()
-    }
-}
+import io.reactivex.Observable
 
-interface HttpCallback<T> {
-    fun onSucc(t: T)
+class HttpEngine {
+    fun getItemDetail(): Observable<String> {
+        Thread.sleep(2000)
+        val ret = Observable.just("from server")
+        return ret
+    }
 }
