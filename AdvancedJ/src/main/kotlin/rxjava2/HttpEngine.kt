@@ -1,11 +1,12 @@
 package rxjava2
 
+import io.reactivex.Flowable
 import io.reactivex.Observable
 
 class HttpEngine {
-    fun getItemDetail(): Observable<String> {
+    fun getItemDetail(): Flowable<String> {
         Thread.sleep(2000)
-        val ret = Observable.just("from server")
+        val ret = Flowable.just("from server")
         return ret
     }
 }

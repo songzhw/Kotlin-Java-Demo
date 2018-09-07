@@ -1,18 +1,26 @@
 package rxjava2
 
+import io.reactivex.schedulers.Schedulers
+import io.reactivex.subscribers.TestSubscriber
 import org.junit.Assert.*
-import org.junit.Before
+import org.junit.Rule
 import org.junit.Test
-import org.mockito.ArgumentCaptor
-import org.mockito.Captor
-import org.mockito.MockitoAnnotations
+import org.junit.matchers.JUnitMatchers.hasItem
+import utils.ImmediateSchedulerRule
 
 class HttpEngineTest {
+
+    @Rule @JvmField val scheduler = ImmediateSchedulerRule()
+
     @Test fun getItemDetail() {
         val http = HttpEngine()
+        val testSubscriber = TestSubscriber<String>()
+
         http.getItemDetail()
-                .subscribe { detail ->
-                    assertEquals("xxxx", detail)
-                }
+                .subscribeOn(Schedulers.io())
+                .subscribe(testSubscriber)
+
+        testSubscriber.assertComplete()
+        assertThat(testSubscriber.values(), hasItem("from server"))
     }
 }
