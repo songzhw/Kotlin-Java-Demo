@@ -16,5 +16,9 @@
   "children":[
     {"id":1, "name":"a"},
     {"id":2, "name":"b"}
-  ]
+  ],
+  "snack": {
+    "id":100,
+    "name": "apple"
+  }
 }
