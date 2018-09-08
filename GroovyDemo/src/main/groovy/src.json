@@ -1,5 +1,18 @@
 {
+  "boolean2": true,
   "color2": "#82b92c",
+  "number2": 123,
+  "message": "Hello World",
+  "jie": {
+    "isMale":true,
+    "age":20,
+    "name": {
+      "firstName": "Miao",
+      "lastName":"de"
+    },
+    "grade":["a","b","c","d"]
+  },
+  "colors": [1, 2, 3, 4, 5],
   "children":[
     {"id":1, "name":"a"},
     {"id":2, "name":"b"}
