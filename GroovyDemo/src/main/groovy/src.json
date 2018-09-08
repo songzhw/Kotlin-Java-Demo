@@ -6,6 +6,11 @@
   "jie": {
     "isMale":true,
     "age":20,
-    "name":"jiez"
-  }
+    "name": {
+      "firstName": "Miao",
+      "lastName":"de"
+    },
+    "grade":["a","b","c","d"]
+  },
+  "colors": [1, 2, 3, 4, 5]
 }

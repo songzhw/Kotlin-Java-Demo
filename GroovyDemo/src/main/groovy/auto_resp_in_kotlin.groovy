@@ -1,6 +1,7 @@
 import groovy.json.JsonSlurper
 
 //TODO put this as a command argument
+//TODO {packageName} also should be assigned by command argument
 basicFileName = 'Home'
 
 path = "./output/" //要以 "/" 结尾
@@ -14,14 +15,13 @@ def reader = new FileReader('src.json')
 ajson = new JsonSlurper().parse(reader)
 
 println '======================================='
-def sb = parseJson(ajson, responseName)
-output(responseFileName, sb)
+def content = parseJson(ajson, responseName, false)
+output(responseFileName, content)
 println '======================================='
 
 
 
-def parseJson(jsons, className) {
-    println "parseJson(): className = $className"
+def parseJson(jsons, className, isGenerateArrayCode) {
     def sb = new StringBuilder()
     sb << "package your.company.data.entity" << lineSeparator
     sb << lineSeparator  //这一块不用太在意, 粘贴时AndroidStudio会帮你修正package的
@@ -34,7 +34,7 @@ def parseJson(jsons, className) {
     sb << "class ${className} (json : JSONObject) {" << lineSeparator
     jsons.each { key, value ->
         def type = getType(key, value)
-        sb << "\tvar $key :  $type " << lineSeparator  //赋值在init()中, 所以不用加lateinit. 也自然没了primitive type的问题
+        sb << "\tvar $key : $type " << lineSeparator  //赋值在init()中, 所以不用加lateinit. 也自然没了primitive type的问题
     }
     sb << lineSeparator
 
@@ -59,17 +59,17 @@ def parseJson(jsons, className) {
             //println "subtype = $subtype"
             if (subtype.equals("Long") || subtype.equals("Int")
                     || subtype.equals("String") || subtype.equals("Boolean")) {
-                sb << "\t\t$key = new $type();" << lineSeparator
-                sb << "\t\tfor(i in 0 until array.length){" << lineSeparator
-                sb << "\t\t\tval asub = array.opt(i) as $subtype" << lineSeparator
+                sb << "\t\t$key = ArrayList()" << lineSeparator
+                sb << "\t\tfor(i in 0 until array.length()){" << lineSeparator
+                sb << "\t\t\tval asub = array.opt$subtype(i) " << lineSeparator
                 sb << "\t\t\t${key}.add(asub)" << lineSeparator
                 sb << "\t\t}" << lineSeparator
-
+                sb << lineSeparator
             } else {
                 writeSubFiles(subtype, value[0])
 
                 sb << "\t\t${key} = create${subtype}(array)" << lineSeparator
-                sb << "\t\t" << lineSeparator
+                sb << lineSeparator
 
             }
 
@@ -126,70 +126,8 @@ def getType(key, value) {
 
 def writeSubFiles(fkey, fvalue) {
     println "key = $fkey\nvalue = $fvalue"
-    def sb2 = parseJson(fvalue, fkey.capitalize())
+    def sb2 = parseJson(fvalue, fkey.capitalize(), true)
     output("${path}${fkey.capitalize()}.kt", sb2)
-//    def sb2 = new StringBuilder()
-//    sb2 << "package your.company.data.entity" << lineSeparator
-//    sb2 << lineSeparator
-//
-//    sb2 << "import java.util.ArrayList" << lineSeparator
-//    sb2 << "import org.json.JSONArray" << lineSeparator
-//    sb2 << "import org.json.JSONObject" << lineSeparator
-//    sb2 << lineSeparator
-//
-//    sb2 << "class ${fkey.capitalize()}(json : JSONObject?) {" << lineSeparator
-//    fvalue.each { key, value ->
-//        def type = getType(key, value)
-//        //TODO kotlin中lateinit不能用于基本类型, 这里怕是要改
-//        sb2 << "\tlateinit var $key : $type" << lineSeparator
-//    }
-//    sb2 << lineSeparator
-//
-//    sb2 << "\tpublic ${fkey.capitalize()} {" << lineSeparator
-//    sb2 << "\t\tif(json != null){" << lineSeparator
-//    fvalue.each { key, value ->
-//        def type = getType(key, value)
-//        if (type.startsWith("ArrayList")) {
-//            def subtype = ""
-//            def pattern = ~/ArrayList<(.*)>/
-//            type.find(pattern) {
-//                subtype = it[1]
-//            }
-//
-//            sb2 << "\t\t\tJSONArray ary = json.optJSONArray(\"$key\");" << lineSeparator
-//            sb2 << "\t\t\tint size = ary.length();" << lineSeparator
-//            sb2 << "\t\t\t$key = new ArrayList<>();" << lineSeparator
-//            sb2 << "\t\t\tfor (int i = 0 ; i < size ; i++) {" << lineSeparator
-//            sb2 << "\t\t\t\t${key}.add(ary.opt${subtype.capitalize()}(i));" << lineSeparator
-//            sb2 << "\t\t\t\t}" << lineSeparator
-//
-//        } else {
-//            sb2 << "\t\t\t${key} = json.opt${type.capitalize()}(\"${key}\");" << lineSeparator
-//        }
-//    }
-//    sb2 << "\t\t}" << lineSeparator
-//    sb2 << "\t}" << lineSeparator
-//    sb2 << lineSeparator
-//
-//    sb2 << "\tpublic static ArrayList<${fkey.capitalize()}> createWithJsonArray(JSONArray array) {" << lineSeparator
-//    sb2 << "\t\tif(array != null){" << lineSeparator
-//    sb2 << "\t\t\tint len = array.length();" << lineSeparator
-//    sb2 << "\t\t\tArrayList<${fkey.capitalize()}> list = new ArrayList<${fkey.capitalize()}>();" << lineSeparator
-//    sb2 << "\t\t\tfor(int i = 0 ; i < len ; i++){" << lineSeparator
-//    sb2 << "\t\t\t\tJSONObject obj = array.optJSONObject(i);" << lineSeparator
-//    sb2 << "\t\t\t\t${fkey.capitalize()} oneItem = new ${fkey.capitalize()}(obj);" << lineSeparator
-//    sb2 << "\t\t\t\tlist.add(oneItem);" << lineSeparator
-//    sb2 << "\t\t\t}" << lineSeparator
-//    sb2 << "\t\t\treturn list;" << lineSeparator
-//    sb2 << "\t\t}" << lineSeparator
-//    sb2 << "\t\treturn null;" << lineSeparator
-//    sb2 << "\t}" << lineSeparator
-//    sb2 << lineSeparator
-//
-//
-//    sb2 << "}"
-//
-//    output("${path}${fkey.capitalize()}.kt", sb2)
 }
 
 def output(fileFullName, content) {
