@@ -1,4 +1,4 @@
-package how
+package how.companion
 
 // 并不是编译成static. 而是用了static inner class
 class A {

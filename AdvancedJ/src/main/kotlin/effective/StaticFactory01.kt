@@ -14,3 +14,14 @@ List<Integer> list = Arrays.asList(1, 2, 4)
 静态工厂的缺点是: 与其它static方法不容易区分开来. 这点就比不上Builder
 */
 
+// 1. Companion Factory Method: 请见 CompanionThree.kt
+
+// 2. 顶层函数
+fun foo(){
+    val list = List(4) { "$it"}
+    println("list = $list ")  //=> list = [0, 1, 2, 3]
+}
+
+fun main(args: Array<String>) {
+    foo()
+}
