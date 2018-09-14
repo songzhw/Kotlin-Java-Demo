@@ -1,21 +1,26 @@
 package scenario.verifycode
 
 fun generateCode(productId: String) : String{
-    var sum = 0
+    var sum1 = 0
+    var sum2 = 0
     val chars = productId.toCharArray()
     for (i in 0 until productId.length) {
         val num = chars[i] - '0'
-        if (num < 0 || num > 9) {
-            throw IllegalArgumentException("argument should be a valid productID")
-        }
-        sum += num * (10 - i)
+        sum1 += num * (10 - i)
+        sum2 += num * (7 + i)
     }
 
-    val mod = sum % 11
-    val result = (11 - mod) % 11 // to make sure result will not be "11"
-    val suffix = if (result == 10) "x" else "" + result
-    return productId + suffix
+    val suffix1 = getSuffix(sum1)
+    val suffix2 = getSuffix(sum2)
+    return productId + suffix1 + suffix2
 
+}
+
+fun getSuffix(sum : Int) : String{
+    val mod = sum % 11
+    val result = (11 - mod) % 11 //结果为11, 就要变成0. 因为每个校验码都只有一位
+    val suffix = if (result == 10) "x" else "" + result
+    return suffix
 }
 
 fun main(args: Array<String>) {
