@@ -20,16 +20,15 @@ public class PrintOddEventByOrder {
 
         Thread t2 = new Thread(() -> {
             for (int i = 2; i <= 20; i += 2) {
-                System.out.println("*** " + i);
-
-                anotify(lock1);
                 if (i != 20) {
                     await(lock2);
                 }
+                System.out.println("*** " + i);
+
+                anotify(lock1);
             }
         });
 
-        await(lock2);
         t1.start();
         t2.start();
     }
