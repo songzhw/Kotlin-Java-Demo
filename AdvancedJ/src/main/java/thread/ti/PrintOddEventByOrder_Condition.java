@@ -1,6 +1,7 @@
 package thread.ti;
 
 import java.util.concurrent.Semaphore;
+import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.locks.Condition;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
@@ -10,6 +11,7 @@ public class PrintOddEventByOrder_Condition {
     private Lock lock = new ReentrantLock();
     private Condition isOnesTurn = lock.newCondition();
     private Condition isTwosTurn = lock.newCondition();
+    AtomicBoolean isOneRunAlready = new AtomicBoolean(false);
 
 
     public void work() {
@@ -18,8 +20,13 @@ public class PrintOddEventByOrder_Condition {
                 lock.lock();
                 try {
                     System.out.println("===> " + i);
+                    isOneRunAlready.set(true);
+
+                    System.out.println("AAAAAA");
                     isTwosTurn.signal();
+                    System.out.println("BBBBBB");
                     isOnesTurn.await();
+                    System.out.println("CCCCC");
                 } catch (InterruptedException e) {
                 } finally {
                     lock.unlock();
@@ -27,6 +34,20 @@ public class PrintOddEventByOrder_Condition {
             }
         });
         Thread t2 = new Thread(() -> {
+            System.out.println("0001");
+            if (!isOneRunAlready.get()) {
+                lock.lock();
+                try {
+                    System.out.println("002");
+                    isTwosTurn.await();
+                } catch (InterruptedException e) {
+                } finally {
+                    System.out.println("003");
+                    lock.unlock();
+                }
+            }
+            System.out.println("0004");
+
             for (int i = 2; i <= 10; i += 2) {
                 lock.lock();
                 try {
