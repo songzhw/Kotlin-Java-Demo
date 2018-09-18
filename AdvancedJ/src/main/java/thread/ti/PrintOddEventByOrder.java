@@ -12,7 +12,9 @@ public class PrintOddEventByOrder {
                 System.out.println("===> " + i);
 
                 anotify(lock2);
-                await(lock1);
+                if (i != 19) {
+                    await(lock1);
+                }
             }
         });
 
@@ -21,7 +23,9 @@ public class PrintOddEventByOrder {
                 System.out.println("*** " + i);
 
                 anotify(lock1);
-                await(lock2);
+                if (i != 20) {
+                    await(lock2);
+                }
             }
         });
 
