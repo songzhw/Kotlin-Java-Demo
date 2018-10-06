@@ -1,5 +1,5 @@
 buildscript {
-    ext.kotlin_version = '1.2.61'
+    ext.kotlin_version = '1.2.71'
 
     repositories {
         mavenCentral()
@@ -30,7 +30,7 @@ repositories {
 
 dependencies {
     compile "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
-    compile "org.jetbrains.kotlinx:kotlinx-serialization-runtime:0.6.1"
+//    compile "org.jetbrains.kotlinx:kotlinx-serialization-runtime:0.6.1"
 
     compile 'com.google.code.gson:gson:2.8.5'
 
