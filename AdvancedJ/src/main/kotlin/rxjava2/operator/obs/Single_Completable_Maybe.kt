@@ -1,7 +1,6 @@
 package rxjava2.operator.obs
 
 import io.reactivex.Maybe
-import io.reactivex.MaybeOnSubscribe
 
 fun main(args: Array<String>) {
     maybe_()
@@ -9,7 +8,7 @@ fun main(args: Array<String>) {
 
 fun maybe_() {
     http_isUserExist()
-            .subscribe({/*onSuccess*/}, {/*onError*/}, {/*onComplete*/})
+            .subscribe({ /*onSuccess(value)*/ }, { /*onError(error)*/ }, { /*onComplete()*/ })
 }
 
 fun http_isUserExist(): Maybe<String> {
