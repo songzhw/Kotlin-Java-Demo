@@ -5,9 +5,13 @@ import io.reactivex.schedulers.Schedulers
 import java.util.concurrent.TimeUnit
 
 fun main(args: Array<String>) {
+
+}
+
+fun delay_(args: Array<String>) {
     Observable.just("first data")
             .delay(4, TimeUnit.SECONDS, Schedulers.trampoline())
-            .subscribe{ println("subscribe $it")}
+            .subscribe { println("subscribe $it") }
     // 4秒后才收到"subscribe first data"
 }
 
