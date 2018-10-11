@@ -1,5 +1,6 @@
 package rxjava2.fortest
 
+import io.reactivex.schedulers.TestScheduler
 import org.junit.Test
 
 import org.junit.Before
@@ -10,7 +11,7 @@ import org.mockito.MockitoAnnotations
 import utils.ImmediateSchedulerRule
 
 class ProfilePresenterTest {
-    @Rule @JvmField val scheduler = ImmediateSchedulerRule()
+    @Rule @JvmField val scheduler = ImmediateSchedulerRule(TestScheduler())
     @Mock lateinit var view : IProfileView
 
     @Before
