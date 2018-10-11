@@ -1,11 +1,19 @@
 package rxjava2.fortest
 
+import io.reactivex.Flowable
+import io.reactivex.Single
+import io.reactivex.schedulers.Schedulers
+
 class ProfilePresenter(private val view: IProfileView) {
     private val http: FakeHttpClient = FakeHttpClient()
 
     fun onClickMine() {
-        val profile = http.fetchProfile()
-        view.refresh(profile)
+        Flowable.fromCallable { http.fetchProfile() }
+                .subscribeOn(Schedulers.io())
+                .observeOn(Schedulers.trampoline())
+                .subscribe { profile ->
+                    view.refresh(profile)
+                }
     }
 
 }
