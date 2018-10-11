@@ -10,8 +10,12 @@ import org.mockito.Mockito.verify
 import org.mockito.MockitoAnnotations
 import utils.ImmediateSchedulerRule
 
+
 class ProfilePresenterTest {
-    @Rule @JvmField val scheduler = ImmediateSchedulerRule(TestScheduler())
+
+    val scheduler = TestScheduler()
+    @Rule @JvmField val rule = ImmediateSchedulerRule(scheduler)
+
     @Mock lateinit var view : IProfileView
 
     @Before
@@ -26,6 +30,9 @@ class ProfilePresenterTest {
 
         val presenter = ProfilePresenter(view)
         presenter.onClickMine()
+
+        scheduler.triggerActions()
+
         verify(view).refresh(expected)
     }
 }
