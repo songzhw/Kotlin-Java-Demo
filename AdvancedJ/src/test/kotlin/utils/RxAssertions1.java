@@ -27,8 +27,8 @@
 // */
 //public class RxAssertions1 {
 //
-//    public static <T> ObservableAssertions<T> subscribeAssertingThat(Observable<T> observable) {
-//        return new ObservableAssertions<>(observable);
+//    public static <T> ObservableAssertions<T> subscribeAssertingThat(Observable<T> observables) {
+//        return new ObservableAssertions<>(observables);
 //    }
 //
 //    public static class ObservableAssertions<T> {
@@ -37,10 +37,10 @@
 //        private Throwable mError;
 //        private boolean mCompleted;
 //
-//        public ObservableAssertions(Observable<T> observable) {
+//        public ObservableAssertions(Observable<T> observables) {
 //            mCompleted = false;
 //            mResult = new ArrayList<>();
-//            observable.subscribeOn(Schedulers.immediate())
+//            observables.subscribeOn(Schedulers.immediate())
 //                    .subscribe(new Observer<T>() {
 //                        @Override
 //                        public void onCompleted() {
