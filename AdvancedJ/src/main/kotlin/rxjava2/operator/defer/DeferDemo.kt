@@ -1,6 +1,9 @@
 package rxjava2.operator.defer
 
 import io.reactivex.Observable
+import java.io.IOException
+
+
 
 class Dog(var name: String) {
     fun observe(): Observable<String> {
@@ -70,21 +73,23 @@ fun createDemo() {
 // = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
 // 一个更真实的例子: 只有真正订阅了时, 才去存数据
 object db {
-    fun <T> writeToDisk(t : T) {}
-    fun close(){}
+    fun <T> writeToDisk(t: T) {}
+    fun close() {}
 }
 
-fun saveData(valueToSave: String) : Observable<String>{
-    try {
-        db.writeToDisk(valueToSave)
-    } catch(e : Exception){
-        return Observable.error(e)
-    } finally {
-        db.close()
+fun saveData(valueToSave: String): Observable<String> {
+    return Observable.defer {
+        try {
+            db.writeToDisk(valueToSave)
+        } catch (e: Exception) {
+            Observable.error<String>(e)
+        } finally {
+            db.close()
+        }
+        Observable.just(valueToSave)
     }
-
-    return Observable.just("success")
 }
+
 
 
 // = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
