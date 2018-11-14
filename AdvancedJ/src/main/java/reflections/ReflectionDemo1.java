@@ -1,5 +1,9 @@
 package reflections;
 
+import android.view.DisplayCutout;
+import android.view.WindowInsets;
+import android.view.WindowManager;
+
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -18,10 +22,16 @@ public class ReflectionDemo1 {
         wi.change();
         try {
             Method method = WindowInsets.class.getMethod("getDisplayCutout");
-            Object returned = method.invoke(wi);
-            DisplayCutout c2 = (DisplayCutout) returned;
-            /*before: 20-10-30-40*/ System.out.println("after: " + c2.getSafeInsetTop() + " - " + c2.getSafeInsetLeft() + " - " + c2.getSafeInsetRight() + " - " + c2.getSafeInsetBottom());
-        } catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException e) {
+            Object displayCutout = method.invoke(wi);
+
+            Class clz = Class.forName("android.view.DisplayCutout");
+            int top = (int) clz.getMethod("getSafeInsetTop").invoke(displayCutout);
+            int left = (int) clz.getMethod("getSafeInsetLeft").invoke(displayCutout);
+            int right = (int) clz.getMethod("getSafeInsetRight").invoke(displayCutout);
+            int bottom = (int) clz.getMethod("getSafeInsetBottom").invoke(displayCutout);
+
+            /*before: 20-10-30-40*/ System.out.println("after: " + top + " - " + left + " - " + right + " - " + bottom);
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }

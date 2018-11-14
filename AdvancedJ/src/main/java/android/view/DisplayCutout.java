@@ -1,4 +1,4 @@
-package reflections;
+package android.view;
 
 public final class DisplayCutout {
     public Rect mSafeInsets = new Rect();
