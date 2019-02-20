@@ -14,20 +14,32 @@ class HeaterRadius {
     public static final int ERROR = -100;
 
     public static void main(String[] args) {
-        System.out.println("szw");
+        HeaterRadius obj = new HeaterRadius();
 
         int[] houses = new int[]{1, 2, 3, 4, 5};
-        int[] heaters = new int[]{3};
-        int radius = getRadius(houses, heaters);
+        int[] heaters = new int[]{4};
+        int radius = obj.getRadius(houses, heaters);
         System.out.println("szw radius = " + radius);
 
     }
 
-    static int getRadius(int[] houses, int[] heaters) {
+    int getRadius(int[] houses, int[] heaters) {
         int heatersLength = heaters.length;
         if (heatersLength == 1) {
-            return houses.length / 2;  // 5/2也是2
+            int index = getIndex(houses, heaters[0]);
+            int left = index;
+            int right = houses.length - 1 - index;
+            return Math.max(left, right);
         }
         return 1;
+    }
+
+    int getIndex(int[] houses, int heater) {
+        for (int i = 0; i < houses.length; i++) {
+            if (heater == houses[i]) {
+                return i;
+            }
+        }
+        return ERROR;
     }
 }
