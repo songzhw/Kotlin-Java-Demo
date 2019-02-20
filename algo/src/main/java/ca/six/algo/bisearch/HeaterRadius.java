@@ -16,8 +16,8 @@ class HeaterRadius {
     public static void main(String[] args) {
         HeaterRadius obj = new HeaterRadius();
 
-        int[] houses = new int[]{1, 2, 3, 4, 5};
-        int[] heaters = new int[]{2, 4};
+        int[] houses = new int[]{1, 2, 3, 4, 5, 7, 8, 9};
+        int[] heaters = new int[]{3, 7};
         int radius = obj.getRadius(houses, heaters);
         System.out.println("szw radius = " + radius);
 
@@ -46,7 +46,8 @@ class HeaterRadius {
                     prevIndex = getIndex(houses, heaters[i-1]);
                     nextIndex = getIndex(houses, heaters[i+1]);
                 }
-                max = Math.max(index - prevIndex, nextIndex - index);
+                // nextIndex - index之后还要再减1, 是因为以index = 1, nextIndex = 3为例, 2号heater并不要覆盖到4号heater, 所以再减一就合适了
+                max = Math.max(index - prevIndex, nextIndex -1 - index);
             }
             return max;
         }
