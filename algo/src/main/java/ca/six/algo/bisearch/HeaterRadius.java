@@ -10,6 +10,16 @@ input: [1, 2, 3, 4] [1, 4]
 output: 1
 */
 
+/*
+下方是第一版
+可以改进的点是: 
+Arrays.sort(heaters);
+int index = Arrays.binarySearch(heaters, house);
+这样使用二分查找, 让getIndex()的操作更快
+
+ref: https://leetcode.com/problems/heaters/discuss/95886/Short-and-Clean-Java-Binary-Search-Solution
+*/
+
 class HeaterRadius {
     public static final int ERROR = -100;
 
