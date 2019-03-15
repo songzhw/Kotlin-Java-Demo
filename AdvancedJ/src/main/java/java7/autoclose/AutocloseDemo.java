@@ -28,7 +28,7 @@ public class AutocloseDemo {
         }
     }
 
-    public void writeToFileZipFileContents(String src, String out) throws java.io.IOException {
+    public void writeToFileZipFileContents(String src, String out) throws IOException {
         Charset charset = java.nio.charset.StandardCharsets.US_ASCII;
         Path outputFilePath = java.nio.file.Paths.get(out);
 

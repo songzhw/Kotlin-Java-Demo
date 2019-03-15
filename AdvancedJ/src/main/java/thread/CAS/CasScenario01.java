@@ -28,15 +28,14 @@ public class CasScenario01 {
             });
         }
         Thread.sleep(8000);
-        System.out.println("50 threads run add:");
+        System.out.println("10000 threads run add:");
         System.out.println("count:" + indexBad);
         System.out.println("safecount:" + indexGood.get());
     }
 }
 
 /* log =
-50 threads run add:
+10000 threads run add:
     count:9778
     safecount:10000
-
  */
