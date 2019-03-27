@@ -7,7 +7,7 @@ import java.util.*
 import java.util.concurrent.TimeUnit
 import java.text.SimpleDateFormat
 
-
+// no data at all, weird
 fun main(args: Array<String>) {
     // 数据会从0开始, 数据是每N秒0,1,2,3,...
     val one = Observable.interval(3, TimeUnit.SECONDS)
