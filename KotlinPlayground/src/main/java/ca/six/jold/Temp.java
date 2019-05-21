@@ -1,14 +1,8 @@
 package ca.six.jold;
 
-import org.reactivestreams.Subscriber;
-
 import java.util.GregorianCalendar;
 import java.util.Locale;
 import java.util.TimeZone;
-
-import io.reactivex.subjects.BehaviorSubject;
-import io.reactivex.subjects.PublishSubject;
-import io.reactivex.subjects.ReplaySubject;
 
 class Temp {
     public static void main(String[] args) {
