@@ -9,7 +9,7 @@ import javax.crypto.spec.SecretKeySpec;
 
 class Key2 {
   public static void main(String[] args) throws Exception {
-    String src = "easy plaintext";
+    String src = "[easy plaintext]";
     String key = "0123456789abcdef";
     byte[] raw = key.getBytes("utf-8");
     SecretKeySpec skeySpec = new SecretKeySpec(raw, "AES");
