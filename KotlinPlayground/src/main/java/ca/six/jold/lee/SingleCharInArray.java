@@ -1,15 +1,10 @@
 package ca.six.jold.lee;
 
-// 从数组中找出唯一一个不重复的数字来
+// 从数组中找出唯一一个不重复的数字来 (重复的数字, 都是重复2次, 4次,... 即偶数次)
 class SingleCharInArray {
   public static void main(String[] args) {
-    duplicateEven();
-    duplicateOdd();
-  }
-
   // 好处是: 时间复杂度O(n), 空间复杂度O(1)
   // 坏处是: 只能处理重复次数为偶数的情形
-  public static void duplicateEven(){
     int[] ary = new int[]{2, 3, 2, 3, 4};
     int ret = ary[0]; //从0号开始, 所以下面for循环就是从1开始. 总之就是所有数字全异或一下
     for (int i = 1; i < ary.length; i++) {
@@ -24,8 +19,4 @@ class SingleCharInArray {
      */
   }
 
-  public static void duplicateOdd(){
-    // 若仍用duplicateEven的方法, 那结果就是6, 这明显是不对的.
-    int[] ary = new int[]{2, 3, 2, 3, 4};
-  }
 }
