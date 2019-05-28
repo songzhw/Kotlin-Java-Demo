@@ -24,7 +24,7 @@ class Bit01 {
 
 	// 要求不借用额外空间 (异或, xor, ^ : 相同为0, 不同为1)
 	public static void swap2(int x, int y) {
-		x = x ^ y;
+		x = x ^ y;  //// 其实这个值是多少无所谓, 主要就是存起来. 如x=4, 那就存起4^y后, 后面再用^y, 就成了4了
 		y = x ^ y;
 		x = x ^ y;
 		System.out.println("swap02 : x = " + x + " ; y = " + y);
