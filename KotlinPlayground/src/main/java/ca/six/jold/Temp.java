@@ -7,8 +7,7 @@ import java.util.TimeZone;
 class Temp {
     public static void main(String[] args) {
       String ab = "ab";
-      char a1 = ab.charAt(0);
-      int a2 = ab.charAt(0);
+
     }
 }
 
