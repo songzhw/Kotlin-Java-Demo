@@ -4,16 +4,20 @@ package ca.six.algo.array_string
 
 // 1. 如果string是个ASCII的string, 那数量有限, 可以用桶排序似的方法
 // 2. 用bit来存的话, 比boolean[256]占用更少的空间 (java中, boolean的大小取决于虚拟机. 但可以近似认为是int来存, 即4个byte)
-   // 现在假设string是一个lowercase的a到z字母, 这样26 < 32, 一个int就够了.
+// 现在假设string是一个lowercase的a到z字母, 这样26 < 32, 一个int就够了.
 fun isUnique2(src: String): Boolean {
-	for(char in src){
-		val charIndex = char.toInt(); // a 97; b 98;
-
+	var number: Int = Int.MIN_VALUE  // 32个0
+	for (char in src) {
+		val relativeIndex: Int = char - 'a' // a 97; b 98;
+		val standard: Int = relativeIndex.shl(relativeIndex);
+		number = number and standard
+		// TODO to finish
 	}
 	return true
 }
 
 fun main(args: Array<String>) {
+	println('d' - 'a')  //=> 3
 	println("unique? = ${isUnique2("abcde")}")  //=> true
 	println("unique? = ${isUnique2("abcade")}") //=> false
 }
