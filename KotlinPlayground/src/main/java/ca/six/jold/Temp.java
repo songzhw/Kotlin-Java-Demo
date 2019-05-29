@@ -6,8 +6,9 @@ import java.util.TimeZone;
 
 class Temp {
     public static void main(String[] args) {
-      GregorianCalendar calendar = new GregorianCalendar(TimeZone.getTimeZone("GMT"), new Locale("en", "US", "POSIX"));
-      System.out.println(calendar);
+      String ab = "ab";
+      char a1 = ab.charAt(0);
+      int a2 = ab.charAt(0);
     }
 }
 
