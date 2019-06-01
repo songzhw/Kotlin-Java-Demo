@@ -6,13 +6,13 @@ import java.util.*
 fun findMissings(input: Array<Int>) {
     val bits = BitSet() // 默认是64位
     for (num in input) {
-        bits.set(num);
+        bits.set(num); //将index位设为true
     }
     println("出现过${bits.size()}个不重复数字") //=> 64
 
     // 找出没有出现的数字 (kotlin中, 0..10是[0,10], 0 until 10是[0, 10)
     for (index in 0 until 10) {
-        val isExisting = bits.get(index)
+        val isExisting = bits.get(index)  //返回boolean
         if (!isExisting) {
             println("${index} is missing")
         }//=> 2,4,7,8 are missing
