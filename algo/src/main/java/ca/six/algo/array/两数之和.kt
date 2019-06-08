@@ -31,7 +31,7 @@ fun approach2(ary: IntArray, target: Int) {
     }
     map.forEach { k, v ->
         val another = target - v
-        if(map.containsKey(another)){
+        if (map.containsKey(another)) {
             println("index2 = [${map[v]}, ${map[another]}]")
             return@forEach  //直接用return会报错: "return is not allowed here"
         }
@@ -39,5 +39,13 @@ fun approach2(ary: IntArray, target: Int) {
 }
 
 fun approach3(ary: IntArray, target: Int) {
-
+    val map = hashMapOf<Int, Int>()
+    ary.forEachIndexed { index, num ->
+        map.put(num, index)
+        val another = target - num
+        if (map.containsKey(another)) {
+            println("index2 = [${map[num]}, ${map[another]}]")
+            return
+        }
+    }
 }
