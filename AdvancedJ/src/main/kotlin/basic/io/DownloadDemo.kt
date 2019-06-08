@@ -60,9 +60,7 @@ fun download_NIO2(url: String, saveDir: String, fileName: String) {
         val target = Paths.get(saveDir, fileName)
         Files.createDirectories(target.parent)
         Files.copy(ins, target, StandardCopyOption.REPLACE_EXISTING)
-
     }
-
 }
 
 fun main() {
