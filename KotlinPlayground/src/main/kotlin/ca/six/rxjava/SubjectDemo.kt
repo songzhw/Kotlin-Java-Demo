@@ -6,57 +6,68 @@ import io.reactivex.functions.Consumer
 import io.reactivex.subjects.ReplaySubject
 
 fun be() {
-    val s = BehaviorSubject.create<Int>()
-    s.onNext(0)
-    s.onNext(1)
-    s.onNext(2)
-    s.subscribe({ v -> println("Late: " + v!!) })
-    s.onNext(3)
-}//=> Late 2, Late 3
+	val s = BehaviorSubject.create<Int>()
+	s.onNext(0)
+	s.onNext(1)
+	s.onNext(2)
+	s.subscribe({ v -> println("Late: " + v!!) })
+	s.onNext(3)
+} //=> Late 2, Late 3
 
 fun be2() {
-    val s = BehaviorSubject.create<Int>()
-    s.onNext(0)
-    s.onNext(1)
-    s.onComplete()
-    s.subscribe(
-            { v -> println("Late: " + v!!) },
-            { err -> System.err.println("error $err") },
-            { println("completed") })
-}//=> completed
+	val s = BehaviorSubject.create<Int>()
+	s.onNext(0)
+	s.onNext(1)
+	s.onComplete()
+	s.subscribe(
+			{ v -> println("Late: " + v!!) },
+			{ err -> System.err.println("error $err") },
+			{ println("completed") })
+} //=> completed
+
+fun be3() {
+	val s = BehaviorSubject.create<Int>()
+	s.subscribe({ v -> println("Late: " + v!!) })
+	s.onNext(0)
+	s.onNext(1)
+	s.onNext(2)
+	s.onNext(3)
+} //=> 0, 1, 2, 3
 
 fun pu() {
-    val subject = PublishSubject.create<Int>()
-    subject.onNext(1)
-    subject.subscribe(Consumer<Int> { println(it) })
-    subject.onNext(2)
-    subject.onNext(3)
-    subject.onNext(4)
+	val subject = PublishSubject.create<Int>()
+	subject.onNext(1)
+	subject.subscribe(Consumer<Int> { println(it) })
+	subject.onNext(2)
+	subject.onNext(3)
+	subject.onNext(4)
 } //=> 2, 3, 4
 
 fun re() {
-    val s = ReplaySubject.create<Int>()
-    s.subscribe { v -> println("Early:" + v!!) }
-    s.onNext(0)
-    s.onNext(1)
-    s.subscribe { v -> println("Late: " + v!!) }
-    s.onNext(2)
+	val s = ReplaySubject.create<Int>()
+	s.subscribe { v -> println("Early:" + v!!) }
+	s.onNext(0)
+	s.onNext(1)
+	s.subscribe { v -> println("Late: " + v!!) }
+	s.onNext(2)
 }
-    /*
-        Early:0
-        Early:1
-        Late: 0
-        Late: 1
-        Early:2
-        Late: 2
-     */
+/*
+	Early:0
+	Early:1
+	Late: 0
+	Late: 1
+	Early:2
+	Late: 2
+ */
 
 fun main(args: Array<String>) {
-    pu()
-    println("= = = = = = = ")
-    be()
-    println("= = = = = = = ")
-    be2()
-    println("= = = = = = = ")
-    re()
+	pu()
+	println("= = = = = = = b1")
+	be()
+	println("= = = = = = = b2")
+	be2()
+	println("= = = = = = = b3 ")
+	be3()
+	println("= = = = = = = re")
+	re()
 }
