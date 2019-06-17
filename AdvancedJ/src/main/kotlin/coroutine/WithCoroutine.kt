@@ -1,7 +1,9 @@
 package coroutine
 
 import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
 
 fun getId2(): Int {
     println("getID2: ${Thread.currentThread().name}")
@@ -21,14 +23,16 @@ fun getInfo2(user: String): String {
     return "getInfo($user)"
 }
 
-suspend fun main() {
+fun main() = runBlocking {
     GlobalScope.launch {
         val id = getId2()
         val user = getUser2(id)
         val info = getInfo2(user)
         println("sze result = $info || ${Thread.currentThread().name}")
     }
-        .join() //加上join()与suspend, 不然JVM下刚运行就结束了
+    println("before delay")
+    delay(5000)  //等待所有工作做完, 再让JVM结果 (keep JVM alive for 5 seconds)
+    println("after delay")
 }
 
 /*
