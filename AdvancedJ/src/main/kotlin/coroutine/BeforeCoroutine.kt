@@ -5,6 +5,7 @@ import java.util.concurrent.CompletableFuture
 fun getId(): CompletableFuture<Int> {
     return CompletableFuture.supplyAsync {
         println("get ID: ${Thread.currentThread().name}") //=> get ID: ForkJoinPool.commonPool-worker-9
+        Thread.sleep(2000)
         20 // no return here
     }
 }
@@ -29,4 +30,5 @@ fun main() {
             err.printStackTrace();
             null
         }
+        .join()
 }
