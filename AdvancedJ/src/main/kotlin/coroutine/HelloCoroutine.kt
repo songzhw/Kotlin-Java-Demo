@@ -8,7 +8,7 @@ import kotlin.concurrent.thread
 fun main() {
     GlobalScope.launch {
         // 在后台启动一个新的协程并继续
-        delay(1000L) // 非阻塞的等待 1 秒钟（默认时间单位是毫秒）
+        delay(1000L) // 非阻塞的等待 1 秒钟（只delay, 不会阻塞协程）
         println("World! (${printTime()})") // 在延迟后打印输出
     }
 

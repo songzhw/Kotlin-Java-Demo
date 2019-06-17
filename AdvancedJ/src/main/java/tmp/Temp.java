@@ -4,6 +4,7 @@ import java.io.RandomAccessFile;
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
 import java.lang.reflect.Proxy;
+import java.util.concurrent.CompletableFuture;
 
 import io.reactivex.Observable;
 import io.reactivex.ObservableEmitter;
@@ -22,6 +23,11 @@ public class Temp {
                 emitter.onNext("second");
                 emitter.onComplete();
             }
+        });
+
+        CompletableFuture.supplyAsync(()-> {
+            System.out.println("get ID");
+            return 20;
         });
     }
 
