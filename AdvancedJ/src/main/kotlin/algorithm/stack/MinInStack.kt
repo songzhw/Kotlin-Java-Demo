@@ -1,3 +1,5 @@
+// 设计一个有min()找出最小值的栈. 要求push, pop, min均为O(1)
+
 package algorithm.stack
 
 import java.util.*
@@ -11,6 +13,11 @@ fun stackSample() {
     println(stack)
 }
 
+fun wrong(){
+    var minValue = -1
+    // push()时更新minValue
+    // 但pop()时又得再找min(), 这就不是O(1)了
+}
 
 fun main() {
 
