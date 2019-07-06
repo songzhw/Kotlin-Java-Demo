@@ -13,12 +13,63 @@ fun stackSample() {
     println(stack)
 }
 
-fun wrong(){
+fun wrong() {
     var minValue = -1
     // push()时更新minValue
     // 但pop()时又得再找min(), 这就不是O(1)了
 }
 
-fun main() {
+class MinInStack : Stack<Int>() {
+    val stackStoringMin = Stack<Int>()
+    var minValue: Int? = null
 
+    // 3, 5, 4
+    override fun push(item: Int): Int {
+        if (minValue != null) {
+            if (item <= minValue!!) {
+                stackStoringMin.push(item)
+            }
+        } else {
+            stackStoringMin.push(item)
+        }
+        return super.push(item)
+    }
+
+    override fun pop(): Int {
+        val value1 = super.pop()
+        if (value1 == stackStoringMin.peek()) {
+            stackStoringMin.pop()
+        }
+        return super.pop()
+    }
+
+    fun min(): Int {
+        // to avoid "java.util.EmptyStackException"
+        if (stackStoringMin.isEmpty()) {
+            return Int.MAX_VALUE
+        }
+        return stackStoringMin.peek();
+    }
+
+    override fun toString(): String {
+        val s1 = super.toString()
+        val s2 = stackStoringMin.toString();
+        return "s1 = $s1, s2 = $s2"
+    }
 }
+
+
+fun main() {
+    val s = MinInStack()
+    s.push(3)
+    s.push(5)
+    s.push(4)
+    s.push(2)
+    println(s)
+    println(s.min())
+
+    s.pop()
+    println(s)
+    println(s.min())
+}
+
