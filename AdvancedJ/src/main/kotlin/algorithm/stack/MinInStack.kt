@@ -21,16 +21,12 @@ fun wrong() {
 
 class MinInStack : Stack<Int>() {
     val stackStoringMin = Stack<Int>()
-    var minValue: Int? = null
+    var minValue: Int = Int.MAX_VALUE
 
-    // 3, 5, 4
     override fun push(item: Int): Int {
-        if (minValue != null) {
-            if (item <= minValue!!) {
-                stackStoringMin.push(item)
-            }
-        } else {
+        if (item <= minValue) {
             stackStoringMin.push(item)
+            minValue = item
         }
         return super.push(item)
     }
@@ -66,10 +62,11 @@ fun main() {
     s.push(4)
     s.push(2)
     println(s)
-    println(s.min())
+    println("min = ${s.min()}")
+    println("============ (after pop() )")
 
     s.pop()
     println(s)
-    println(s.min())
+    println("min = ${s.min()}")
 }
 
