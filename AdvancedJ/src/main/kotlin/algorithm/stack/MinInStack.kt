@@ -1,5 +1,4 @@
 // 设计一个有min()找出最小值的栈. 要求push, pop, min均为O(1)
-
 package algorithm.stack
 
 import java.util.*
@@ -36,7 +35,7 @@ class MinInStack : Stack<Int>() {
         if (value1 == stackStoringMin.peek()) {
             stackStoringMin.pop()
         }
-        return super.pop()
+        return value1
     }
 
     fun min(): Int {
@@ -68,5 +67,21 @@ fun main() {
     s.pop()
     println(s)
     println("min = ${s.min()}")
+
+    println("============ (after pop() )")
+
+    s.pop()
+    println(s)
+    println("min = ${s.min()}")
 }
 
+/*
+s1 = [3, 5, 4, 2], s2 = [3, 2]
+min = 2
+============ (after pop() )
+s1 = [3, 5, 4], s2 = [3]
+min = 3
+============ (after pop() )
+s1 = [3, 5], s2 = [3]
+min = 3
+ */
