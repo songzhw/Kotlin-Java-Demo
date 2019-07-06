@@ -17,8 +17,10 @@ class MyQueueWith2Stacks {
     }
 
     private fun shift() {
-        while (!newest.isEmpty()) {
-            oldest.push(newest.pop())
+        if (oldest.isEmpty()) {
+            while (!newest.isEmpty()) {
+                oldest.push(newest.pop())
+            }
         }
     }
 
@@ -38,6 +40,8 @@ fun main() {
     println(queue) //=> 1, 2, 4
 
     println(queue.remove()) //=> 1
+
+    queue.add(5); // [5], [4, 2]
 
     println(queue.remove()) //=> 2
 }
