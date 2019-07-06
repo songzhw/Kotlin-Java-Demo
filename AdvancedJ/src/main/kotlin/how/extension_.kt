@@ -6,10 +6,6 @@ class One {
     }
 }
 
-fun One.work(){
-    println("002")
-}
-
 fun main() {
     One().work() //=> 001
 }
