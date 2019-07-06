@@ -9,22 +9,18 @@ fun remove(src: String, delete: String): String {
         bits.set(index)
     }
 
-    val chars = charArrayOf()
-    var i = 0;
+    val list = arrayListOf<Char>()
     for (c in src) {
         val index = c.toInt()
         if (!bits.get(index)) { //if is not set
-            chars[i] = c
-            i++
+            list.add(c)
         }
     }
-    return String(chars)
+    return String(list.toCharArray())
 }
 
 fun main() {
-//    println(remove("java coffee", "aof"))
-    val chars = charArrayOf()
-    chars[0] = 'a'
+    println(remove("java coffee", "aof"))
 }
 
 /*
