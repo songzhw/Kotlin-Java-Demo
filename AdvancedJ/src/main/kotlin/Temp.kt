@@ -1,9 +1,10 @@
 fun main() {
-    val str :String= "𝄞clef"
-    for(c in str){
-        println(c)
-    } //=> ? ? c l e f
+    println(32 shl 2) //=> 128
 
-    val ary = charArrayOf()
-    val s = String(ary)
+    println(32 shr 2) //=> 8
+    println(32.ushr(2))//=> 8
+
+    // >>> 无符号右移
+    println(-32 shr 2) //=> -8
+    println((-32).ushr(2))//=> 1073741816
 }

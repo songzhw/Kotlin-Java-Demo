@@ -27,12 +27,26 @@ class B {
     public Consumer<Integer> hello;
 }
 
+
+
 public class Temp {
-    public static void main(String[] args) {
+    public static void unlikeJavascript(){
         A obj1 = new A();
         B obj2 = new B();
         obj2.hello = obj1.hello;
         obj2.hello.accept(20); //=> 20: Hello Apple
+    }
+
+
+    public static void main(String[] args) {
+        System.out.println(32 << 2); //=> 128
+
+        System.out.println(32 >> 2); //=> 8
+        System.out.println(32 >>> 2);//=> 8
+
+        // >>> 无符号右移
+        System.out.println(-32 >> 2); //=> -8
+        System.out.println(-32 >>> 2);//=> 1073741816
     }
 }
 
