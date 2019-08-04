@@ -28,13 +28,18 @@ class B {
 }
 
 
-
 public class Temp {
-    public static void unlikeJavascript(){
+    public static void unlikeJavascript() {
         A obj1 = new A();
         B obj2 = new B();
         obj2.hello = obj1.hello;
         obj2.hello.accept(20); //=> 20: Hello Apple
+    }
+
+    public void is2Power(int n){
+        if ((n & (n - 1)) == 0) {
+            System.out.println("if");
+        }
     }
 
 
@@ -47,6 +52,8 @@ public class Temp {
         // >>> 无符号右移
         System.out.println(-32 >> 2); //=> -8
         System.out.println(-32 >>> 2);//=> 1073741816
+
+
     }
 }
 
