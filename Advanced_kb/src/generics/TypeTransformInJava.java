@@ -18,16 +18,16 @@ class TypeTransformInJava {
         List<Animal> animals = new ArrayList<>();
         List<Cat> cats = new ArrayList<>();
 
-        testAnimals1(beings);
+//        testAnimals1(beings);
         testAnimals1(animals);
-        testAnimals1(cats);
+//        testAnimals1(cats);
 
-        testAnimals2(beings);
+//        testAnimals2(beings);
         testAnimals2(animals);
         testAnimals2(cats);
 
         testAnimals3(beings);
         testAnimals3(animals);
-        testAnimals3(cats);
+//        testAnimals3(cats);
     }
 }
