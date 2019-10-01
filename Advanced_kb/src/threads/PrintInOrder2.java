@@ -64,3 +64,4 @@ public class PrintInOrder2 {
         a.start();
     } // 一般情况下, 因为多线程所以不保证输出一定按start()的线程的顺序, 即上面代码不一定是: "CBA"
 }
+
