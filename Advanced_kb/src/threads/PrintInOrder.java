@@ -20,13 +20,13 @@ package threads;
 
 
 class Foo {
-    public void one() { System.out.println("one"); }
-    public void two() { System.out.println("two"); }
-    public void three() { System.out.println("three"); }
+    void one() { System.out.println("one"); }
+    void two() { System.out.println("two"); }
+    void three() { System.out.println("three"); }
 }
 
 public class PrintInOrder {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
         Foo foo = new Foo();
         Thread a = new Thread(foo::one);
         Thread b = new Thread(foo::two);
@@ -35,5 +35,9 @@ public class PrintInOrder {
         c.start();
         b.start();
         a.start();
+
+        a.join();
+        b.join();
+        c.join();
     } // 一般情况下, 因为多线程所以不保证输出一定按start()的线程的顺序, 即上面代码不一定是: "threetwoone"
 }
