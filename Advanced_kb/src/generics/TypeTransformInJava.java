@@ -12,6 +12,8 @@ class TypeTransformInJava {
     void testAnimals2(List<? extends Animal> list){ }
     void testAnimals3(List<? super Animal> list){ }
 
+    void testAnimalA(Animal animal){}
+
 
     void main(){
         List<Being> beings = new ArrayList<>();
@@ -29,5 +31,9 @@ class TypeTransformInJava {
         testAnimals3(beings);
         testAnimals3(animals);
 //        testAnimals3(cats);
+
+//        testAnimalA(new Being());
+        testAnimalA(new Animal());
+        testAnimalA(new Cat());
     }
 }
