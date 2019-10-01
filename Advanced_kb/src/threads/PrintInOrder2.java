@@ -19,17 +19,16 @@ package threads;
  */
 
 
-import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.Semaphore;
 
 class Foo2 {
-    private Semaphore s12 = new Semaphore(1);
+    // 初设为permit: 1的话, 那线程B可能先于A执行
+    private Semaphore s12 = new Semaphore(0);
     private Semaphore s23 = new Semaphore(0);
 
     void one() {
-        System.out.println("A: " + s12.availablePermits());
-        s12.release();
-        System.out.println("" + s12.availablePermits());
+        System.out.println("A");
+        s12.release(); //原先 s12.availablePermits()为0, 现在release之后为1了!
     }
 
     void two() {
@@ -63,5 +62,5 @@ public class PrintInOrder2 {
         c.start();
         b.start();
         a.start();
-    } // 一般情况下, 因为多线程所以不保证输出一定按start()的线程的顺序, 即上面代码不一定是: "threetwoone"
+    } // 一般情况下, 因为多线程所以不保证输出一定按start()的线程的顺序, 即上面代码不一定是: "CBA"
 }
