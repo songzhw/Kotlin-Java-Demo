@@ -27,6 +27,13 @@ class Foo {
 
 public class PrintInOrder {
     public static void main(String[] args) {
-        System.out.println("hello world");
-    }
+        Foo foo = new Foo();
+        Thread a = new Thread(foo::one);
+        Thread b = new Thread(foo::two);
+        Thread c = new Thread(foo::three);
+
+        c.start();
+        b.start();
+        a.start();
+    } // 一般情况下, 因为多线程所以不保证输出一定按start()的线程的顺序, 即上面代码不一定是: "threetwoone"
 }
