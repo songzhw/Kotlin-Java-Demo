@@ -19,10 +19,35 @@ package threads;
  */
 
 
+import java.util.concurrent.CountDownLatch;
+
 class Foo {
-    void one() { System.out.println("one"); }
-    void two() { System.out.println("two"); }
-    void three() { System.out.println("three"); }
+    private CountDownLatch latch12 = new CountDownLatch(1);
+    private CountDownLatch latch23 = new CountDownLatch(1);
+
+    void one() {
+        System.out.println("one");
+        latch12.countDown();
+    }
+
+    void two() {
+        try {
+            latch12.await();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        System.out.println("two");
+        latch23.countDown();
+    }
+
+    void three() {
+        try {
+            latch23.await();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        System.out.println("three");
+    }
 }
 
 public class PrintInOrder {
@@ -35,9 +60,5 @@ public class PrintInOrder {
         c.start();
         b.start();
         a.start();
-
-        a.join();
-        b.join();
-        c.join();
     } // 一般情况下, 因为多线程所以不保证输出一定按start()的线程的顺序, 即上面代码不一定是: "threetwoone"
 }
