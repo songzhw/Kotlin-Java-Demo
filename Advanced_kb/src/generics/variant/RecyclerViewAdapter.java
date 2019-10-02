@@ -31,7 +31,7 @@ interface IEntityInfo {
 class RecyclerViewAdapter {
     List<IEntityInfo> data;
 
-    public void setData(List<IEntityInfo> raw) {
+    public void setData(List<? extends IEntityInfo> raw) {
         for (IEntityInfo parent : raw) {
             data.add(parent);
             for (IEntityInfo child : parent.getChildren()) {
