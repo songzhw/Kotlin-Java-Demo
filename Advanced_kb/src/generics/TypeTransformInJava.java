@@ -1,5 +1,9 @@
 //package generics;
 //
+//import generics.data.Animal;
+//import generics.data.Being;
+//import generics.data.Cat;
+//
 //import java.util.ArrayList;
 //import java.util.List;
 //
@@ -18,11 +22,11 @@
 //        List<Animal> animals = new ArrayList<>();
 //        List<Cat> cats = new ArrayList<>();
 //
-////        testAnimals1(beings);
+//        testAnimals1(beings);
 //        testAnimals1(animals);
-////        testAnimals1(cats);
+//        testAnimals1(cats);
 //
-////        testAnimals2(beings);
+//        testAnimals2(beings);
 //        testAnimals2(animals);
 //        testAnimals2(cats);
 //
