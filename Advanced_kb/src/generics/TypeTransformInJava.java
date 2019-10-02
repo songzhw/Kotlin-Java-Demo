@@ -35,5 +35,17 @@ class TypeTransformInJava {
 //        testAnimalA(new Being());
         testAnimalA(new Animal());
         testAnimalA(new Cat());
+
+        List<? extends Animal> list = new ArrayList<>();
+//        list.add(new Cat());
+//        list.add(new Animal());
+//        list.add(new Being());
+        Animal anim = list.get(0);
+
+        List<? super Animal> list2 = new ArrayList<>();
+        list2.add(new Cat());
+        list2.add(new Animal());
+        list2.add(new Being());
+        Animal anim2 = list2.get(0);
     }
 }
