@@ -1,6 +1,5 @@
 package generics
 
-import java.util.ArrayList
 
 interface Comparable<in T> {
     operator fun compareTo(other: T): Int
@@ -12,8 +11,5 @@ fun demo(x: Comparable<Number>) {
 }
 
 fun main() {
-    val list = ArrayList<Animal>()
-    list.add(Cat())
-    list.add(Animal())
-    val anim = list[0]
+
 }
