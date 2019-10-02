@@ -3,21 +3,28 @@ package generics.variant;
 import java.util.ArrayList;
 import java.util.List;
 
-class City {
+class City implements IEntityInfo{
+    @Override
+    public List<IEntityInfo> getChildren() {
+        return null;
+    }
 }
 
-class Province {
+class Province implements IEntityInfo {
     List<City> cities;
 
     public Province(List<City> in) {
         this.cities = in;
     }
+
+    @Override
+    public List<? extends IEntityInfo> getChildren() {// change here
+        return this.cities;
+    }
 }
 
 interface IEntityInfo {
-    int type = 0;
-
-    List<IEntityInfo> getChildren();
+    List<? extends IEntityInfo> getChildren(); // change here
 }
 
 
