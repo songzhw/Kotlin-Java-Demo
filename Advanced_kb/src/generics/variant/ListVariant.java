@@ -21,9 +21,20 @@ class ListVariant {
         list.add(cat);
         list.add(dog);
         Animal anim = list.get(0);
-        Cat cat2 = list.get(1);
-
+        Cat cat_ = list.get(1);
         list = new ArrayList<Cat>();
+
+        List<Animal> list2 = new ArrayList<>();
+        list2.add(cabbige);
+        list2.add(cow);
+        list2.add(cat);
+        list2.add(dog);
+        Animal anim2 = list.get(0);
+        Cat cat2 = list2.get(1);
+
+        list2 = new ArrayList<Cat>();
+
+
 
     }
 }
