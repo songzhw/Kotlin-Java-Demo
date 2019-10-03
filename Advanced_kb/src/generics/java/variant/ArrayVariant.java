@@ -1,11 +1,10 @@
-package generics.variant;
+package generics.java.variant;
 
-import generics.data.Animal;
-import generics.data.Cat;
-import generics.data.Dog;
+import generics.java.data.Animal;
+import generics.java.data.Cat;
+import generics.java.data.Dog;
 
-import java.util.ArrayList;
-import java.util.List;
+
 
 class ArrayVariant {
     public static void main(String[] args) {

@@ -1,6 +1,7 @@
-package generics.variant;
+package generics.java.variant;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 class City implements IEntityInfo{
