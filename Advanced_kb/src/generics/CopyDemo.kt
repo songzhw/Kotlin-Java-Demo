@@ -3,7 +3,7 @@ package generics
 import generics.java.data.Animal
 import generics.java.data.Cat
 
-fun <T> copyList(dest: MutableList<T>, src: List<T>) {
+fun <T> copyList(dest: MutableList<in T>, src: List<out T>) {
     src.forEachIndexed { index, element ->
         dest.add(element)
     }
