@@ -1,7 +1,7 @@
 package generics
 
 class IsEqual<T> {
-    fun isEqual(other: T): Boolean {
+    fun isEqual(other: in T): Boolean {
         return false
     }
 }
