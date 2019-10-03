@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 class CopyDemo {
-    public <T> void copy(List<T> dest, List<T> src) {
+    public <T> void copy(List<T> dest, List<? extends T> src) {
         dest.add(src.get(0));
     }
 
