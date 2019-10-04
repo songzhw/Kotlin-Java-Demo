@@ -32,9 +32,11 @@ class H2O {
 
     public void hydrogen() {
         try {
+            for (int i = 0; i < count; i++) {
                 hCell.acquire(2);
                 System.out.print("HH");
                 oCell.release();
+            }
         } catch (InterruptedException e) {
         }
 
@@ -42,9 +44,11 @@ class H2O {
 
     public void oxygen() {
         try {
-            oCell.acquire();
-            System.out.println("O,");
-            hCell.release(2);
+            for (int i = 0; i < count; i++) {
+                oCell.acquire();
+                System.out.println("O,");
+                hCell.release(2);
+            }
         } catch (Exception e) {
         }
     }
