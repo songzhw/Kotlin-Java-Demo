@@ -19,19 +19,34 @@ package threads;
 链接：https://leetcode-cn.com/problems/building-h2o
  */
 
+import java.util.concurrent.Semaphore;
+
 class H2O {
     private int count;
+    private Semaphore hCell = new Semaphore(2);
+    private Semaphore oCell = new Semaphore(0);
 
     H2O(int count) {
         this.count = count;
     }
 
     public void hydrogen() {
+        try {
+                hCell.acquire(2);
+                System.out.print("HH");
+                oCell.release();
+        } catch (InterruptedException e) {
+        }
 
     }
 
     public void oxygen() {
-
+        try {
+            oCell.acquire();
+            System.out.println("O,");
+            hCell.release(2);
+        } catch (Exception e) {
+        }
     }
 }
 
