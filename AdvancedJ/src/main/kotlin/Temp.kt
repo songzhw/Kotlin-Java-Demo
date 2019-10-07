@@ -1,3 +1,5 @@
+import java.util.*
+
 fun is2Power(n: Int) {
     if (n and n - 1 == 0) {
         println("if")
