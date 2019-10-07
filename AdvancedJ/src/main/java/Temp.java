@@ -6,7 +6,7 @@ class Dog extends Animal{}
 class Cat extends Animal{}
 
 class Adapter {
-    public void setData(List<Animal> animals){
+    public void setData(List<? extends Animal> animals){
     }
 }
 
