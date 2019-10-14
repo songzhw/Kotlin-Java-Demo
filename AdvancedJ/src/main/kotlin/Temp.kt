@@ -1,19 +1,23 @@
-import java.util.*
-
-fun is2Power(n: Int) {
-    if (n and n - 1 == 0) {
-        println("if")
-    }
+inline fun foo(arg: Int){
+    println("001")
+    arg + 1
+    println("003")
 }
 
 fun main() {
-    println(32 shl 2) //=> 128
-
-    println(32 shr 2) //=> 8
-    println(32.ushr(2))//=> 8
-
-    // >>> 无符号右移
-    println(-32 shr 2) //=> -8
-    println((-32).ushr(2))//=> 1073741816
-
+    foo(23)
 }
+
+/*
+编译后:
+
+public static final void foo(int arg) {
+   System.out.println("001");
+   int var10000 = arg + 1;
+   System.out.println("003");
+}
+
+public static final void main() {
+   foo(23);
+}
+ */
