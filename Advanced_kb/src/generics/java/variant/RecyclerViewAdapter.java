@@ -1,5 +1,7 @@
 package generics.java.variant;
 
+import generics.java.data.Animal;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -58,5 +60,17 @@ class Demo {
 
         RecyclerViewAdapter adapter = new RecyclerViewAdapter();
         adapter.setData(provinces);
+    }
+}
+
+// ================================
+class AdPet extends Animal{}
+class Adapter2 {
+    List<Animal> data;
+
+    public void setData(List<? extends Animal> raw){
+        raw.add(0, new AdPet());
+        // ....
+        // ....
     }
 }
