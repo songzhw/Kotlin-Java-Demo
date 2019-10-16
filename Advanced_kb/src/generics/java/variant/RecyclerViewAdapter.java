@@ -3,7 +3,6 @@ package generics.java.variant;
 import generics.java.data.Animal;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 class City implements IEntityInfo{
@@ -32,7 +31,7 @@ interface IEntityInfo {
 
 
 class RecyclerViewAdapter {
-    List<IEntityInfo> data;
+    List<IEntityInfo> data = new ArrayList<>();
 
     public void setData(List<? extends IEntityInfo> raw) {
         for (IEntityInfo parent : raw) {
