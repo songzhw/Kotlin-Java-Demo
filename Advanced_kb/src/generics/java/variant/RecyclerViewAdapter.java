@@ -69,8 +69,7 @@ class Adapter2 {
     List<Animal> data;
 
     public void setData(List<? extends Animal> raw){
-        raw.add(0, new AdPet());
-        // ....
-        // ....
+        data.add(0, new AdPet());
+        data.addAll(raw);
     }
 }
