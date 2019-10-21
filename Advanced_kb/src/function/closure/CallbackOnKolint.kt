@@ -1,6 +1,8 @@
 package function.closure
 
-
+fun callA(listener: ICallbackOnJava){
+    listener.callJava("AAA")
+}
 
 fun main() {
     val javaObj = CallbackOnJava()
