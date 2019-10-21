@@ -1,6 +1,6 @@
 package function.closure
 
-internal fun callA(listener: ICallbackOnJava){
+internal fun callA(listener: ICallbackOnJava) {
     listener.callJava("AAA")
 }
 
@@ -10,6 +10,20 @@ fun main() {
         20  // 和下面的object: ICallbackOnJava2对比下, 它是不能有return的, 不然会报错.
     }
 
+    // = = = = = = = = = = = = = = = = = = = =
+
+    // ERROR
+//    callA { name ->
+//        20
+//    }
+
+    callA(object : ICallbackOnJava {
+        override fun callJava(id: String?): Int {
+            return 22
+        }
+    })
+
+    callA(ICallbackOnJava { 23 })
     // = = = = = = = = = = = = = = = = = = = =
 
     // ERROR: because the ICallbackOnJava2 interface has two functions (not one!!!)
