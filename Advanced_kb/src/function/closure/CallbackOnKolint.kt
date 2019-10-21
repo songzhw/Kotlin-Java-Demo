@@ -1,6 +1,6 @@
 package function.closure
 
-fun callA(listener: ICallbackOnJava){
+internal fun callA(listener: ICallbackOnJava){
     listener.callJava("AAA")
 }
 
