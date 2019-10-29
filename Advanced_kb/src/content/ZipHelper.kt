@@ -1,89 +1,244 @@
 package content
 
 import java.io.*
-import java.util.zip.CRC32
-import java.util.zip.CheckedOutputStream
 import java.util.zip.ZipEntry
 import java.util.zip.ZipOutputStream
 
 
 object ZipHelper {
-    val BUFFER = 8192
+    private val BUFFER_SIZE = 2 * 1024
 
-    @Throws(IOException::class)
-    fun compress(srcPath: String, dstPath: String) {
-        val srcFile = File(srcPath)
-        val dstFile = File(dstPath)
-        if (!srcFile.exists()) {
-            throw FileNotFoundException(srcPath + "不存在！")
-        }
 
-        var out: FileOutputStream? = null
-        var zipOut: ZipOutputStream? = null
+    /**
+     * 压缩成ZIP 方法1
+     *
+     * @param srcDir           压缩文件夹路径
+     * @param out              压缩文件输出流
+     * @param KeepDirStructure 是否保留原来的目录结构,true:保留目录结构; (要是false就是所有子目录都flatten了!!!)
+     *
+     *
+     * false:所有文件跑到压缩包根目录下(注意：不保留目录结构可能会出现同名文件,会压缩失败)
+     * @throws RuntimeException 压缩失败会抛出运行时异常
+     */
+
+
+    @Throws(RuntimeException::class)
+    fun toZip(srcDir: String, out: OutputStream, KeepDirStructure: Boolean) {
+
+
+        val start = System.currentTimeMillis()
+
+        var zos: ZipOutputStream? = null
+
         try {
-            out = FileOutputStream(dstFile)
-            val cos = CheckedOutputStream(out, CRC32())
-            zipOut = ZipOutputStream(cos)
-            val baseDir = ""
-            compress(srcFile, zipOut, baseDir)
+
+            zos = ZipOutputStream(out)
+
+            val sourceFile = File(srcDir)
+
+            compress(sourceFile, zos, sourceFile.name, KeepDirStructure)
+
+            val end = System.currentTimeMillis()
+
+            println("压缩完成，耗时：" + (end - start) + " ms")
+
+        } catch (e: Exception) {
+
+            throw RuntimeException("zip error from ZipUtils", e)
+
         } finally {
-            if (null != zipOut) {
-                zipOut.close()
-                out = null
+
+            if (zos != null) {
+
+                try {
+
+                    zos.close()
+
+                } catch (e: IOException) {
+
+                    e.printStackTrace()
+
+                }
+
             }
 
-            out?.close()
         }
+
+
     }
 
-    @Throws(IOException::class)
-    private fun compress(file: File, zipOut: ZipOutputStream, baseDir: String) {
-        if (file.isDirectory) {
-            compressDirectory(file, zipOut, baseDir)
+
+    /**
+     * 压缩成ZIP 方法2
+     *
+     * @param srcFiles 需要压缩的文件列表
+     * @param out      压缩文件输出流
+     * @throws RuntimeException 压缩失败会抛出运行时异常
+     */
+
+    @Throws(RuntimeException::class)
+    fun toZip(srcFiles: List<File>, out: OutputStream) {
+
+        val start = System.currentTimeMillis()
+
+        var zos: ZipOutputStream? = null
+
+        try {
+
+            zos = ZipOutputStream(out)
+
+            for (srcFile in srcFiles) {
+
+                val buf = ByteArray(BUFFER_SIZE)
+
+                zos.putNextEntry(ZipEntry(srcFile.name))
+
+
+                val `in` = FileInputStream(srcFile)
+                var len: Int = `in`.read(buf)
+
+                while (len != -1) {
+
+                    zos.write(buf, 0, len)
+                    len = `in`.read(buf)
+
+                }
+
+                zos.closeEntry()
+
+                `in`.close()
+
+            }
+
+            val end = System.currentTimeMillis()
+
+            println("压缩完成，耗时：" + (end - start) + " ms")
+
+        } catch (e: Exception) {
+
+            throw RuntimeException("zip error from ZipUtils", e)
+
+        } finally {
+
+            if (zos != null) {
+
+                try {
+
+                    zos.close()
+
+                } catch (e: IOException) {
+
+                    e.printStackTrace()
+
+                }
+
+            }
+
+        }
+
+    }
+
+
+    /**
+     * 递归压缩方法
+     *
+     * @param sourceFile       源文件
+     * @param zos              zip输出流
+     * @param name             压缩后的名称
+     * @param KeepDirStructure 是否保留原来的目录结构,true:保留目录结构;
+     *
+     *
+     * false:所有文件跑到压缩包根目录下(注意：不保留目录结构可能会出现同名文件,会压缩失败)
+     * @throws Exception
+     */
+
+    @Throws(Exception::class)
+    private fun compress(
+        sourceFile: File, zos: ZipOutputStream, name: String,
+
+        KeepDirStructure: Boolean
+    ) {
+
+        val buf = ByteArray(BUFFER_SIZE)
+
+        if (sourceFile.isFile) {
+
+            // 向zip输出流中添加一个zip实体，构造器中name为zip实体的文件的名字
+
+            zos.putNextEntry(ZipEntry(name))
+
+            // copy文件到zip输出流中
+
+
+            val `in` = FileInputStream(sourceFile)
+            var len = `in`.read(buf)
+
+            while (len != -1) {
+
+                zos.write(buf, 0, len)
+                len = `in`.read(buf)
+            }
+
+            // Complete the entry
+
+            zos.closeEntry()
+
+            `in`.close()
+
         } else {
-            compressFile(file, zipOut, baseDir)
-        }
-    }
 
-    /** 压缩一个目录  */
-    @Throws(IOException::class)
-    private fun compressDirectory(dir: File, zipOut: ZipOutputStream, baseDir: String) {
-        val files = dir.listFiles()
-        for (i in files!!.indices) {
-            compress(files[i], zipOut, baseDir + dir.name + "/")
-        }
-    }
+            val listFiles = sourceFile.listFiles()
 
-    /** 压缩一个文件  */
-    @Throws(IOException::class)
-    private fun compressFile(file: File, zipOut: ZipOutputStream, baseDir: String) {
-        if (!file.exists()) {
-            return
-        }
+            if (listFiles == null || listFiles.size == 0) {
 
-        var bis: BufferedInputStream? = null
-        try {
-            bis = BufferedInputStream(FileInputStream(file))
-            val entry = ZipEntry(baseDir + file.name)
-            zipOut.putNextEntry(entry)
-            val data = ByteArray(BUFFER)
-            var count: Int = bis.read(data, 0, BUFFER)
+                // 需要保留原来的文件结构时,需要对空文件夹进行处理
 
-            while (count != -1) {
-                zipOut.write(data, 0, count)
-                count = bis.read(data, 0, BUFFER)
+                if (KeepDirStructure) {
+
+                    // 空文件夹的处理
+
+                    zos.putNextEntry(ZipEntry("$name/"))
+
+                    // 没有文件，不需要文件的copy
+
+                    zos.closeEntry()
+
+                }
+
+
+            } else {
+
+                for (file in listFiles) {
+
+                    // 判断是否需要保留原来的文件结构
+
+                    if (KeepDirStructure) {
+
+                        // 注意：file.getName()前面需要带上父文件夹的名字加一斜杠,
+
+                        // 不然最后压缩包中就不能保留原来的文件结构,即：所有文件都跑到压缩包根目录下了
+
+                        compress(file, zos, name + "/" + file.name, KeepDirStructure)
+
+                    } else {
+
+                        compress(file, zos, file.name, KeepDirStructure)
+
+                    }
+
+
+                }
+
             }
 
-        } finally {
-            bis?.close()
         }
+
     }
-
-
 }
+
 
 fun main() {
     val fromFolder = "/Users/zsong/temp/epub_reader/html_unzipped"
-    val toFile = "/Users/zsong/temp/epub_reader/two.zip"
-    ZipHelper.compress(fromFolder, toFile)
+    val toFile = File("/Users/zsong/temp/epub_reader/t4.zip")
+    ZipHelper.toZip(fromFolder, FileOutputStream(toFile), true)
 }
