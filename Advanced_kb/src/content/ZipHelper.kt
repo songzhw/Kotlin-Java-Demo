@@ -1,6 +1,12 @@
 package content
 
 import java.io.*
+import java.nio.file.FileVisitResult
+import java.nio.file.Path
+import java.nio.file.Paths
+import java.nio.file.SimpleFileVisitor
+import java.nio.file.attribute.BasicFileAttributes
+import java.util.ArrayList
 import java.util.zip.ZipEntry
 import java.util.zip.ZipOutputStream
 
@@ -239,6 +245,20 @@ object ZipHelper {
 
 fun main() {
     val fromFolder = "/Users/zsong/temp/epub_reader/html_unzipped"
-    val toFile = File("/Users/zsong/temp/epub_reader/t4.zip")
-    ZipHelper.toZip(fromFolder, FileOutputStream(toFile), true)
+    val files = ArrayList<File>()
+    val finder = object : SimpleFileVisitor<Path>() {
+        @Throws(IOException::class)
+        override fun visitFile(file: Path, attrs: BasicFileAttributes): FileVisitResult {
+            files.add(file.toFile())
+            return super.visitFile(file, attrs)
+        }
+    }
+
+    val path = Paths.get(fromFolder)
+    java.nio.file.Files.walkFileTree(path, finder)
+
+
+    val toFile = FileOutputStream(File("/Users/zsong/temp/epub_reader/t6.zip"))
+
+    ZipHelper.toZip(files, toFile)
 }
