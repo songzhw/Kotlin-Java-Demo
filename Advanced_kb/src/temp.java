@@ -1,108 +1,76 @@
 import java.io.*;
+import java.util.zip.CRC32;
+import java.util.zip.CheckedOutputStream;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
 
 class temp {
-    public static boolean createZipFile(String sourceFilePath, String targetPath, String zipFileName) {
+    static final int BUFFER = 8192;
 
-        boolean flag = false;
-        FileOutputStream fos = null;
-        ZipOutputStream zos = null;
-
-        // 要压缩的文件资源
-        File sourceFile = new File(sourceFilePath);
-        // zip文件存放路径
-        String zipPath = "";
-
-        if (null != targetPath && !"".equals(targetPath)) {
-            zipPath = targetPath + File.separator + zipFileName;
-        } else {
-            zipPath = new File(sourceFilePath).getParent() + File.separator + zipFileName;
+    public static void compress(String srcPath , String dstPath) throws IOException{
+        File srcFile = new File(srcPath);
+        File dstFile = new File(dstPath);
+        if (!srcFile.exists()) {
+            throw new FileNotFoundException(srcPath + "不存在！");
         }
 
-        if (sourceFile.exists() == false) {
-            System.out.println("待压缩的文件目录：" + sourceFilePath + "不存在.");
-            return flag;
-        }
-
+        FileOutputStream out = null;
+        ZipOutputStream zipOut = null;
         try {
-            File zipFile = new File(zipPath);
-            if (zipFile.exists()) {
-                System.out.println(zipPath + "目录下存在名字为:" + zipFileName + ".zip" + "打包文件.");
-            } else {
-                File[] sourceFiles = sourceFile.listFiles();
-                if (null == sourceFiles || sourceFiles.length < 1) {
-                    System.out.println("待压缩的文件目录：" + sourceFilePath + "里面不存在文件，无需压缩.");
-                } else {
-                    fos = new FileOutputStream(zipPath);
-                    zos = new ZipOutputStream(new BufferedOutputStream(fos));
-                    // 生成压缩文件
-                    writeZip(sourceFile, "", zos);
-                    flag = true;
-                }
+            out = new FileOutputStream(dstFile);
+            CheckedOutputStream cos = new CheckedOutputStream(out,new CRC32());
+            zipOut = new ZipOutputStream(cos);
+            String baseDir = "";
+            compress(srcFile, zipOut, baseDir);
+        }
+        finally {
+            if(null != zipOut){
+                zipOut.close();
+                out = null;
             }
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } finally {
-            //关闭流
-            try {
-                if (null != zos) {
-                    zos.close();
-                }
-                if (null != fos) {
-                    fos.close();
-                }
-            } catch (IOException e) {
-                e.printStackTrace();
+
+            if(null != out){
+                out.close();
             }
         }
-        return flag;
     }
 
-    private static void writeZip(File file, String parentPath, ZipOutputStream zos) {
-        if (file.exists()) {
-            // 处理文件夹
-            if (file.isDirectory()) {
-                parentPath += file.getName() + File.separator;
-                File[] files = file.listFiles();
-                if (files.length != 0) {
-                    for (File f : files) {
-                        // 递归调用
-                        writeZip(f, parentPath, zos);
-                    }
-                } else {
-                    // 空目录则创建当前目录的ZipEntry
-                    try {
-                        zos.putNextEntry(new ZipEntry(parentPath));
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                }
-            } else {
-                FileInputStream fis = null;
-                try {
-                    fis = new FileInputStream(file);
-                    ZipEntry ze = new ZipEntry(parentPath + file.getName());
-                    zos.putNextEntry(ze);
-                    byte[] content = new byte[1024];
-                    int len;
-                    while ((len = fis.read(content)) != -1) {
-                        zos.write(content, 0, len);
-                        zos.flush();
-                    }
-                } catch (FileNotFoundException e) {
-                    System.out.println("创建ZIP文件失败" + e);
-                } catch (IOException e) {
-                    System.out.println("创建ZIP文件失败" + e);
-                } finally {
-                    try {
-                        if (fis != null) {
-                            fis.close();
-                        }
-                    } catch (IOException e) {
-                        System.out.println("创建ZIP文件失败" + e);
-                    }
-                }
+    private static void compress(File file, ZipOutputStream zipOut, String baseDir) throws IOException{
+        if (file.isDirectory()) {
+            compressDirectory(file, zipOut, baseDir);
+        } else {
+            compressFile(file, zipOut, baseDir);
+        }
+    }
+
+    /** 压缩一个目录 */
+    private static void compressDirectory(File dir, ZipOutputStream zipOut, String baseDir) throws IOException{
+        File[] files = dir.listFiles();
+        for (int i = 0; i < files.length; i++) {
+            compress(files[i], zipOut, baseDir + dir.getName() + "/");
+        }
+    }
+
+    /** 压缩一个文件 */
+    private static void compressFile(File file, ZipOutputStream zipOut, String baseDir)  throws IOException{
+        if (!file.exists()){
+            return;
+        }
+
+        BufferedInputStream bis = null;
+        try {
+            bis = new BufferedInputStream(new FileInputStream(file));
+            ZipEntry entry = new ZipEntry(baseDir + file.getName());
+            zipOut.putNextEntry(entry);
+            int count;
+            byte data[] = new byte[BUFFER];
+            while ((count = bis.read(data, 0, BUFFER)) != -1) {
+                zipOut.write(data, 0, count);
+            }
+
+        }finally {
+            if(null != bis){
+                bis.close();
             }
         }
     }

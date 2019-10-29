@@ -1,111 +1,81 @@
 package content
 
 import java.io.*
+import java.util.zip.CRC32
+import java.util.zip.CheckedOutputStream
 import java.util.zip.ZipEntry
 import java.util.zip.ZipOutputStream
 
 
 object ZipHelper {
-    fun createZipFile(sourceFilePath: String, targetPath: String?, zipFileName: String): Boolean {
+    val BUFFER = 8192
 
-        var flag = false
-        var fos: FileOutputStream? = null
-        var zos: ZipOutputStream? = null
-
-        // 要压缩的文件资源
-        val sourceFile = File(sourceFilePath)
-        // zip文件存放路径
-        var zipPath = ""
-
-        if (null != targetPath && "" != targetPath) {
-            zipPath = targetPath + File.separator + zipFileName
-        } else {
-            zipPath = File(sourceFilePath).parent + File.separator + zipFileName
+    @Throws(IOException::class)
+    fun compress(srcPath: String, dstPath: String) {
+        val srcFile = File(srcPath)
+        val dstFile = File(dstPath)
+        if (!srcFile.exists()) {
+            throw FileNotFoundException(srcPath + "不存在！")
         }
 
-        if (sourceFile.exists() == false) {
-            println("待压缩的文件目录：" + sourceFilePath + "不存在.")
-            return flag
-        }
-
+        var out: FileOutputStream? = null
+        var zipOut: ZipOutputStream? = null
         try {
-            val zipFile = File(zipPath)
-            if (zipFile.exists()) {
-                println(zipPath + "目录下存在名字为:" + zipFileName + ".zip" + "打包文件.")
-            } else {
-                val sourceFiles = sourceFile.listFiles()
-                if (null == sourceFiles || sourceFiles.size < 1) {
-                    println("待压缩的文件目录：" + sourceFilePath + "里面不存在文件，无需压缩.")
-                } else {
-                    fos = FileOutputStream(zipPath)
-                    zos = ZipOutputStream(BufferedOutputStream(fos))
-                    // 生成压缩文件
-                    writeZip(sourceFile, "", zos)
-                    flag = true
-                }
-            }
-        } catch (e: FileNotFoundException) {
-            e.printStackTrace()
+            out = FileOutputStream(dstFile)
+            val cos = CheckedOutputStream(out, CRC32())
+            zipOut = ZipOutputStream(cos)
+            val baseDir = ""
+            compress(srcFile, zipOut, baseDir)
         } finally {
-            //关闭流
-            try {
-                zos?.close()
-                fos?.close()
-            } catch (e: IOException) {
-                e.printStackTrace()
+            if (null != zipOut) {
+                zipOut.close()
+                out = null
             }
 
+            out?.close()
         }
-        return flag
     }
 
-    private fun writeZip(file: File, parentPath: String, zos: ZipOutputStream) {
-        var parentPath = parentPath
-        if (file.exists()) {
-            // 处理文件夹
-            if (file.isDirectory) {
-                parentPath += file.name + File.separator
-                val files = file.listFiles()
-                if (files!!.size != 0) {
-                    for (f in files) {
-                        // 递归调用
-                        writeZip(f, parentPath, zos)
-                    }
-                } else {
-                    // 空目录则创建当前目录的ZipEntry
-                    try {
-                        zos.putNextEntry(ZipEntry(parentPath))
-                    } catch (e: IOException) {
-                        e.printStackTrace()
-                    }
+    @Throws(IOException::class)
+    private fun compress(file: File, zipOut: ZipOutputStream, baseDir: String) {
+        if (file.isDirectory) {
+            compressDirectory(file, zipOut, baseDir)
+        } else {
+            compressFile(file, zipOut, baseDir)
+        }
+    }
 
-                }
-            } else {
-                var fis: FileInputStream? = null
-                try {
-                    fis = FileInputStream(file)
-                    val ze = ZipEntry(parentPath + file.name)
-                    zos.putNextEntry(ze)
-                    val content = ByteArray(1024)
-                    var len: Int = fis.read(content)
-                    while (len != -1) {
-                        zos.write(content, 0, len)
-                        zos.flush()
-                        len = fis.read(content)
-                    }
-                } catch (e: FileNotFoundException) {
-                    println("创建ZIP文件失败$e")
-                } catch (e: IOException) {
-                    println("创建ZIP文件失败$e")
-                } finally {
-                    try {
-                        fis?.close()
-                    } catch (e: IOException) {
-                        println("创建ZIP文件失败$e")
-                    }
+    /** 压缩一个目录  */
+    @Throws(IOException::class)
+    private fun compressDirectory(dir: File, zipOut: ZipOutputStream, baseDir: String) {
+        val files = dir.listFiles()
+        for (i in files!!.indices) {
+            compress(files[i], zipOut, baseDir + dir.name + "/")
+        }
+    }
 
-                }
+    /** 压缩一个文件  */
+    @Throws(IOException::class)
+    private fun compressFile(file: File, zipOut: ZipOutputStream, baseDir: String) {
+        if (!file.exists()) {
+            return
+        }
+
+        var bis: BufferedInputStream? = null
+        try {
+            bis = BufferedInputStream(FileInputStream(file))
+            val entry = ZipEntry(baseDir + file.name)
+            zipOut.putNextEntry(entry)
+            val data = ByteArray(BUFFER)
+            var count: Int = bis.read(data, 0, BUFFER)
+
+            while (count != -1) {
+                zipOut.write(data, 0, count)
+                count = bis.read(data, 0, BUFFER)
             }
+
+        } finally {
+            bis?.close()
         }
     }
 
@@ -114,6 +84,6 @@ object ZipHelper {
 
 fun main() {
     val fromFolder = "/Users/zsong/temp/epub_reader/html_unzipped"
-    val toFile = "/Users/zsong/temp/epub_reader"
-    ZipHelper.createZipFile(fromFolder, toFile, "mine.epub")
+    val toFile = "/Users/zsong/temp/epub_reader/two.zip"
+    ZipHelper.compress(fromFolder, toFile)
 }
