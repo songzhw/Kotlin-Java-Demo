@@ -15,7 +15,7 @@ class temp {
 
 //        pack8(fromFolder, toFile);  // it works, but only >= android api 26 (android 8)
 
-        ZipUtil.pack(new File(from), new File(to)); // works
+//        ZipUtil.pack(new File(from), new File(to)); // works
     }
 
     public static void pack8(String sourceDirPath, String zipFilePath) throws IOException {
