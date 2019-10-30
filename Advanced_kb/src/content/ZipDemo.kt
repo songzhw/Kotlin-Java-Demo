@@ -7,30 +7,21 @@ import java.util.zip.ZipOutputStream
 fun main() {
     val from = "/Users/zsong/temp/epub_reader/html_unzipped"
     val to = "/Users/zsong/temp/epub_reader/t25.zip"
-
     addFolderToZip(from, to)
 }
 
-fun addFolderToZip(
-    folder: String,
-    destination: String
-) {
-
+fun addFolderToZip(folder: String, destination: String) {
     val folderToZip = File(folder)
     var out: ZipOutputStream? = null
     try {
         out = ZipOutputStream(BufferedOutputStream(FileOutputStream(destination)))
         recursivelyAddZipEntries(folderToZip, folderToZip.absolutePath, out)
-        println("szw done1")
     } catch (e: Exception) {
         println("ZIP Err " + e.message)
     } finally {
-        println("szw done2")
         out?.close()
     }
-
 }
-
 
 private fun recursivelyAddZipEntries(
     folder: File,
