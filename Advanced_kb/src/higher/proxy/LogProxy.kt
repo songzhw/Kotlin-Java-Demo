@@ -2,6 +2,7 @@ package higher.proxy
 
 import java.lang.reflect.InvocationHandler
 import java.lang.reflect.Method
+import java.lang.reflect.Proxy
 import java.util.*
 
 interface IUserService {
@@ -43,5 +44,12 @@ class LogProxy(internal var target: Any) : InvocationHandler {
 }
 
 fun main() {
+    val worker = UserServiceImpl()
+    val classLoader = worker.javaClass.classLoader
+    val interfaces = worker.javaClass.interfaces
+    val shadow = LogProxy(worker)
+    val proxy = Proxy.newProxyInstance(classLoader, interfaces, shadow) as IUserService
 
+    proxy.select()
+    proxy.update()
 }
