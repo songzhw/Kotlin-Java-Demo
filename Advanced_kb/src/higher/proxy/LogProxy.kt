@@ -22,15 +22,16 @@ class UserServiceImpl : IUserService {
 
 
 class LogProxy(val target: Any) : InvocationHandler {
-
     @Throws(Throwable::class)
-    override fun invoke(proxy: Any, method: Method, args: Array<Any>?): Any {
+    override fun invoke(proxy: Any, method: Method, args: Array<Any>?): Any? {
         before()
         var result: Any = ""
+        println("szw target = $target, method = $method, args = $args")
         if (args == null) {
             result = method.invoke(target)
+            println("szw result1 = $result")
         } else {
-            method.invoke(target, *args)  // 调用 target 的 method 方法
+            result = method.invoke(target, *args)  // 调用 target 的 method 方法
         }
         after()
         return result  // 返回方法的执行结果
