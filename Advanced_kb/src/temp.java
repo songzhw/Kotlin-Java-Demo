@@ -9,31 +9,24 @@ import java.util.concurrent.ForkJoinPool;
 import java.util.zip.*;
 
 class temp {
-    public static void main(String[] args) throws IOException {
-        String from = "/Users/zsong/temp/epub_reader/html_unzipped";
-        String to = "/Users/zsong/temp/epub_reader/t21.zip";
+    public static void main(String[] args) {
+        temp obj = new temp();
+        try {
+            obj.foo(33);
+            System.out.println("end of try");
+        } catch (Exception e) {
+            System.out.println("error: " + e);
+        }
+        System.out.println("end of main()");
 
-//        pack8(fromFolder, toFile);  // it works, but only >= android api 26 (android 8)
-
-//        ZipUtil.pack(new File(from), new File(to)); // works
     }
 
-    public static void pack8(String sourceDirPath, String zipFilePath) throws IOException {
-        Path p = Files.createFile(Paths.get(zipFilePath));
-        try (ZipOutputStream zs = new ZipOutputStream(Files.newOutputStream(p))) {
-            Path pp = Paths.get(sourceDirPath);
-            Files.walk(pp)
-                    .filter(path -> !Files.isDirectory(path))
-                    .forEach(path -> {
-                        ZipEntry zipEntry = new ZipEntry(pp.relativize(path).toString());
-                        try {
-                            zs.putNextEntry(zipEntry);
-                            Files.copy(path, zs);
-                            zs.closeEntry();
-                        } catch (IOException e) {
-                            System.err.println(e);
-                        }
-                    });
+    public void foo(int num) throws Exception {
+        if (num % 2 != 0) {
+            throw new Exception("we are expecting a even number");
+        } else {
+            System.out.println("we got: " + num);
         }
     }
+
 }
