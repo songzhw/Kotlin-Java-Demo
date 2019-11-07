@@ -1,8 +1,9 @@
 fun main() {
     val header = mapOf<String, String>()
-    header.put("if-none-match", "1")
-    foo(header)
-    println(header)
+    val mine = header.toMutableMap()
+    mine.put("if-none-match", "1")
+    foo(mine)
+    println(mine)
 }
 
 fun foo(header: MutableMap<String, String>?) {
