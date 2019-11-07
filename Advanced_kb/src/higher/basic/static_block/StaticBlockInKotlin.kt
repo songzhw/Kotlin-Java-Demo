@@ -1,4 +1,4 @@
-package higher.basic
+package higher.basic.static_block
 
 
 /*
