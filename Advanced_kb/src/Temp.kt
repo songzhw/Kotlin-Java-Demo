@@ -1,11 +1,12 @@
 fun main() {
-    val header = mapOf<String, String>()
-    val mine = header.toMutableMap()
-    mine.put("if-none-match", "1")
-    foo(mine)
-    println(mine)
-}
+    val root = "/storage/emulated/0/android/data/com.some.android/files/8316fc740455e9eeed3dc644cfead4ab/epubs/"
+    val path =
+        "/storage/emulated/0/android/data/com.some.android/files/8316fc740455e9eeed3dc644cfead4ab/epubs/15989428-0244-4808-bc54-22f51961efbb-3/oebps/brow_9780385537865_epub_c81_r1.htm"
+    var result = path.removePrefix(root)
+    println(result)
+    val start = result.indexOf("/")
+    result = result.substring(start + 1)
+    println(result) // note that it has to be equal exactly, "A" and "a" are not equal here
 
-fun foo(header: MutableMap<String, String>?) {
-    header?.put("if-none-match", "2")
+
 }
