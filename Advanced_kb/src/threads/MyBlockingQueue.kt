@@ -1,5 +1,7 @@
 package threads
 
+import java.util.*
+import java.util.concurrent.locks.ReentrantLock
 import kotlin.concurrent.thread
 
 /**
@@ -14,8 +16,33 @@ import kotlin.concurrent.thread
  */
 
 class MyBlockingQueue(val capacity: Int) {
-    fun enqueue(item: Int) {}
+    var queue = LinkedList<Int>()
+    val lock = ReentrantLock()
+    val emptyCondition = lock.newCondition()
+    val fullCondition = lock.newCondition()
+    var size = 0
+
+    fun size(): Int {
+        return size
+    }
+
+    fun enqueue(item: Int) {
+        lock.lock()
+        try {
+            while (size >= capacity) {
+                fullCondition.await()
+            }
+            queue.offerFirst(item)
+            size += 1
+            emptyCondition.signalAll()
+        } finally {
+            lock.unlock()
+        }
+    }
+
+
     fun dequeue(): Int {
+
         return 0
     }
 
@@ -25,8 +52,9 @@ fun main() {
     val queue = MyBlockingQueue(3)
     for (i in 0..5) {
         thread {
-            println("szw thread = ${Thread.currentThread().name}")
+            println("szw before = ${Thread.currentThread().name}")
             queue.enqueue(i)
+            println("szw after  = ${Thread.currentThread().name}")
         }
     }
 }
