@@ -42,8 +42,19 @@ class MyBlockingQueue(val capacity: Int) {
 
 
     fun dequeue(): Int {
-
-        return 0
+        lock.lock()
+        var ret = Int.MIN_VALUE
+        try {
+            while (size <= 0) {
+                emptyCondition.await()
+            }
+            ret = queue.pollLast()
+            size -= 1
+            fullCondition.signalAll()
+        } finally {
+            lock.unlock()
+        }
+        return ret
     }
 
 }
