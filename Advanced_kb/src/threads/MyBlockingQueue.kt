@@ -59,13 +59,3 @@ class MyBlockingQueue(val capacity: Int) {
 
 }
 
-fun main() {
-    val queue = MyBlockingQueue(3)
-    for (i in 0..5) {
-        thread {
-            println("szw before = ${Thread.currentThread().name}")
-            queue.enqueue(i)
-            println("szw after  = ${Thread.currentThread().name}")
-        }
-    }
-}
