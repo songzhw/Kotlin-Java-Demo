@@ -1,5 +1,6 @@
 package coroutine
 
+import kotlinx.coroutines.runBlocking
 import org.junit.Test
 
 import org.junit.Assert.*
@@ -7,9 +8,10 @@ import org.junit.Assert.*
 class CoroutineUnderTestTest {
 
     @Test
-    suspend fun getInfo_pass1_getRequest1() {
+    fun getInfo_pass1_getRequest1() = runBlocking {
         val target = CoroutineUnderTest()
-        val value = target.getInfo(1)
-        println(value)
+        val value  = target.getInfo(1)
+        assertEquals("1", value)
     }
+
 }
