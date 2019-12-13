@@ -8,9 +8,9 @@ import org.junit.Assert.*
 class CoroutineUnderTestTest {
 
     @Test
-    fun getInfo_pass1_getRequest1() = runBlocking {
+    fun getInfo_pass1_getRequest1() {
         val target = CoroutineUnderTest()
-        val value  = target.getInfo(1)
+        val value = runBlocking { target.getInfo(1) }
         assertEquals("1", value)
     }
 
