@@ -1,40 +1,54 @@
 import java.util.*
 
-fun log(prefix: String, vararg args: Any) {
-    val sb = StringBuilder(prefix)
-    sb.append(": ")
-    for (param in args) {
-        sb.append(param)
-        sb.append(", ")
-    }
-    sb.removeSuffix(",")
-    println(sb.toString())
+//fun main() {
+//    val split = "OEBPS/Brow_chapter2.html:my.2.1".split(":")
+//    val chapterPath = split.get(0)
+//    val tagId = split.get(1)
+//    println(chapterPath)
+//    println(tagId)
+//
+//    val another = "".split(":")
+//    println(another)
+//}
 
+
+internal class User {
+    var name = "songzhw"
 }
 
-fun getParameterNameJava8(clazz: Class<*>, methodName: String): List<String> {
-    val paramterList: MutableList<String> = ArrayList()
-    val methods = clazz.declaredMethods
-    for (method in methods) {
-        if (methodName == method.name) {
-            val params = method.parameters
-            for (parameter in params) {
-                paramterList.add(parameter.name)
-            }
-        }
-    }
-    return paramterList
+internal interface IRvType<T> {
+    fun render(datum: T)
 }
 
-class Test {
-    fun test(id: Int, name: String) {}
+internal class Adapter(
+    var data: List<*>,
+    var props: Map<Class<*>, IRvType<*>>
+) {
+    fun onRender(clazz: Class<*>?, position: Int) {
+        val type = props[clazz]
+        val value = data[position]!!
+        type!!.render(value)
+    }
+
 }
 
 fun main() {
-    log("szw", "one", "two")
-
-    val args = getParameterNameJava8(Test::class.java, "test")
-    for (arg in args) {
-        println(arg)
-    } //=> arg0, arg1
+    val one: IRvType<String> = object : IRvType<String?> {
+        override fun render(datum: String) {
+            println("render string: $datum")
+        }
+    }
+    val two: IRvType<User> = object : IRvType<User?> {
+        override fun render(datum: User) {
+            println("render user: " + datum.name)
+        }
+    }
+    val map: MutableMap<Class<*>, IRvType<*>> = HashMap()
+    map[String::class.java] = one
+    map[User::class.java] = two
+    val data: MutableList<*> = ArrayList<Any?>()
+    data.add("200")
+    data.add(User())
+    val adapter = Adapter(data, map)
+}
 }
