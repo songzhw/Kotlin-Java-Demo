@@ -1,37 +1,54 @@
-import net.lingala.zip4j.ZipFile;
-import net.lingala.zip4j.util.Zip4jUtil;
-import org.zeroturnaround.zip.ZipUtil;
-
-import javax.swing.*;
-import java.io.*;
-import java.lang.reflect.Method;
-import java.lang.reflect.Parameter;
-import java.nio.file.*;
-import java.nio.file.attribute.BasicFileAttributes;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
-import java.util.concurrent.ForkJoinPool;
-import java.util.zip.*;
+import java.util.Map;
 
-class Temp {
-    public static void main(String[] args) {
+class User {
+    public String name = "songzhw";
+}
 
+interface IRvType<T> {
+    void render(T datum);
+}
+
+class Adapter {
+    public List data;
+    public Map<Class, IRvType> props;
+
+    public Adapter(List list, Map<Class, IRvType> in) {
+        this.data = list;
+        this.props = in;
     }
 
-    public List<String> getParameterNameJava8(Class clazz, String methodName) {
-        List<String> paramterList = new ArrayList<>();
-        Method[] methods = clazz.getDeclaredMethods();
-        for (Method method : methods) {
-            if (methodName.equals(method.getName())) {
-                Parameter[] params = method.getParameters();
-                for (Parameter parameter : params) {
-                    paramterList.add(parameter.getName());
-                }
-
-            }
-        }
-
-        return paramterList;
+    public void onRender(Class clazz, int position) {
+        IRvType type = props.get(clazz);
+        Object value = data.get(position);
+        type.render(value);
     }
 }
 
+public class Temp {
+    public static void main(String[] args) {
+        IRvType<String> one = new IRvType<String>() {
+            @Override
+            public void render(String datum) {
+                System.out.println("render string: " + datum);
+            }
+        };
+        IRvType<User> two = new IRvType<User>() {
+            @Override
+            public void render(User datum) {
+                System.out.println("render user: " + datum.name);
+            }
+        };
+        Map<Class, IRvType> map = new HashMap<>();
+        map.put(String.class, one);
+        map.put(User.class, two);
+
+        List data = new ArrayList();
+        data.add("200");
+        data.add(new User());
+
+        Adapter adapter = new Adapter(data, map);
+    }
+}
