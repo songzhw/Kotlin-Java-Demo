@@ -1,7 +1,4 @@
-package ca.six.kjdemo.mutual.kt
-
-import ca.six.kjdemo.mutual.jva.IViewOneClickListener
-import ca.six.kjdemo.mutual.jva.ViewOne
+package ca.six.kjdemo.sam
 
 interface IViewTwoOnClickListener {
     fun onClick(vie: ViewTwo)
@@ -20,12 +17,12 @@ fun main() {
     val target = ViewTwo()
 
     // 注意, 这里不能使用 target.setOnClickListener { view -> println(view) }
-    target.setOnClickListener(object : IViewTwoOnClickListener{
+    target.setOnClickListener(object : IViewTwoOnClickListener {
         override fun onClick(vie: ViewTwo) {        }
     })
 
     // 注意, 这里同样不能使用 target.another { view -> println(view) }
-    target.another(object: IViewOneClickListener{
+    target.another(object: IViewOneClickListener {
         override fun click(view: ViewOne?) {        }
     })
 }
