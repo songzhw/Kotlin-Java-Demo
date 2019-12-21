@@ -1,3 +1,4 @@
+@file:JvmName("MyData")
 package ca.six.kjdemo.mutual.kt
 
 const val first = 1
