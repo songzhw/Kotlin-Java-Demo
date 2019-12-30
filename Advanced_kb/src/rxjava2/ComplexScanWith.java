@@ -8,10 +8,6 @@ class Changex {
     public Changex(int id) {
         this.id = id;
     }
-
-    public Eventx two(Changex c) {
-        return new Eventx(c);
-    }
 }
 
 class Eventx {
@@ -19,6 +15,10 @@ class Eventx {
 
     public Eventx(Changex c) {
         this.changex = c;
+    }
+
+    public Eventx two(Changex c) {
+        return new Eventx(c);
     }
 }
 
