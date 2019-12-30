@@ -1,6 +1,10 @@
 package rxjava2
 
 import io.reactivex.Observable
+import java.util.*
+import java.util.concurrent.Callable
+import java.util.stream.Collectors
+
 
 // scan和reduce都是把上一次操作的结果做为参数传递给第二次Observable使用
 // 区别就在subscribe()是否被频繁调用. 见下面日志即知
@@ -19,6 +23,10 @@ fun main() {
             a + b
         }
         .subscribe { v -> println("==> ${v}") }
+
+
+
+
 }
 
 /*
