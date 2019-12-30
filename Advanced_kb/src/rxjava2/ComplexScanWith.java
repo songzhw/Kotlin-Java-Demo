@@ -8,6 +8,10 @@ class Changex {
     public Changex(int id) {
         this.id = id;
     }
+
+    public Eventx two(Changex c) {
+        return new Eventx(c);
+    }
 }
 
 class Eventx {
@@ -25,7 +29,7 @@ class ComplexScanWith {
 
     public void work() {
         Observable.just(new Changex(10))
-                .scanWith(this::one, this::two)
+                .scanWith(this::one, Eventx::two)
                 .subscribe();
     }
 
@@ -34,7 +38,4 @@ class ComplexScanWith {
         return new Eventx(c);
     }
 
-    public Eventx two(Eventx e, Changex c) {
-        return new Eventx(c);
-    }
 }
