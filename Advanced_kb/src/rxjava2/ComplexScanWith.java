@@ -34,7 +34,7 @@ class ComplexScanWith {
         return new Eventx(c);
     }
 
-    public Eventx two(Changex c) {
+    public Eventx two(Eventx e, Changex c) {
         return new Eventx(c);
     }
 }
