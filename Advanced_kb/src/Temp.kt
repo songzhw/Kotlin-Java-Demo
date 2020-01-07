@@ -1,7 +1,5 @@
-class One{}
-
 class Th {
-    val lock = One()
+    val lock = Object()
     @Throws(InterruptedException::class)
     fun watch() {
         println("I wait()")
