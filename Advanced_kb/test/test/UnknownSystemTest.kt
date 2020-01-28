@@ -16,8 +16,14 @@ class UnknownSystemTest {
 
     @Before
     fun setup() {
+        println("szw @Before")
         val worker = UnknownWorker()
         target = UnknownSystem(worker)
+    }
+
+    @After
+    fun teardown() {
+        println("szw @after")
     }
 
     @Test
