@@ -1,12 +1,17 @@
 package test
 
+import ExecutionTimeRule
 import org.junit.After
 import org.junit.Before
 import org.junit.Test
 
 import org.junit.Assert.*
+import org.junit.Rule
 
 class UnknownSystemTest {
+    @Rule
+    var rule = ExecutionTimeRule()
+
     lateinit var target: UnknownSystem
 
     @Before
