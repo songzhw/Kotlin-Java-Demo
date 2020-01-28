@@ -9,7 +9,7 @@ import org.junit.Assert.*
 import org.junit.Rule
 
 class UnknownSystemTest {
-    @Rule
+    @Rule @JvmField
     var rule = ExecutionTimeRule()
 
     lateinit var target: UnknownSystem
