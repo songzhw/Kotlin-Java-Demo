@@ -1,12 +1,13 @@
-class Th {
-    val lock = Object()
-    @Throws(InterruptedException::class)
-    fun watch() {
-        println("I wait()")
-        synchronized(lock) { lock.wait() }
-    }
+fun main() {
+    val key = "rx.error"
+    callJs(key, "en_US")
+    callJs(key, """
+        "en_US"
+""".trimIndent())
+}
 
-    fun onWatchOver() { // release the lock
-        synchronized(lock) { lock.notify() }
-    }
+fun callJs(key: String, value: String){
+    val payload = if (value.isEmpty()) """{"action": "$key"}""" else """{"action":"$key","params":$value}"""
+    val jsFunc = "window.processInjectedData('$payload')"
+    println(jsFunc)
 }
