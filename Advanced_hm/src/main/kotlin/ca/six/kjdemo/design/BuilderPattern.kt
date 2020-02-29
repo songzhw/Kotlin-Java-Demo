@@ -7,14 +7,23 @@ class Biometric {
     var description = ""
     var confirmationRequired = true
 
+    // 所以外部只能使用Builder模式来构建此类
+    private constructor() {}
+
     fun authenticate() {
         println(this)
+    }
+
+    companion object {
+        fun build(init: Biometric.() -> Biometric): Biometric {
+            return (with(Biometric(), init))
+        }
     }
 }
 
 // 关键在于: inline fun <T, R> with(receiver: T, block: T.() -> R): R {
 fun main() {
-    val biometric = with(Biometric()) {
+    val biometric = Biometric.build {
         title = "hello"
         subtitle = "hello world"
         description = "programming 101"
