@@ -8,10 +8,11 @@ class Biometric {
     var confirmationRequired = true
 
     fun authenticate() {
-
+        println(this)
     }
 }
 
+// 关键在于: inline fun <T, R> with(receiver: T, block: T.() -> R): R {
 fun main() {
     val biometric = with(Biometric()) {
         title = "hello"
