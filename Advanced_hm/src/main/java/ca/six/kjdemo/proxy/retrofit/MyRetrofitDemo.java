@@ -1,6 +1,9 @@
-package ca.six.kjdemo.proxy;
+package ca.six.kjdemo.proxy.retrofit;
 
 import java.lang.annotation.*;
+import java.lang.reflect.Proxy;
+import java.util.HashMap;
+import java.util.Map;
 
 /*
  1. Inherited作用是，使用此注解声明出来的自定义注解，在使用此自定义注解时，如果注解在类上面时，子类会自动继承此注解. 只对类可以加这个注解
@@ -25,8 +28,21 @@ interface LoginApi {
 }
 
 class ApiProxy {
-    public static <T> T getApi(Class<T> clazz){
+    private static final Map<Class, Object> cache = new HashMap<>();
 
+
+    public static <T> T getApi(Class<T> clazz) {
+        if (clazz == null || !clazz.isInterface()) {
+            throw new RuntimeException("ApiProxy.getApi(arg) -- arg must be a class of interface");
+        }
+        synchronized (ApiProxy.class) {
+            Object api = cache.get(clazz);
+            if (api == null) {
+                api = Proxy.newProxyInstance(clazz.getClassLoader(), new Class[]{clazz}, new Callback(clazz));
+                cache.put(clazz, api);
+            }
+            return (T) api;
+        }
     }
 }
 
@@ -34,6 +50,6 @@ class MyRetrofitDemo {
     public static void main(String[] args) {
         LoginApi loginApi = ApiProxy.getApi(LoginApi.class);
         User user = loginApi.login("songzhw", "2003000");
-        System.out.println("response = "+user);
+        System.out.println("response = " + user);
     }
 }
