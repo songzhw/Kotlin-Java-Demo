@@ -39,35 +39,41 @@ class ApiProxy {
         }
         Object api = cache.get(clazz);
         if (api == null) {
-            api = Proxy.newProxyInstance(clazz.getClassLoader(), new Class[]{clazz}, new ApiCallback<>(clazz));
+            api = Proxy.newProxyInstance(clazz.getClassLoader(), new Class[]{clazz}, (proxy, method, args) -> {
+                String url = "";
+                Map<String, Object> params = new HashMap<>();
+                // @Url修改class的就不先不管了. 现在只看@Url修饰方法的
+                if (method.isAnnotationPresent(Url.class)) {
+                }
+
+                return HttpEngine.request("one", params, clazz);
+            });
             cache.put(clazz, api);
         }
         return (T) api;
     }
-
-    static class ApiCallback<T> implements InvocationHandler {
-
-        private final Class<T> clazz;
-
-        public ApiCallback(Class<T> clazz) {
-            this.clazz = clazz;
-        }
-
-        @Override
-        public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
-            String url = "";
-            Map<String, Object> params = new HashMap<>();
-            // @Url修改class的就不先不管了. 现在只看@Url修饰方法的
-            if (method.isAnnotationPresent(Url.class)) {
-                url = clazz.getAnnotation(Url.class).value();
-            }
-
-            return HttpEngine.request(url, params, this.clazz);
-        }
-    }
 }
 
+class ApiCallback<T> implements InvocationHandler {
 
+    private final Class<T> clazz;
+
+    public ApiCallback(Class<T> clazz) {
+        this.clazz = clazz;
+    }
+
+    @Override
+    public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
+        String url = "";
+        Map<String, Object> params = new HashMap<>();
+        // @Url修改class的就不先不管了. 现在只看@Url修饰方法的
+        if (method.isAnnotationPresent(Url.class)) {
+            url = clazz.getAnnotation(Url.class).value();
+        }
+
+        return HttpEngine.request(url, params, this.clazz);
+    }
+}
 
 class MyRetrofitDemo {
     public static void main(String[] args) {
