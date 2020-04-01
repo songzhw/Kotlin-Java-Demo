@@ -24,5 +24,16 @@ interface LoginApi {
     User login(@Param("name") String name, @Param("pwd") String pwd);
 }
 
+class ApiProxy {
+    public static <T> T getApi(Class<T> clazz){
+
+    }
+}
+
 class MyRetrofitDemo {
+    public static void main(String[] args) {
+        LoginApi loginApi = ApiProxy.getApi(LoginApi.class);
+        User user = loginApi.login("songzhw", "2003000");
+        System.out.println("response = "+user);
+    }
 }
