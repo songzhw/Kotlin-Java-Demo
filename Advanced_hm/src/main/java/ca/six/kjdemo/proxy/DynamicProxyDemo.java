@@ -26,6 +26,6 @@ public class DynamicProxyDemo {
                 new Class[]{IService.class},
                 handler);
         String ret = service.getUser(id);
-        System.out.println(ret);
+        System.out.println(ret); //=> user20
     }
 }
