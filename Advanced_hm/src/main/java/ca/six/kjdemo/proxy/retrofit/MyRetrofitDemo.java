@@ -24,8 +24,8 @@ import java.util.Map;
     String value();
 }
 
-@Url("http://fake.io/getUser")
 interface LoginApi {
+    @Url("http://fake.io/getUser")
     User login(@Param("name") String name, @Param("pwd") String pwd);
 }
 
@@ -37,14 +37,12 @@ class ApiProxy {
         if (clazz == null || !clazz.isInterface()) {
             throw new RuntimeException("ApiProxy.getApi(arg) -- arg must be a class of interface");
         }
-        synchronized (ApiProxy.class) {
-            Object api = cache.get(clazz);
-            if (api == null) {
-                api = Proxy.newProxyInstance(clazz.getClassLoader(), new Class[]{clazz}, new ApiCallback(clazz));
-                cache.put(clazz, api);
-            }
-            return (T) api;
+        Object api = cache.get(clazz);
+        if (api == null) {
+            api = Proxy.newProxyInstance(clazz.getClassLoader(), new Class[]{clazz}, new ApiCallback<>(clazz));
+            cache.put(clazz, api);
         }
+        return (T) api;
     }
 }
 
@@ -58,6 +56,12 @@ class ApiCallback<T> implements InvocationHandler {
 
     @Override
     public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
+        String url = "";
+        Map<String, Object> params = new HashMap<>();
+        // @Url修改class的就不先不管了. 现在只看@Url修饰方法的
+        if (method.isAnnotationPresent(Url.class)) {
+            url = clazz.getAnnotation(Url.class).value();
+        }
 
         return HttpEngine.request(url, params, this.clazz);
     }
