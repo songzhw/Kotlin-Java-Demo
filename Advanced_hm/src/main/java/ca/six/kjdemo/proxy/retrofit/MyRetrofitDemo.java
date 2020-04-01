@@ -66,10 +66,10 @@ class ApiCallback<T> implements InvocationHandler {
         // args的值, 本例中, 是['songzhw', 2003000]
         // method.getParameterAnnotations() : 以声明顺序表示由此Method对象表示的方法的形式参数的注释
         int index = 0;
-        for(Annotation[] annotationsForOneParam: method.getParameterAnnotations()){
-            for(Annotation annotation: annotationsForOneParam){
-                if(annotation instanceof Param){
-                    String paramName = ((Param)annotation).value();
+        for (Annotation[] annotationsForOneParam : method.getParameterAnnotations()) {
+            for (Annotation annotation : annotationsForOneParam) {
+                if (annotation instanceof Param) {
+                    String paramName = ((Param) annotation).value();
                     params.put(paramName, args[index]);
                     index++;
                     break;
