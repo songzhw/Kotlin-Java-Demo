@@ -1,6 +1,8 @@
 package ca.six.kjdemo.proxy.retrofit;
 
 import java.lang.annotation.*;
+import java.lang.reflect.InvocationHandler;
+import java.lang.reflect.Method;
 import java.lang.reflect.Proxy;
 import java.util.HashMap;
 import java.util.Map;
@@ -38,11 +40,26 @@ class ApiProxy {
         synchronized (ApiProxy.class) {
             Object api = cache.get(clazz);
             if (api == null) {
-                api = Proxy.newProxyInstance(clazz.getClassLoader(), new Class[]{clazz}, new Callback(clazz));
+                api = Proxy.newProxyInstance(clazz.getClassLoader(), new Class[]{clazz}, new ApiCallback(clazz));
                 cache.put(clazz, api);
             }
             return (T) api;
         }
+    }
+}
+
+class ApiCallback<T> implements InvocationHandler {
+
+    private final Class<T> clazz;
+
+    public ApiCallback(Class<T> clazz) {
+        this.clazz = clazz;
+    }
+
+    @Override
+    public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
+
+        return HttpEngine.request(url, params, this.clazz);
     }
 }
 
