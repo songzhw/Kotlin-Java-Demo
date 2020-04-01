@@ -8,8 +8,9 @@ class HttpEngine {
         fakeResp.append(url);
         fakeResp.append("[");
         for (String key : params.keySet()) {
-            fakeResp.append(key + " = " + params.get(key));
+            fakeResp.append(key + " = " + params.get(key)+", ");
         }
+        fakeResp.delete(fakeResp.length()-2, fakeResp.length());
         fakeResp.append("]");
 
         // 正常情况下是这样:

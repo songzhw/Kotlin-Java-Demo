@@ -39,16 +39,7 @@ class ApiProxy {
         }
         Object api = cache.get(clazz);
         if (api == null) {
-            api = Proxy.newProxyInstance(clazz.getClassLoader(), new Class[]{clazz}, (proxy, method, args) -> {
-                String url = "";
-                Map<String, Object> params = new HashMap<>();
-                // @Url修改class的就不先不管了. 现在只看@Url修饰方法的
-                if (method.isAnnotationPresent(Url.class)) {
-                    url = method.getAnnotation(Url.class).value();
-                }
-
-                return HttpEngine.request("one", params, clazz);
-            });
+            api = Proxy.newProxyInstance(clazz.getClassLoader(), new Class[]{clazz}, new ApiCallback<>(clazz));
             cache.put(clazz, api);
         }
         return (T) api;
@@ -69,7 +60,21 @@ class ApiCallback<T> implements InvocationHandler {
         Map<String, Object> params = new HashMap<>();
         // @Url修改class的就不先不管了. 现在只看@Url修饰方法的
         if (method.isAnnotationPresent(Url.class)) {
-            url = clazz.getAnnotation(Url.class).value();
+            url = method.getAnnotation(Url.class).value();
+        }
+
+        // args的值, 本例中, 是['songzhw', 2003000]
+        // method.getParameterAnnotations() : 以声明顺序表示由此Method对象表示的方法的形式参数的注释
+        int index = 0;
+        for(Annotation[] annotationsForOneParam: method.getParameterAnnotations()){
+            for(Annotation annotation: annotationsForOneParam){
+                if(annotation instanceof Param){
+                    String paramName = ((Param)annotation).value();
+                    params.put(paramName, args[index]);
+                    index++;
+                    break;
+                }
+            }
         }
 
         return HttpEngine.request(url, params, this.clazz);
@@ -81,5 +86,6 @@ class MyRetrofitDemo {
         LoginApi loginApi = ApiProxy.getApi(LoginApi.class);
         User user = loginApi.login("songzhw", "2003000");
         System.out.println("response = " + user);
+        //=> response = User{name='http://fake.io/getUser[name = songzhw, pwd = 2003000]'}
     }
 }
