@@ -39,7 +39,7 @@ class ApiProxy {
         }
         Object api = cache.get(clazz);
         if (api == null) {
-            api = Proxy.newProxyInstance(clazz.getClassLoader(), new Class[]{clazz}, new ApiCallback<>(clazz));
+            api = Proxy.newProxyInstance(clazz.getClassLoader(), new Class[]{clazz}, (proxy, method, args) -> new User("hello"));
             cache.put(clazz, api);
         }
         return (T) api;
