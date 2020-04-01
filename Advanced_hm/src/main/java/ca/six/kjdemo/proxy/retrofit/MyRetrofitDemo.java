@@ -44,6 +44,7 @@ class ApiProxy {
                 Map<String, Object> params = new HashMap<>();
                 // @Url修改class的就不先不管了. 现在只看@Url修饰方法的
                 if (method.isAnnotationPresent(Url.class)) {
+                    url = method.getAnnotation(Url.class).value();
                 }
 
                 return HttpEngine.request("one", params, clazz);
