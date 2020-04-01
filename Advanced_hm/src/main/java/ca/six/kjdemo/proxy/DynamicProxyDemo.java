@@ -15,9 +15,8 @@ public class DynamicProxyDemo {
 
     public void proxy(int id) {
         InvocationHandler handler = (proxy, method, args) -> {
-            System.out.println(method);
             if (method.getName().equals("getUser")) {
-                return "user" + method.getParameters()[0];
+                return "user" + args[0];
             }
             return null;
         };
