@@ -11,16 +11,17 @@ internal interface IService {
 
 class DynamicProxyDemo {
     fun proxy(id: Int) {
-        val handler =
-            label@ InvocationHandler { proxy: Any?, method: Method, args: Array<Any> ->
-                if (method.name == "getUser") {
-                    return@label "user" + args[0]
-                }
-                null
-            }
         val service = Proxy.newProxyInstance(
             IService::class.java.classLoader, arrayOf<Class<*>>(IService::class.java),
-            handler
+            object : InvocationHandler {
+                override fun invoke(proxy: Any, method: Method, args: Array<out Any>): Any? {
+                    if (method.name == "getUser") {
+                        return "user" + args[0]
+                    }
+                    return null
+                }
+
+            }
         ) as IService
         val ret = service.getUser(id)
         println(ret) //=> user20
@@ -28,7 +29,7 @@ class DynamicProxyDemo {
 
 }
 
-fun main(args: Array<String>) {
+fun main() {
     val obj = DynamicProxyDemo()
     obj.proxy(20)
 }
