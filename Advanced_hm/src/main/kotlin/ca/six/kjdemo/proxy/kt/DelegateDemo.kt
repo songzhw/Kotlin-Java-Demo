@@ -23,14 +23,7 @@ class LogWrapper(val bizJob: IWorkJob) : IWorkJob by bizJob {
     }
 }
 
-class TimeWrapper(val bizJob: IWorkJob) : IWorkJob by bizJob {
-    override fun work() {
-        val start = System.currentTimeMillis()
-        bizJob.work()
-        val end = System.currentTimeMillis()
-        println("TimeWrapper : consume time = ${end - start}ms")
-    }
-}
+
 
 fun main() {
     val fetcher = FetchDataWorkJob()
@@ -38,13 +31,6 @@ fun main() {
     worker.work()
     worker.despcription()
 
-    println("\n******************************\n")
-
-    val fetcher2 = FetchDataWorkJob()
-    val worker2 = TimeWrapper(LogWrapper(fetcher2))
-
-    worker2.work()
-    worker2.despcription()
 
 }
 /*
