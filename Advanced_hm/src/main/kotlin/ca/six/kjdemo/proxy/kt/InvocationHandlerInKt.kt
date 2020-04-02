@@ -31,5 +31,5 @@ class DynamicProxyDemo {
 
 fun main() {
     val obj = DynamicProxyDemo()
-    obj.proxy(20)
+    obj.proxy(20) //=> user20
 }
