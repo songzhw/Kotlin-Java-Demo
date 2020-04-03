@@ -21,3 +21,14 @@ var minute1 = 49
         field = value.coerceIn(60)
     }
 
+
+// ========== 使用delegate  ==========
+class MaxDelegate(var value: Int, val max: Int) : ReadWriteProperty<Int, Int> {
+    override fun getValue(thisRef: Int, property: KProperty<*>): Int = value
+
+    override fun setValue(thisRef: Int, property: KProperty<*>, value: Int) {
+        this.value = value.coerceIn(max)
+    }
+}
+
+var hour2 by MaxDelegate(10, 60)
