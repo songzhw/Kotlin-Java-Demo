@@ -1,4 +1,4 @@
-package ca.six.kjdemo.thread
+package ca.six.kjdemo.thread.stop
 
 class ToStop01(name: String) : Thread(name) {
     override fun run() {

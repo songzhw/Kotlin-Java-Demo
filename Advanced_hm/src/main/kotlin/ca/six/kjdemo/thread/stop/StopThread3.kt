@@ -1,6 +1,8 @@
 package ca.six.kjdemo.thread.stop
 
-class Stop03(val name: String, var isRunning: Boolean) : Runnable {
+class Stop03(val name: String) : Runnable {
+    volatile var isRunning: Boolean = true
+
     override fun run() {
         while (isRunning) {
             Thread.sleep(200)
@@ -12,7 +14,7 @@ class Stop03(val name: String, var isRunning: Boolean) : Runnable {
 
 
 fun main() {
-    val r = Stop03("C3", true)
+    val r = Stop03("C3")
     val t = Thread(r)
     t.start()
 
