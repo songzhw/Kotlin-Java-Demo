@@ -1,12 +1,16 @@
 package ca.six.kjdemo.thread.stop
 
 class Stop03(val name: String) : Runnable {
-    volatile var isRunning: Boolean = true
+    @Volatile
+    var isRunning: Boolean = true
 
     override fun run() {
         while (isRunning) {
             Thread.sleep(200)
-            println("szw thread($name) running")
+            // 双层加锁
+            if (isRunning) {
+                println("szw thread($name) running")
+            }
         }
         println("szw thread stop")
     }
@@ -28,9 +32,5 @@ fun main() {
 szw thread(C3) running
 szw thread(C3) running
 szw main stop thread
-szw thread(C3) running
 szw thread stop
-
-  可见仍不保险
-
  */
