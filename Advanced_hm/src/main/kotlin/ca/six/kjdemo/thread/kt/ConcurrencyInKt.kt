@@ -13,3 +13,20 @@ class ConcurrencyInKt {
         }
     }
 }
+
+/*
+编译后:
+
+public final class ConcurrencyInKt {
+   private volatile int id = 1;
+
+
+   public final synchronized void one() {
+   }
+
+   public final void two() {
+      synchronized(this) {
+      }
+   }
+}
+ */
