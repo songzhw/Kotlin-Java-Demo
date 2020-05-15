@@ -1,8 +1,17 @@
 package ca.six.kjdemo
 
+
+class Item
+
 fun main() {
-    // 默认是1到10(包含10), step 3是步长为3
-    for (i in 1..10 step 3) {
-        println(i) //=> 1 4 7 10
-    }
+    val map1 = mapOf(String::class.java to "first", Int::class.java to "second")
+    foo(map1)
+
+    val map2 = mapOf(String::class.java to "first", Item::class.java to "second")
+    foo(map2)
+}
+
+
+fun foo(map: Map<Class<out Any>, String>) {
+
 }
