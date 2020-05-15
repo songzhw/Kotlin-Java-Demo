@@ -1,13 +1,7 @@
-fun main() {
-    val key = "rx.error"
-    callJs(key, "en_US")
-    callJs(key, """
-        "en_US"
-""".trimIndent())
-}
+import java.net.URLEncoder
 
-fun callJs(key: String, value: String){
-    val payload = if (value.isEmpty()) """{"action": "$key"}""" else """{"action":"$key","params":$value}"""
-    val jsFunc = "window.processInjectedData('$payload')"
-    println(jsFunc)
+fun main() {
+    val src = """http://one?id=23&name=lucy's "home""""
+    val ret = URLEncoder.encode(src, "UTF-8")
+    println(ret)  //=> http%3A%2F%2Fone%3Fid%3D23%26name%3Dlucy%27s+%22home%22
 }
