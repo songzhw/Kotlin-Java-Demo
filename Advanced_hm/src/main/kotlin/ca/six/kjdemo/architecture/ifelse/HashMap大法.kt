@@ -26,11 +26,7 @@ fun refactor11(condition: Condition11) {
     actions.put(Condition11.TWO, { println("002"); })
     actions.put(Condition11.THREE, { println("003"); })
 
-    if (actions[condition] != null) {
-        actions[condition]!!.invoke()
-    } else {
-        println("none exit")
-    }
+    actions[condition]?.invoke() ?: println("new 004")
 }
 
 
