@@ -20,11 +20,10 @@ interface ITaxCalculator {
     fun getTax(income: Int): Double
 
     fun calculate(income: Int): Double {
-        println("interface $income, meet? = ${meetCondition(income)}")
         if (meetCondition(income)) {
             return getTax(income)
         } else {
-            return next!!.getTax(income)
+            return next!!.calculate(income)
         }
     }
 }
@@ -35,7 +34,6 @@ class Level1 : ITaxCalculator {
     override fun meetCondition(income: Int) = income < 5200
 
     override fun getTax(income: Int): Double {
-        println("1")
         return 0.0
     }
 
@@ -47,7 +45,6 @@ class Level2 : ITaxCalculator {
     override fun meetCondition(income: Int) = income < 8000
 
     override fun getTax(income: Int): Double {
-        println("2")
         return 0.14 * (income - 5200)
     }
 
@@ -59,7 +56,6 @@ class Level3 : ITaxCalculator {
     override fun meetCondition(income: Int) = income < 20000
 
     override fun getTax(income: Int): Double {
-        println("3")
         return 392 + 0.25 * (income - 8000)
     }
 
@@ -71,7 +67,6 @@ class Level4 : ITaxCalculator {
     override fun meetCondition(income: Int) = income >= 20000
 
     override fun getTax(income: Int): Double {
-        println("4")
         return 3392 + 0.5 * (income - 20000)
     }
 
@@ -92,6 +87,6 @@ fun refactor22(income: Int) {
 }
 
 fun main() {
-
+    refactor22(7999)
     refactor22(20000)
 }
