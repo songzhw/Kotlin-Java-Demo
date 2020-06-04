@@ -7,7 +7,7 @@ enum class Condition11 {
     FOUR
 }
 
-fun original(condition: Condition11) {
+fun original11(condition: Condition11) {
     if (condition === Condition11.ONE) {
         println("001")
     } else if (condition === Condition11.TWO) {
@@ -31,7 +31,7 @@ fun refactor11(condition: Condition11) {
 
 
 fun main() {
-    original(Condition11.FOUR)
+    original11(Condition11.FOUR)
 
     refactor11(Condition11.FOUR)
 }
