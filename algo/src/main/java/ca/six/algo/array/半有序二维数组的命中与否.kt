@@ -35,7 +35,7 @@ fun isIncludedIn(target: Int) {
     var temp = ary[row][column]
 
     while (target != temp) {
-        if (column < 0 || row > ary.size - 1) {
+        if (column <= 0 || row >= ary.size - 1) {
             println("not fould : $target")
             return
         }
