@@ -12,6 +12,9 @@ val ary = arrayOf(
     intArrayOf(24, 45, 63, 93)
 )
 
+/*
+// 最基础版的算法, O(n2)
+
 fun isIncludedIn(num: Int) {
     for (subary in ary) {
         for (item in subary) {
@@ -22,6 +25,30 @@ fun isIncludedIn(num: Int) {
         }
     }
     println("no found: $num")
+}
+*/
+
+// 利用有序的特点, 变成了O(row+column), 相当于O(n)的效率了
+fun isIncludedIn(target: Int) {
+    var column = ary[0].size - 1
+    var row = 0
+    var temp = ary[row][column]
+
+    while (target != temp) {
+        if (column < 0 || row > ary.size - 1) {
+            println("not fould : $target")
+            return
+        }
+
+        if (target > temp) {
+            // column += 1 //不应该是column+=1. column+1就直接越界而crash了
+            row += 1
+        } else if (target < temp) {
+            column -= 1
+        }
+        temp = ary[row][column]
+    }
+    println("[hit]: $target")
 }
 
 fun main() {
