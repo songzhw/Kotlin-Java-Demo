@@ -17,7 +17,7 @@ fun isIncludedIn(num: Int) {
         for (item in subary) {
             if (item == num) {
                 println("[hit] : found $num")
-                break
+                return
             }
         }
     }
