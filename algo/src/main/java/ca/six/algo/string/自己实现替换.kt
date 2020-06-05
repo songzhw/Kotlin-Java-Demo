@@ -30,6 +30,7 @@ fun replaceWhitespace(str: CharArray) {
 //        index++
 //    }
     for (i in sizeBefore - 1 downTo 0) {
+        if(p1<0||p2<0) break;
         val char = str[i]
         if (char == ' ') {
             ret[p2] = '0'
