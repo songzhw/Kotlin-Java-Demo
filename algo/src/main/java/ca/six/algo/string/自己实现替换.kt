@@ -13,14 +13,14 @@ fun originalReplaceWhitespace(str: Array<Char>) {
 
 fun replaceWhitespace(str: CharArray) {
     var spaceCount = 0
-    for(char in str){
-        if(char == ' ') spaceCount++
+    for (char in str) {
+        if (char == ' ') spaceCount++
     }
 
     val sizeBefore = str.size
     val sizeAfter = sizeBefore + spaceCount * 2 // " "要换成"%20", 即每个空格的长度增加了2
-    val p1 = sizeBefore - 1
-    val p2 = sizeAfter - 2
+    var p1 = sizeBefore - 1
+    var p2 = sizeAfter - 2
 
     // 原来的str长度写死了, 不另写一个ret, 就会越界的!
     val ret = CharArray(sizeAfter)
@@ -29,13 +29,23 @@ fun replaceWhitespace(str: CharArray) {
 //        ret.set(index, char)
 //        index++
 //    }
-
-
-
+    for (i in sizeBefore - 1 downTo 0) {
+        val char = str[i]
+        if (char == ' ') {
+            ret[p2] = '0'
+            ret[p2 - 1] = '2'
+            ret[p2 - 2] = '%'
+            p2 -= 3
+            p1--
+        } else {
+            ret[p2] = char
+            p2--
+            p1--
+        }
+        println("$p1 ; $p2 ($i)")
+    }
 
     println(ret)
-
-
 }
 
 fun main() {
