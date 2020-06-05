@@ -42,4 +42,8 @@ fun replaceWhitespace(str: CharArray) {
 
 fun main() {
     replaceWhitespace("welcome to here".toCharArray())
+    replaceWhitespace("tiana".toCharArray())
+    replaceWhitespace("".toCharArray())
+    replaceWhitespace(" ".toCharArray())
+    replaceWhitespace("   ".toCharArray())
 }
