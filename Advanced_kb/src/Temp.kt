@@ -1,7 +1,9 @@
 import java.net.URLEncoder
 
 fun main() {
-    val src = """http://one?id=23&name=lucy's "home""""
-    val ret = URLEncoder.encode(src, "UTF-8")
-    println(ret)  //=> http%3A%2F%2Fone%3Fid%3D23%26name%3Dlucy%27s+%22home%22
+    val from = 6.893000000000001E-4
+    val zero = 0.0
+    val one = 1.0
+    println(from > zero)
+    println(from < one)
 }
