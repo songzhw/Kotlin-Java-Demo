@@ -8,9 +8,18 @@ class S2Queue<E> {
 
     fun size() = inStack.size + outStack.size
 
-    fun inqueue(e: E) {}
+    fun inqueue(e: E) {
+        inStack.push(e)
+    }
 
-    fun dequeue() {}
+    fun dequeue(): E {
+        if (outStack.empty()) {
+            while (!inStack.empty()) {
+                outStack.push(inStack.pop())
+            }
+        }
+        return outStack.pop()
+    }
 
     override fun toString(): String {
         return super.toString()
