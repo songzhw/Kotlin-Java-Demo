@@ -12,17 +12,14 @@ class S2Queue<E> {
         inStack.push(e)
     }
 
-    fun dequeue(): E {
+    fun dequeue(): E? {
         if (outStack.empty()) {
             while (!inStack.empty()) {
                 outStack.push(inStack.pop())
             }
         }
+        if(outStack.empty()){ return null}
         return outStack.pop()
-    }
-
-    override fun toString(): String {
-        return super.toString()
     }
 
 }
@@ -30,16 +27,25 @@ class S2Queue<E> {
 
 fun main() {
     val queue = S2Queue<Int>()
+
+    // 测试边界情况: 当没元素了时
+    println(queue.dequeue())
+
+
     queue.inqueue(1)
     queue.inqueue(2)
     queue.inqueue(3)
-    println("queue1 = $queue")
 
     println(queue.dequeue())
-    println("queue2 = $queue")
 
     queue.inqueue(4)
     println(queue.dequeue())
-    println("queue3 = $queue")
+
+    println(queue.dequeue())
+    println(queue.dequeue())
+
+    // 测试边界情况: 当没元素了时
+    println(queue.dequeue())
+
 
 }
