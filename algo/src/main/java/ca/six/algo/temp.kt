@@ -1,12 +1,31 @@
 package ca.six.algo
 
-fun f(n: Int):Int {
-    return n
+//val list = ArrayList<Int>() //list有初始size, 超界会有IndexOutOfBoundsException
+val map = HashMap<Int, Int>()
+
+fun f(n: Int): Int {
+    if (n == 0) map.put(0, 0)
+    else if (n == 1) map.put(1, 1)
+    else {
+        var minus2 = map.get(n - 2)
+        var minus1 = map.get(n - 1)
+        println("($n): minus1 = $minus1, minus2 = $minus2")
+        if (minus1 == null) {
+            minus1 = f(n - 1)
+            map.set(minus1, minus1)
+        } else if (minus2 == null) {
+            minus2 = f(n - 2)
+            map.set(minus2, minus2)
+        }
+        println("    => ($n): minus1 = $minus1, minus2 = $minus2")
+        map.put(n, minus1 + minus2!!)
+    }
+    return map.get(n)!!
 }
 
 fun main() {
     val start = System.currentTimeMillis()
-    println(f(100))
+    println(f(2))
     val end = System.currentTimeMillis()
     println("cost time2 = ${(end - start) / 1000f}")
 }
