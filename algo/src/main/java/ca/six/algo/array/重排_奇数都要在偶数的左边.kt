@@ -18,7 +18,18 @@ fun rearrange1(ary: IntArray) {
 
 
 fun rearrange2(ary: IntArray) {
-
+    var first = 0
+    var last = ary.size - 1
+    while (first < last) {
+        val firstValue = ary[first]
+        val lastValue = ary[last]
+        if (firstValue % 2 == 0 && lastValue % 2 == 1) {
+            val temp = ary[first]; ary[first] = ary[last];ary[last] = temp;
+        }
+        first++;
+        last--;
+    }
+    ary.forEach { print("$it, ") }
 }
 
 fun main() {
