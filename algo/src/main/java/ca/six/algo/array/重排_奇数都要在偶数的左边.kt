@@ -17,6 +17,7 @@ fun rearrange1(ary: IntArray) {
 }
 
 
+// 思路: 在头尾各一个指针. 若两个指针所指元素是偶数在左且奇数在右, 那就交换两个的值.
 fun rearrange2(ary: IntArray) {
     var first = 0
     var last = ary.size - 1
