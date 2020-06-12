@@ -23,4 +23,7 @@ fun main() {
     val node1 = NodeC(1, node2)
 
     deleteNode(node1, node3) //=> 1,2,4,5
+
+    // 边界测试
+    deleteNode(node1, node5)
 }
