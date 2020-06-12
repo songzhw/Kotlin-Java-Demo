@@ -27,13 +27,13 @@ fun rearrange2(ary: IntArray) {
             val temp = ary[first]; ary[first] = ary[last];ary[last] = temp;
         }
         first++;
-        last--;
+        if (lastValue % 2 == 0) last--;
     }
     ary.forEach { print("$it, ") }
 }
 
 fun main() {
-    val ary = intArrayOf(3, 8, 4, 1, 2, 7)
+    val ary = intArrayOf(3, 8, 6, 4, 1, 2, 7, 9, 12)
     rearrange1(ary)  // O(n)
     rearrange2(ary)  // O(n)
 }
