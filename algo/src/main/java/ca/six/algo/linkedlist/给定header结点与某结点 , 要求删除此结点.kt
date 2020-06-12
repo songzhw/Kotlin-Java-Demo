@@ -8,9 +8,10 @@ fun deleteNode(header: NodeC, toBeDeleted: NodeC) {
     toBeDeleted.data = next1.data
     toBeDeleted.next = next2
 
-    var temp = header
-    while(temp.next != null){
+    var temp: NodeC? = header
+    while (temp != null) {
         print("${temp.data}, ")
+        temp = temp.next
     }
 }
 
@@ -18,8 +19,8 @@ fun main() {
     val node5 = NodeC(5)
     val node4 = NodeC(4, node5)
     val node3 = NodeC(3, node4)
-    val node2 = NodeC(3, node3)
-    val node1 = NodeC(3, node2)
+    val node2 = NodeC(2, node3)
+    val node1 = NodeC(1, node2)
 
-    deleteNode(node1, node3)
+    deleteNode(node1, node3) //=> 1,2,4,5
 }
