@@ -1,5 +1,8 @@
 package ca.six.algo.tree
 
+import java.util.*
+import kotlin.collections.ArrayList
+
 /*
               9
      5                 20
@@ -8,7 +11,23 @@ package ca.six.algo.tree
  */
 
 fun DFS(root: TreeNode) {
-    println(root)
+    val result = ArrayList<Int>()
+    val stack = Stack<TreeNode>()
+
+    result.add(root.data)
+    stack.push(root)
+
+    while (!stack.isEmpty()) {
+
+        if (root.right != null) {
+            stack.push(root.right) //先存右边. 栈是先进后出, 我们要先遍历左树, 所以要先存右树
+        }
+        if (root.left != null) {
+            stack.push(root.left)
+        }
+    }
+
+    println(result)
 }
 
 fun main() {
