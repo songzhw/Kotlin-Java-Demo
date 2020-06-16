@@ -1,6 +1,7 @@
 package ca.six.algo.tree
 
 import ca.six.algo.bisearch.TreeNode
+import java.util.*
 
 
 /*
@@ -15,10 +16,23 @@ import ca.six.algo.bisearch.TreeNode
 fun minHeight(root: TreeNode?): Int {
     if (root == null) return 0
 
-    val leftHeight = minHeight(root.left)
-    val rightHeight = minHeight(root.right);
-    return if (leftHeight == 0 || rightHeight == 0) (leftHeight + rightHeight + 1)
-    else Math.min(leftHeight, rightHeight) + 1
+    val queue = LinkedList<TreeNode>()
+    queue.offer(root) //offer()就是添加元素
+    var depth = 1
+
+    while (!queue.isEmpty()) {
+        for (i in 0 until queue.size) {
+            val node = queue.poll() //poll()就是取元素
+            if(node.left == null && node.right == null){
+                return depth;
+            }
+
+            if(node.left != null) queue.offer(node.left)
+            if(node.right != null) queue.offer(node.right)
+        }
+        depth++
+    }
+    return depth;
 }
 
 fun main() {
