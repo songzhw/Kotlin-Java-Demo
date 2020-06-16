@@ -31,6 +31,15 @@ fun DFS(root: TreeNode) {
     println(result)
 }
 
+fun inorder(root: TreeNode?) {
+    if(root == null) return
+
+    print("${root.data}, ")
+    inorder(root.left)
+    inorder(root.right)
+}
+
 fun main() {
     DFS(n9)
+    inorder(n9)
 }
