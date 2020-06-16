@@ -1,6 +1,6 @@
 package ca.six.algo.stack_queue
 
-import ca.six.algo.bisearch.TreeNode
+import ca.six.algo.tree.TreeNode
 import java.util.*
 import kotlin.collections.ArrayList
 
