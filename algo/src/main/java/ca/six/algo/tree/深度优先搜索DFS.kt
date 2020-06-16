@@ -14,16 +14,17 @@ fun DFS(root: TreeNode) {
     val result = ArrayList<Int>()
     val stack = Stack<TreeNode>()
 
-    result.add(root.data)
     stack.push(root)
 
     while (!stack.isEmpty()) {
+        val node = stack.pop()
+        result.add(node.data)
 
-        if (root.right != null) {
-            stack.push(root.right) //先存右边. 栈是先进后出, 我们要先遍历左树, 所以要先存右树
+        if (node.right != null) {
+            stack.push(node.right) //先存右边. 栈是先进后出, 我们要先遍历左树, 所以要先存右树
         }
-        if (root.left != null) {
-            stack.push(root.left)
+        if (node.left != null) {
+            stack.push(node.left)
         }
     }
 
