@@ -10,10 +10,10 @@ class LruCache(val size: Int) {
     // double linked list用来保存"顺序". 双链表(而非单链表)是为了保证删除时时间为O(1)
     private val list = LinkedList<String>()
 
+
     fun put(key: String, value: Int) {
-        // TODO what if key exists already
         val cachedSize = map.size
-        // println("    put() : cachedSize = $cachedSize, listSize = ${list.size}")
+        println("    put() : cachedSize = $cachedSize, listSize = ${list.size}")
 
         // 缓存已经到达上限, 要删除最不常用的元素,才能再添加新元素
         if (cachedSize == size) {
@@ -21,12 +21,14 @@ class LruCache(val size: Int) {
             map.remove(toBeDeletedKey)
         }
 
-        map.put(key, value)
-        list.add(key)
+        // 若本来key就不在, 就直接存值
+        if (get(key) == null) {
+            map.put(key, value)
+            list.add(key)
+        } //若本来key就已经存在, 那我们只要调整顺序(get()已做到了), 不用添加数据
     }
 
     fun get(key: String): Int? {
-        // TODO what if the key is not existing?
         val ret = map.get(key)
         if (ret != null) {
             list.remove(key)
@@ -41,7 +43,7 @@ class LruCache(val size: Int) {
 }
 
 fun main() {
-    val cache = LruCache(3)
+    var cache = LruCache(3)
     cache.put("one", 1)
     cache.put("II", 2)
     cache.put("三", 3)
@@ -59,4 +61,21 @@ fun main() {
     cache.put("V", 5)
     cache.put("VI", 6)
     println("5 : $cache") //=> [三, V, VI]
+
+
+    // ===================
+    cache = LruCache(2)
+    cache.put("one", 1)
+    cache.put("II", 2)
+    println("==================================\n")
+    println("1. $cache") //=> [one, II]
+
+    cache.put("one", 11)
+    println("2. $cache") //=> [II, one]
+
+    cache.put("3", 3)
+    println("3. $cache") //=> [one, 3]
+
+    cache.put("4", 4)
+    println("4. $cache") //=> [3, 4]
 }
