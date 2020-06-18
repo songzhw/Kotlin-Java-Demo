@@ -38,7 +38,7 @@ class LruCache(val size: Int) {
 }
 
 fun main() {
-    val cache = LruCache(3)
+    val cache = LruCache(2)
     cache.put("one", 1)
     cache.put("II", 2)
     cache.put("三", 3)
