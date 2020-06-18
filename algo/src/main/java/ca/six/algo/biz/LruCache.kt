@@ -13,13 +13,13 @@ class LruCache(val size: Int) {
     fun put(key: String, value: Int) {
         // TODO what if key exists already
         val cachedSize = map.size
-        println("    put() : cachedSize = $cachedSize")
 
         // 缓存已经到达上限, 要删除最不常用的元素,才能再添加新元素
         if (cachedSize == size) {
-            list.poll()
-            map.remove(key)
+            val toBeDeletedKey = list.poll()
+            map.remove(toBeDeletedKey)
         }
+
         map.put(key, value)
         list.add(key)
     }
@@ -55,5 +55,5 @@ fun main() {
 
     cache.put("V", 5)
     cache.put("VI", 6)
-    println("5 : $cache") //=> [one, 丁, 三, V, VI]
+    println("5 : $cache") //=> [三, V, VI]
 }
