@@ -12,13 +12,27 @@ class LruCache(val size: Int) {
 
     fun put(key: String, value: Int) {
         // TODO what if key exists already
+        val cachedSize = map.size
+
+        // 缓存已经到达上限, 要删除最不常用的元素,才能再添加新元素
+        if (cachedSize == size) {
+            list.poll()
+            map.remove(key)
+        }
         map.put(key, value)
         list.add(key)
     }
 
-    fun get(key: String) :Int? {
+    fun get(key: String): Int? {
         // TODO what if the key is not existing?
-        return map.get(key)
+        val ret = map.get(key)
+        list.remove(key)
+        list.add(key)
+        return ret
+    }
+
+    override fun toString(): String {
+        return list.toString()
     }
 }
 
@@ -27,6 +41,11 @@ fun main() {
     cache.put("one", 1)
     cache.put("II", 2)
     cache.put("三", 3)
+    println("1 : $cache")  //=> [one, II, 三]
+
     cache.get("one")  // 1变成最近刚使用过. 所以2成了最不常使用的元素
-    cache.put("丁", 4) // 结果应该是3 1 4
-}
+    println("2 : $cache")  //=> [II, 三, one]
+
+    cache.put("丁", 4)
+    println("3 : $cache") //=> [三, one, 丁]
+
