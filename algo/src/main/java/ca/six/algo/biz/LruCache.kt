@@ -13,6 +13,7 @@ class LruCache(val size: Int) {
     fun put(key: String, value: Int) {
         // TODO what if key exists already
         val cachedSize = map.size
+        // println("    put() : cachedSize = $cachedSize, listSize = ${list.size}")
 
         // 缓存已经到达上限, 要删除最不常用的元素,才能再添加新元素
         if (cachedSize == size) {
@@ -27,8 +28,10 @@ class LruCache(val size: Int) {
     fun get(key: String): Int? {
         // TODO what if the key is not existing?
         val ret = map.get(key)
-        list.remove(key)
-        list.add(key)
+        if (ret != null) {
+            list.remove(key)
+            list.add(key)
+        }
         return ret
     }
 
@@ -38,7 +41,7 @@ class LruCache(val size: Int) {
 }
 
 fun main() {
-    val cache = LruCache(2)
+    val cache = LruCache(3)
     cache.put("one", 1)
     cache.put("II", 2)
     cache.put("三", 3)
