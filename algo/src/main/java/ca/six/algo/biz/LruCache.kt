@@ -32,7 +32,7 @@ class LruCache(val size: Int) {
         val ret = map.get(key)
         if (ret != null) {
             list.remove(key)
-            list.add(key)
+            list.add(key)  // add to the end
         }
         return ret
     }
