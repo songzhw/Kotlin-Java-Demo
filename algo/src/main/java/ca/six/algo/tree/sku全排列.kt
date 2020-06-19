@@ -10,27 +10,25 @@ val size = arrayOf("10'", "8'")
 val ram = arrayOf("64G", "256G", "512G")
 
 fun allSku(result: ArrayList<Array<String>>, vararg skuList: Array<String>) {
-    loop(arrayOf<String>(), 0);
+    loop(arrayOf<String>(), 0, result, *skuList);
 
-    fun loop(prevWork: Array<String>, skuIndex: Int) {
-        val currentSkus = skuList[skuIndex]
-        val isLastSkus = skuIndex == (skuList.size - 1)
-        for (sku in currentSkus) {
-            val work = prevWork + sku
-            if (isLastSkus) result.add(work)
-            else {
-                val newIndex = skuIndex + 1
-                loop(work, newIndex, result, *skuList)
-            }
-        }
-    }
-
-    for(ary in result){
+    for (ary in result) {
         println(ary.asList())
     }
 }
 
-
+fun loop(prevWork: Array<String>, skuIndex: Int, result: ArrayList<Array<String>>, vararg skuList: Array<String>) {
+    val currentSkus = skuList[skuIndex]
+    val isLastSkus = skuIndex == (skuList.size - 1)
+    for (sku in currentSkus) {
+        val work = prevWork + sku
+        if (isLastSkus) result.add(work)
+        else {
+            val newIndex = skuIndex + 1
+            loop(work, newIndex, result, *skuList)
+        }
+    }
+}
 
 fun main() {
     val result = ArrayList<Array<String>>()
