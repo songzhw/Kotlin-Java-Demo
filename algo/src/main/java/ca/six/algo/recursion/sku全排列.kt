@@ -1,4 +1,4 @@
-package ca.six.algo.tree
+package ca.six.algo.recursion
 
 import java.util.*
 
@@ -32,7 +32,12 @@ fun loop(prevWork: Array<String>, skuIndex: Int, result: ArrayList<Array<String>
 
 fun main() {
     val result = ArrayList<Array<String>>()
-    allSku(result, color, size, ram)
+    allSku(
+        result,
+        color,
+        size,
+        ram
+    )
 
 
     // println( (color + "ru").asList())  //=> [黑, 白, ru]
