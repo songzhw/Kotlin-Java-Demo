@@ -24,6 +24,31 @@ fun nextGreater(src: Array<Int>) {
     println(ret.asList())
 }
 
+/*
+ 给定最近几天气温. 现在要返回: 等待多少天才能等到一个更暖和的气温. 如果等不到就返回-1
+ 比如给定[21, 24, 23, 22, 18, 24, 30, 28], 那就返回: [1, 5, 4, 3, 1, 1, -1, -1]
+
+ 思路和上面nextGreater()类似, 只不过输出不是更大的数, 而是自己和下一更大数之间的距离
+ */
+fun nextWarmer(src: Array<Int>) {
+    val ret = arrayOfNulls<Int>(src.size)
+    val stack = Stack<Int>()
+
+    for (i in src.size - 1 downTo 0) {
+        val number = src[i]
+        var step = 0
+        while (!stack.isEmpty() && (stack.peek() <= number)) {
+            step++
+            stack.pop()
+        }
+        ret[i] = if (stack.empty()) -1 else step
+        stack.push(number)
+    }
+
+    println(ret.asList())
+}
+
 fun main() {
     nextGreater(arrayOf(2, 1, 2, 4, 3))
+    nextWarmer(arrayOf(21, 24, 23, 22, 18, 24, 30, 28))
 }
