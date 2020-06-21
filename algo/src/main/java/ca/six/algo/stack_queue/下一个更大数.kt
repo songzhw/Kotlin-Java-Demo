@@ -15,7 +15,7 @@ fun nextGreater(src: Array<Int>) {
     //是往后的更大数, 所以使用倒序来遍历src
     for (i in src.size - 1 downTo 0) { //10 downto 8是: 10, 9, 8
         val number = src[i]
-        println("($number)" + stack)
+        // stack存倒序过来的number, 即number后边的数字; 所以我们就要去遍历stack, 直到找到比stack更大的数
         while (!stack.isEmpty() && (stack.peek() <= number)) stack.pop()
         ret[i] = if (stack.empty()) -1 else stack.peek()
         stack.push(number)
