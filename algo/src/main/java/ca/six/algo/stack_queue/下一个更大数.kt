@@ -17,7 +17,7 @@ fun nextGreater(src: Array<Int>) {
         val number = src[i]
         println("($number)" + stack)
         while (!stack.isEmpty() && (stack.peek() <= number)) stack.pop()
-        ret[i] = if (stack.empty()) -1 else stack.pop()
+        ret[i] = if (stack.empty()) -1 else stack.peek()
         stack.push(number)
     }
 
