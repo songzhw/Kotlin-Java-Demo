@@ -1,5 +1,8 @@
 package biz
 
+import java.math.RoundingMode
+import java.text.DecimalFormat
+import java.util.*
 import kotlin.random.Random
 
 /*
@@ -13,23 +16,31 @@ fun 算红包() {
     val money = 100f    // 红包金额
     val count = 3       // 人头
 
-    val result = arrayListOf<Float>() //TODO 只保留两个小数
+    val result = arrayListOf<Float>()
     var distributed = 0f
     for (i in 0 until count) {
         if (i == 0) {
-            result.add(Random.nextFloat() * 100 + 0.01f) //[0,1)的范围, 包括了0, 所以我要加一个0.01
+            result.add(randomNum(100f)) //[0,1)的范围, 包括了0, 所以我要加一个0.01
             distributed = result[i]
         } else if (i == count - 1) {
             result.add(money - distributed)
         } else {
             val left = money - distributed
-            result.add(Random.nextFloat() * left + 0.01f)
+            result.add(randomNum(left))
             distributed += result[i]
         }
     }
 
     println("result = $result")
     println("和= ${result.reduce { acc, now -> acc + now }}")
+}
+
+private fun randomNum(max: Float): Float {
+    var ret = Random.nextFloat() * max
+    val tempString = String.format("%.2f", ret)
+    ret = tempString.toFloat() + 0.01f
+    return ret
+
 }
 
 fun main() {
