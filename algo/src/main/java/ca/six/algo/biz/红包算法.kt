@@ -17,18 +17,19 @@ fun 算红包() {
     var distributed = 0f
     for (i in 0 until count) {
         if (i == 0) {
-            result[i] = Random.nextFloat() * 100 + 0.01f //[0,1)的范围, 包括了0, 所以我要加一个0.01
+            result.add(Random.nextFloat() * 100 + 0.01f) //[0,1)的范围, 包括了0, 所以我要加一个0.01
             distributed = result[i]
         } else if (i == count - 1) {
-            result[i] = money - distributed
+            result.add(money - distributed)
         } else {
             val left = money - distributed
-            result[i] = Random.nextFloat() * left + 0.01f
+            result.add(Random.nextFloat() * left + 0.01f)
             distributed += result[i]
         }
     }
 
     println("result = $result")
+    println("和= ${result.reduce { acc, now -> acc + now }}")
 }
 
 fun main() {
