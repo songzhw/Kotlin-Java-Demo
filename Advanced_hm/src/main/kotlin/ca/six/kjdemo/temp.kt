@@ -1,11 +1,8 @@
 package ca.six.kjdemo
 
+import kotlin.math.sign
 
-class Item {
-    val name: Lazy<String> = lazy { "sze" }
-    val id: String by lazy { "23" }
-
-    fun foo() {
-        id.toInt()
-    }
+fun main() {
+    println(100.1f.sign.toInt()) //=> 1
+    println(-99.2f.sign.toInt()) //=> -1
 }
