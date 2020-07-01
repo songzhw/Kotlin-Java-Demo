@@ -10,4 +10,8 @@ fun main() {
     // 方法二: 新建一个hashmap, 来存放src中数据. 这样再从1..10中遍历, 找到不存在的key就是缺失的值了
     // 时间上O(n), 空间上O(n)
 
+    // 方法三: 时间上O(n), 空间上O(1)
+    val sumOughtToBe = (1..10).reduce { acc, i -> acc + i }
+    val sumWeGot = ary.reduce { acc, i -> acc + i }
+    println("find it: ${sumOughtToBe - sumWeGot}")
 }
