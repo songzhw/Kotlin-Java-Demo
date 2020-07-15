@@ -16,6 +16,11 @@ enum class Size {
     S, M, L
 }
 
+enum class Color3(rgb: String) {
+    RED("#f00"),
+    WHITE("#ff")
+}
+
 fun enumDemo(size: Size) {
     when (size) {
         Size.S -> println("small")
@@ -25,21 +30,17 @@ fun enumDemo(size: Size) {
 
 // =======================
 //
-//sealed class UIState<T>
-//
-//object Start : UIState<Unit>()
-//data class Succ<T>(val t: T) : UIState<T>()
-//data class Fail(val exception: Throwable) : UIState<Unit>()
+sealed class UIState<T>
+
+object Start : UIState<Unit>()
+data class Succ<T>(val t: T) : UIState<T>()
+data class Fail(val exception: Throwable) : UIState<Unit>()
 
 
 fun <T> sealDemo(state: UIState<T>) {
     when (state) {
-        is UIState.Start -> println("szw start")
+        is Start -> println("szw start")
     }
-}
-
-sealed class UIState<T>{
-    object Start: UIState<Unit>()
 }
 
 
