@@ -24,19 +24,24 @@ fun enumDemo(size: Size) {
 
 
 // =======================
-
-sealed class UIState<T>
-
-object Start : UIState<Unit>()
-data class Succ<T>(val t: T) : UIState<T>()
-data class Fail(val exception: Throwable) : UIState<Unit>()
+//
+//sealed class UIState<T>
+//
+//object Start : UIState<Unit>()
+//data class Succ<T>(val t: T) : UIState<T>()
+//data class Fail(val exception: Throwable) : UIState<Unit>()
 
 
 fun <T> sealDemo(state: UIState<T>) {
     when (state) {
-        is Start -> println("szw start")
+        is UIState.Start -> println("szw start")
     }
 }
+
+sealed class UIState<T>{
+    object Start: UIState<Unit>()
+}
+
 
 /*
 
