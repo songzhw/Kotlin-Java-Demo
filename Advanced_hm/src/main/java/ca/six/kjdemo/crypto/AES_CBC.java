@@ -1,6 +1,7 @@
 package ca.six.kjdemo.crypto;
 
 import javax.crypto.Cipher;
+import javax.crypto.spec.IvParameterSpec;
 import javax.crypto.spec.SecretKeySpec;
 import java.io.UnsupportedEncodingException;
 import java.security.AlgorithmParameters;
@@ -10,16 +11,17 @@ class AES_CBC {
     public static void main(String[] args) throws Exception {
         String src = "$ -> west lake西湖美景2020?!";
         String key = "whatalovelyday=>"; // 长度一定得是16的倍数
-        String iv = "2020, be happy";
+        String iv = "2020, be happy122";  // iv的长度一定得是16的倍数
 
         byte[] raw = key.getBytes("utf-8");
         SecretKeySpec skeySpec = new SecretKeySpec(raw, "AES");
 
         byte[] ivRaw = iv.getBytes("utf-8");
         AlgorithmParameters params = AlgorithmParameters.getInstance("AES");
+        params.init(new IvParameterSpec(ivRaw));
 
         Cipher cipher = Cipher.getInstance("AES/CBC/PKCS5Padding");
-        cipher.init(Cipher.ENCRYPT_MODE, skeySpec);
+        cipher.init(Cipher.ENCRYPT_MODE, skeySpec, params);
         byte[] encrypted = cipher.doFinal(src.getBytes("utf-8"));
 
         String result1 = Base64.getEncoder().encodeToString(encrypted);
@@ -36,7 +38,9 @@ class AES_CBC {
 
 
 [在有iv的情况下, 明文为: "$ -> west lake西湖美景2020?!", key = "whatalovelyday=>"]
-
+    AES/CBC/Pkcs5Padding
+    没有iv时, 加密为: a9zzKWk6wQpmbcYP3BmWB971+dbJ58nPFq/A3u+/rCX5/Q/G7h2WGQICds4UwUep
+    加了iv后, 加密为: pcA+CtAKPAK7w0TlveW+btRtxViKzMyoCXuuVgiKjqqphFX5kJKIWEV8N6W+FKGK
 
 
 
