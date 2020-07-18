@@ -1,20 +1,18 @@
-package ca.six.kjdemo;
-
-import java.security.NoSuchAlgorithmException;
-import java.util.Base64;
+package ca.six.kjdemo.crypto;
 
 import javax.crypto.Cipher;
-import javax.crypto.NoSuchPaddingException;
 import javax.crypto.spec.SecretKeySpec;
+import java.util.Base64;
 
-class Temp {
+class AES_ECB {
+
     public static void main(String[] args) throws Exception {
         String src = "[easy plaintext]";
         String key = "0123456789abcdef";
         byte[] raw = key.getBytes("utf-8");
         SecretKeySpec skeySpec = new SecretKeySpec(raw, "AES");
 
-        Cipher cipher = Cipher.getInstance("AES/CBC/PKCS5Padding");
+        Cipher cipher = Cipher.getInstance("AES/ECB/NoPadding");
         cipher.init(Cipher.ENCRYPT_MODE, skeySpec);
         byte[] encrypted = cipher.doFinal(src.getBytes("utf-8"));
 
