@@ -11,7 +11,7 @@ class AES_CBC {
     public static void main(String[] args) throws Exception {
         String src = "$ -> west lake西湖美景2020?!";
         String key = "whatalovelyday=>"; // 长度一定得是16的倍数
-        String iv = "2020, be happy122";  // iv的长度一定得是16的倍数
+        String iv = "2020, be happy12";  // iv的长度一定得是16的倍数
 
         byte[] raw = key.getBytes("utf-8");
         SecretKeySpec skeySpec = new SecretKeySpec(raw, "AES");
