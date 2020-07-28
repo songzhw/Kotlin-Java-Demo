@@ -42,6 +42,4 @@ class AES_CBC {
     没有iv时, 加密为: a9zzKWk6wQpmbcYP3BmWB971+dbJ58nPFq/A3u+/rCX5/Q/G7h2WGQICds4UwUep
     加了iv后, 加密为: pcA+CtAKPAK7w0TlveW+btRtxViKzMyoCXuuVgiKjqqphFX5kJKIWEV8N6W+FKGK
 
-
-
  */
