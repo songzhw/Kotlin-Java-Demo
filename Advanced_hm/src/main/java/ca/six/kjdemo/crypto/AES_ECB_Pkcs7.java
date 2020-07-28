@@ -12,15 +12,15 @@ class AES_ECB_Pkcs7 {
         byte[] raw = key.getBytes("utf-8");
         SecretKeySpec skeySpec = new SecretKeySpec(raw, "AES");
 
-        Cipher cipher = Cipher.getInstance("AES/ECB/Pkcs7Padding");
+        Cipher cipher = Cipher.getInstance("AES/ECB/Pkcs5Padding");
         cipher.init(Cipher.ENCRYPT_MODE, skeySpec);
         byte[] encrypted = cipher.doFinal(src.getBytes("utf-8"));
 
         String result1 = Base64.getEncoder().encodeToString(encrypted);
-        System.out.println(result1);
+        System.out.println("base64 = " + result1);
 
         String result2 = bytesToHex(encrypted);
-        System.out.println(result2);
+        System.out.println("hex = " + result2);
     }
 
     private static String bytesToHex(byte[] bytes) {
