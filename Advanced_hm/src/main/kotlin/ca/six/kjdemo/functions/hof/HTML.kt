@@ -21,10 +21,28 @@ class Body : BaseHtmlElement("body") {
 }
 
 class HTML : BaseHtmlElement("html") {
-    fun body(block: () -> String): H1 {
-        val content = block()
-        val h1 = H1(content)
-        this.children += h1
-        return h1
+    fun body(block: Body.() -> Unit): Body {
+        val body = Body()
+        body.block()
+        this.children += body
+        return body
     }
+}
+
+fun html(block: HTML.() -> Unit): HTML {
+    val html = HTML()
+    html.block()
+    return html
+}
+
+fun main() {
+    val str =
+        html {
+            body {
+                h1 { "Hello World" }
+                p { "welcome to the high order of function in Koblin" }
+                h1 { "Introduction" }
+            }
+        }
+    println(str)
 }
