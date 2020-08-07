@@ -17,10 +17,10 @@ class AES_ECB {
         byte[] encrypted = cipher.doFinal(src.getBytes("utf-8"));
 
         String result1 = Base64.getEncoder().encodeToString(encrypted);
-        System.out.println(result1);
+        System.out.println(result1); //=> nSA0RU/u2r9dyd5mopht0g==
 
         String result2 = bytesToHex(encrypted);
-        System.out.println(result2);
+        System.out.println(result2); //=> 9d2034454feedabf5dc9de66a2986dd2
     }
 
     private static String bytesToHex(byte[] bytes) {
