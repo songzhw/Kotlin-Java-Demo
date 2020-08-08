@@ -8,10 +8,16 @@ open class BaseHtmlElement(val name: String, val content: String = "") : HTMLEle
     override fun render(sb: StringBuilder, indent: String): String {
         sb.append("$indent<$name>\n")
         if(content.isNotBlank()){ //全是空格也会返回true
-            sb.append("$indent$indent$content\n")
+            sb.append("$indent  $content\n")
         }
         children.forEach { it.render(sb, "$indent$indent") }
         sb.append("$indent</$name>\n")
+        return sb.toString()
+    }
+
+    override fun toString(): String {
+        val sb = StringBuilder()
+        render(sb, "  ")
         return sb.toString()
     }
 }
