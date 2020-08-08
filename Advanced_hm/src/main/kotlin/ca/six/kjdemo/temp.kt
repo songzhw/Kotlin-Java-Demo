@@ -20,8 +20,9 @@ class FuncReceiver {
     fun f4() {}
 }
 
-fun r1(work: ()->Unit) {
-    val ret = work()
+fun r1(work: FuncReceiver.()->Unit) {
+    val obj = FuncReceiver()
+    val ret = obj.work()
     println("r1 = $ret")
 }
 
