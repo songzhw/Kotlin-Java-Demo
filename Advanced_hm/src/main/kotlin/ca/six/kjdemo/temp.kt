@@ -17,7 +17,9 @@ class FuncReceiver {
         return false
     }
 
-    fun f4() {}
+    fun f4() {
+        println("f4")
+    }
 }
 
 fun r1(work: FuncReceiver.()->Unit) {
@@ -26,9 +28,20 @@ fun r1(work: FuncReceiver.()->Unit) {
     println("r1 = $ret")
 }
 
-
+fun work(){
+    println("work")
+}
 
 fun main() {
-    println(2.sum1(3))  //=> kotlin.Unit
-    println(2.sum2(3))  //=> 5
+//    println(2.sum1(3))  //=> kotlin.Unit
+//    println(2.sum2(3))  //=> 5
+
+    val ret1 = r1 {
+        work()
+        println("r1 inside")
+        println(f1(33))
+        f4()
+        3
+    }
+    println("main ret = $ret1")
 }
