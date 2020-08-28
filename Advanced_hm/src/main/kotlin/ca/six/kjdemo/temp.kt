@@ -22,15 +22,17 @@ class FuncReceiver {
     }
 }
 
-fun r1(work: FuncReceiver.()->String) {
+fun work(){
+    println("work")
+}
+
+
+fun r1(work: FuncReceiver.()->Unit) {
     val obj = FuncReceiver()
     val ret = obj.work()
     println("r1 = $ret")
 }
 
-fun work(){
-    println("work")
-}
 
 fun main() {
     val ret1 = r1 {
@@ -38,7 +40,10 @@ fun main() {
         println("r1 inside")
         println(f1(33))
         f4()
-        3
+        3333
     }
+
+
+
     println("main ret = $ret1")
 }
