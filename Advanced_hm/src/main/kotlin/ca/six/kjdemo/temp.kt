@@ -1,49 +1,22 @@
 package ca.six.kjdemo
 
-
-val sum1: Int.(Int) -> Unit = { other -> plus(other) }
-val sum2: Int.(Int) -> Int = { other -> plus(other) }
-
-class FuncReceiver {
-    fun f1(value: Int): String {
-        return "str$value"
-    }
-
-    fun f2(arg: String): Int {
-        return arg.hashCode()
-    }
-
-    fun f3(): Boolean {
-        return false
-    }
-
-    fun f4() {
-        println("f4")
-    }
-}
-
-fun work(){
-    println("work")
-}
-
-
-fun r1(work: FuncReceiver.()->Unit) {
-    val obj = FuncReceiver()
-    val ret = obj.work()
-    println("r1 = $ret")
-}
-
+import java.util.*
+import kotlin.experimental.xor
 
 fun main() {
-    val ret1 = r1 {
-        work()
-        println("r1 inside")
-        println(f1(33))
-        f4()
-        3333
+    val MOD = 20
+//    val data = "ObfuscatedFonts123".toByteArray()
+//    val data = byteArrayOf(10, 20, 30, 40)
+    val data = byteArrayOf(13, 18, 27, 44)
+    val key = byteArrayOf(7, 6, 5, 4, 3, 2, 1)
+    val size = data.size
+    for (i in 0 until size) {
+        data[i] = data[i] xor key[i % MOD]
     }
 
-
-
-    println("main ret = $ret1")
+//    print(Base64.getEncoder().encodeToString(data))
+//    print(String(data))
+    data.forEach { print("$it,") }
 }
+
+//=> AAAAAAAAAAAMCygkCw1KCQUF
