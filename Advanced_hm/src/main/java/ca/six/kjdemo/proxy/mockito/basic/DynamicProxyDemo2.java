@@ -7,6 +7,7 @@ import java.lang.reflect.Proxy;
 
 interface IGreet {
     void sayHello(String name);
+    void sayGoogBye(String name);
 }
 
 
@@ -14,6 +15,11 @@ class GreetImpl implements IGreet {
     @Override
     public void sayHello(String name) {
         System.out.println("Hello " + name);
+    }
+
+    @Override
+    public void sayGoogBye(String name) {
+        System.out.println(name + " GoodBye!");
     }
 }
 
@@ -50,6 +56,7 @@ class DynamicProxyDemo2 {
         IGreet worker = new GreetImpl();
         IGreet obj = (IGreet) new Greet3().bind(worker);
         obj.sayHello("111");
+        obj.sayGoogBye("222");
     }
 }
 
