@@ -1,17 +1,35 @@
 package ca.six.kjdemo
 
-import java.util.*
+import java.nio.charset.StandardCharsets
+import java.security.MessageDigest
+import kotlin.concurrent.thread
 import kotlin.experimental.xor
 
-fun main() {
-    val MOD = 20
-//    val data = byteArrayOf(10, 20, 30, 40, 50, 60, 70, 80, 90)
-    val data = byteArrayOf(10, 29, 22, 47, 53, 58, 67, 84, 89)
-    val key = byteArrayOf(0, 9, 8, 7, 7, 6, 5, 4, 3, 2, 1)
-    val size = data.size
-    for (i in 0 until size) {
-        data[i] = data[i] xor key[i % MOD]
-    }
+interface IAnimal {
+    fun hunt()
+}
 
-    print(data.joinToString(","))
+class Cat : IAnimal {
+    override fun hunt() {
+        println("cat hunt")
+    }
+}
+
+class Dog : IAnimal {
+    override fun hunt() {
+        println("dog hunt")
+    }
+}
+
+interface IRun {
+    fun run()
+}
+
+fun IAnimal.run() {
+    println("run")
+}
+
+fun main() {
+    val cat = Cat()
+    cat.run()
 }

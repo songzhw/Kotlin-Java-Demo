@@ -14,12 +14,10 @@ interface FooOneService {
 }
 
 class FooOneServiceInvocationHandler<T> implements InvocationHandler, Serializable {
-
     private InvocationContainerImpl invocationContainerImpl;
-
     ThreadSafeMockingProgress mockingProgress = new ThreadSafeMockingProgress();
 
-    public FooOneServiceInvocationHandler(Class<T> targetInterface) {
+    public FooOneServiceInvocationHandler() {
         this.invocationContainerImpl = new InvocationContainerImpl();
     }
 
@@ -165,28 +163,19 @@ public class MyMockitoDemo {
     public static void main(String[] args) {
         Class interfaceClass = FooOneService.class;
         FooOneService fooOneService = (FooOneService) Proxy.newProxyInstance(interfaceClass.getClassLoader(), new Class[]{interfaceClass},
-                new FooOneServiceInvocationHandler(interfaceClass));
+                new FooOneServiceInvocationHandler());
 
         // 1、打桩；第一次调用，声明《返回值信息》
-        if (false) {
-            Mockito.when(fooOneService.method1(1)).thenAnswer(new AbstractAnswer() {
-                @Override
-                Object answer(Method method) {
-                    return "this is " + method.getName();
-                }
-            });
-        } else {
-            // 创建 stub
-            fooOneService.method1(1);
+        // 创建 stub
+        fooOneService.method1(1);
 
-            // 配置 stub
-            Mockito.MOCKITO_CORE.stub().thenAnswer(new AbstractAnswer() {
-                @Override
-                Object answer(Method method) {
-                    return "this is " + method.getName();
-                }
-            });
-        }
+        // 配置 stub
+        Mockito.MOCKITO_CORE.stub().thenAnswer(new AbstractAnswer() {
+            @Override
+            Object answer(Method method) {
+                return "this is " + method.getName();
+            }
+        });
 
         // 2、调用；第二次调用，返回《配置的返回值》
         String result = fooOneService.method1(1);
