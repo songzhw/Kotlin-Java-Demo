@@ -33,6 +33,11 @@ fun Cat.run(){
     println("my cat run")
 }
 
+//fun Cat.run(){
+//    println("my cat run2")
+//}
+
+
 fun main() {
     val cat = Cat()
     cat.run() //=> my cat run
