@@ -26,10 +26,17 @@ interface IRun {
 }
 
 fun IAnimal.run() {
-    println("run")
+    println("$this run")
+}
+
+fun Cat.run(){
+    println("my cat run")
 }
 
 fun main() {
     val cat = Cat()
-    cat.run()
+    cat.run() //=> my cat run
+
+    val dog = Dog()
+    dog.run() //=> ca.six.kjdemo.Dog@7440e464 run
 }
