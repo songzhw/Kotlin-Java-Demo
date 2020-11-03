@@ -1,4 +1,5 @@
-package ca.six.kjdemo.functions
+package ca.six.kjdemo.dsl
+
 
 /*
 infix:
@@ -12,6 +13,7 @@ fun Int.addy(x: Int) = this + x
 fun main() {
     val v1 = 1 addx 3  //=> 4
 //    val v2 = 2 addy 3
+    print(v1)
 }
 
 
