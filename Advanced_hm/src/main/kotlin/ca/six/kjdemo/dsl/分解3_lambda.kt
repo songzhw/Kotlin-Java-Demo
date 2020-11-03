@@ -1,11 +1,11 @@
 package ca.six.kjdemo.dsl
 
 fun foo3(myblock: ()->Unit){
-    myblock(333)
+    myblock()
 }
 
 fun foo4(myblock: StringBuilder.()->Unit){
-    myblock()
+    myblock(StringBuilder())
 }
 
 fun main() {
