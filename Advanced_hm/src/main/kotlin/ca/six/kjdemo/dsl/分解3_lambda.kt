@@ -8,27 +8,14 @@ fun foo4(myblock: StringBuilder.()->Unit){
     myblock(StringBuilder())
 }
 
-
-class FuncReceiver {
-    fun f1(value: Int): String {
-        return "str$value"
-    }
-
-    fun f4() {
-        println("f4")
-    }
-}
-
-fun work(){
-    println("work")
+fun foo5(block: StringBuilder.()->Int){
+    block(StringBuilder())
 }
 
 
-fun r1(work: FuncReceiver.()->Unit) {
-    val obj = FuncReceiver()
-    val ret = obj.work()
-    println("r1 = $ret")
-}
+//fun foo11(work: String.(arg: String)->Unit) {
+//    work(arg)
+//}
 
 
 fun main() {
@@ -37,12 +24,10 @@ fun main() {
         print(this) //=> szw001
     }
 
-    val ret1 = r1 {
-        work()
-        println("r1 inside")
-        println(f1(33))
-        f4()
-        3
+
+    foo5 {
+        append("abc")
+        append("123")
+        30
     }
-    println("main ret = $ret1")
 }
