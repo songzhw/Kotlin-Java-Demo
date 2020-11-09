@@ -5,9 +5,10 @@ import java.lang.StringBuilder
 fun main() {
     val html = HtmlBuilder()
     html.body {
-        h1   "hello"
-        span "world"
+        h1("hello")
+        span("world")
     }
+    print(html.sb)
 }
 /*
 html {
@@ -22,8 +23,7 @@ html {
  */
 
 
-class BodyBuilder {
-    val sb = StringBuilder()
+class BodyBuilder(val sb: StringBuilder) {
 
     fun h1(text: String) {
         sb.append("<h1>$text</h1>")
@@ -38,7 +38,9 @@ class HtmlBuilder {
     val sb = StringBuilder()
 
     fun body(block: BodyBuilder.() -> Unit) {
-        block(BodyBuilder())
+        sb.append("<body>")
+        block(BodyBuilder(sb))
+        sb.append("</body>")
     }
 
 }
