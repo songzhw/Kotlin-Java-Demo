@@ -3,44 +3,41 @@ package ca.six.kjdemo.dsl.html
 import java.lang.StringBuilder
 
 fun main() {
-    val html = HtmlBuilder()
-    html.body {
-        h1("hello")
-        span("world")
+    val result = html {
+        body {
+            h1("hello")
+            span("world")
+        }
     }
-    print(html.sb)
+    print(result)
 }
-/*
-html {
-    header {
-        title "hello world"
-    }
-    body {
-        h1 "kotlin DSL"
-        span "first line"
-    }
-}
- */
 
 
 class BodyBuilder(val sb: StringBuilder) {
 
     fun h1(text: String) {
-        sb.append("<h1>$text</h1>")
+        sb.append("\t\t<h1>$text</h1>\n")
     }
 
     fun span(text: String) {
-        sb.append("<span>$text</span>")
+        sb.append("\t\t<span>$text</span>\n")
     }
 }
 
-class HtmlBuilder {
-    val sb = StringBuilder()
+class HtmlBuilder(val sb: StringBuilder) {
 
     fun body(block: BodyBuilder.() -> Unit) {
-        sb.append("<body>")
+        sb.append("\t<body>\n")
         block(BodyBuilder(sb))
-        sb.append("</body>")
+        sb.append("\t</body>\n")
     }
 
+}
+
+fun html(block: HtmlBuilder.() -> Unit): String {
+    val sb = StringBuilder()
+    sb.append("<html>\n")
+    block(HtmlBuilder(sb))
+    sb.append("</html>\n")
+    return sb.toString()
 }
