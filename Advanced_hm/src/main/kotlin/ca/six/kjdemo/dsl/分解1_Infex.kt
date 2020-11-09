@@ -10,6 +10,8 @@ infix:
 infix fun Int.addx(x: Int): Int = this + x
 fun Int.addy(x: Int) = this + x
 
+//infix fun Int.work() : Int = 3
+
 fun main() {
     val v1 = 1 addx 3  //=> 4
 //    val v2 = 2 addy 3
