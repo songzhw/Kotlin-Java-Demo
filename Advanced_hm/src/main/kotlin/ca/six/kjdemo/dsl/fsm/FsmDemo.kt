@@ -20,6 +20,13 @@ fun main() {
             on(Vaporize, dest = Gas)
         }
     }
+
+    fsm.act(Freeze)
+    println("01 : ${fsm.state}")  //=> 仍是Gas. 因为对Gas对Freeze事件是不响应的
+    fsm.act(Condense)
+    println("02 : ${fsm.state}")  //=> Liquid
+    fsm.act(Vaporize)
+    println("03 : ${fsm.state}")  //=> Gas
 }
 
 open class State
@@ -45,6 +52,15 @@ class MachineBuilder {
         block(stateBulder)
         stateMap[state] = stateBulder.stateMap
     }
+
+    fun act(event: Event) {
+        val stateMap2 = stateMap[state]
+        if (stateMap2 == null) return;
+        val destinationState = stateMap2[event]
+        if (destinationState == null) return;
+        this.state = destinationState
+    }
+
 }
 
 fun stateMachine(block: MachineBuilder.() -> Unit): MachineBuilder {
