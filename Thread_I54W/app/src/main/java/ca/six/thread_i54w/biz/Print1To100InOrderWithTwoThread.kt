@@ -17,18 +17,8 @@ class Print1To100InOrderWithTwoThread : AppCompatActivity() {
         val lock = ReentrantLock()
         val turnOfA = lock.newCondition()
         val turnOfB = lock.newCondition()
-        val t1 = Thread(
-            RoPrint1To100(
-                lock,
-                myCondition = turnOfA,
-                anotherCondition = turnOfB
-            ) { num -> num % 2 == 1 })
-        val t2 = Thread(
-            RoPrint1To100(
-                lock,
-                myCondition = turnOfB,
-                anotherCondition = turnOfA
-            ) { num -> num % 2 == 0 })
+        val t1 = Thread(RoPrint1To100(lock, myCondition = turnOfA, anotherCondition = turnOfB) { num -> num % 2 == 1 })
+        val t2 = Thread(RoPrint1To100(lock, myCondition = turnOfB, anotherCondition = turnOfA) { num -> num % 2 == 0 })
 
         btnMain.setOnClickListener {
             t1.start()
@@ -38,12 +28,7 @@ class Print1To100InOrderWithTwoThread : AppCompatActivity() {
 }
 
 
-class RoPrint1To100(
-    val lock: Lock,
-    val myCondition: Condition,
-    val anotherCondition: Condition,
-    val p: Predicate<Int>
-) : Runnable {
+class RoPrint1To100(val lock: Lock, val myCondition: Condition, val anotherCondition: Condition, val p: Predicate<Int>) : Runnable {
     override fun run() {
         for (i in 1..100) {
             if (p.test(i)) {

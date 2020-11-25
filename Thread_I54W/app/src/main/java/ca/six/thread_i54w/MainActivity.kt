@@ -2,7 +2,6 @@ package ca.six.thread_i54w
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import ca.six.thread_i54w.biz.RoPrint1To100
 import kotlinx.android.synthetic.main.activity_main.*
 import java.util.concurrent.locks.Condition
 import java.util.concurrent.locks.Lock
@@ -14,42 +13,33 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        val lock = ReentrantLock()
+        val turnOfA = lock.newCondition()
+        val turnOfB = lock.newCondition()
+        val t1 = Thread(RoPrint1To100(lock, myCondition = turnOfA, anotherCondition = turnOfB) { num -> num % 2 == 1 })
+        val t2 = Thread(RoPrint1To100(lock, myCondition = turnOfB, anotherCondition = turnOfA) { num -> num % 2 == 0 })
 
         btnMain.setOnClickListener {
+            t1.start()
+            t2.start()
         }
     }
 }
 
 
-
-
-/*
-val barrier = CyclicBarrier(2)
-val t1 = Print1To20Runnable(1, barrier)
-val t2 = Print1To20Runnable(2, barrier)
-Thread(t1).start()
-Thread(t2).start()
-
-btnMain.setOnClickListener {
-    for (i in 1..100) {
-        println(i)
-        if (i % 2 == 0) t1.print(i)
-        if (i % 2 == 1) t2.print(i)
-    }
-
-class Print1To20Runnable(val id: Int, val barrier: CyclicBarrier) : Runnable {
-    var isRunning = true
-
+class RoPrint1To100(val lock: Lock, val myCondition: Condition, val anotherCondition: Condition, val p: Predicate<Int>) : Runnable {
     override fun run() {
-        while (isRunning) {
-
-            Thread.sleep(100)
+        for (i in 1..100) {
+            if (p.test(i)) {
+                lock.lock();
+                try {
+                    println("RoB run $i")
+                    anotherCondition.signal()
+                    myCondition.await()
+                } finally {
+                    lock.unlock();
+                }
+            }
         }
     }
-
-    fun print(num: Int) {
-        println("thread($id) -- $num")
-        barrier.await()
-    }
 }
-*/
