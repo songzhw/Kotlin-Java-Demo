@@ -28,7 +28,7 @@ class GreetImpl implements IGreet {
 //    • 方法一: 静态代理. 写一个Greet2类, 内有成员GrretImplements, 也实现IGreet.
 //    • 方法二: 动态代理. 如下面的代码
 
-// 注意, 它不是实现IGreet接口. 它是实现的InvocationHandler接口, 要实现invoke()方法
+// 注意, 它可以不是实现IGreet接口. 它是实现的InvocationHandler接口, 要实现invoke()方法
 class Greet3 implements InvocationHandler {
     private Object delegate;
 
@@ -44,7 +44,7 @@ class Greet3 implements InvocationHandler {
 
     @Override
     public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
-        System.out.println("insert new logic here");
+        System.out.println("   ---");
         Object result = method.invoke(this.delegate, args);
         return result;
     }

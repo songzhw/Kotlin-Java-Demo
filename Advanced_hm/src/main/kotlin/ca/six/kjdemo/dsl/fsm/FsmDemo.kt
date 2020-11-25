@@ -13,11 +13,11 @@ fun main() {
     val fsm = stateMachine {
         initState(Gas)
         state(Gas) {
-            on(Condense, dest = Liquid)
+            on(when_ = Condense, to = Liquid)
         }
         state(Liquid) {
-            on(Freeze, dest = Solid)
-            on(Vaporize, dest = Gas)
+            on(when_ = Freeze, to = Solid)
+            on(when_ = Vaporize, to = Gas)
         }
     }
 
@@ -34,8 +34,8 @@ open class Event
 
 class StateBuilder {
     val stateMap = HashMap<Event, State>()
-    fun on(event: Event, dest: State) {
-        stateMap[event] = dest
+    fun on(when_: Event, to: State) {
+        stateMap[when_] = to
     }
 }
 
