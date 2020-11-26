@@ -24,7 +24,7 @@ class MainActivity : AppCompatActivity(), IFlipCoinResult {
             t3.start()
             latch.await()
 
-            val head = totalResult.filter { it }
+            val head = totalResult.filter { it }.size
             println("szw result is [count = ${totalResult.size}, 正面=${head}次]")
         }
     }
@@ -45,7 +45,7 @@ class FlipCoinRunnable(val latch: CountDownLatch) : Runnable {
         println("线程N共flip${count}次")
         val result = arrayListOf<Boolean>()
         for (i in 1..count) {
-            result[i] = random.nextBoolean()
+            result.add(random.nextBoolean())
         }
         latch.countDown()
     }
