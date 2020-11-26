@@ -14,9 +14,7 @@ class MainActivity : AppCompatActivity(), IFlipCoinResult {
         setContentView(R.layout.activity_main)
 
         val latch = CountDownLatch(3)
-        val t1 = Thread(FlipCoinRunnable(latch))
-        val t2 = Thread(FlipCoinRunnable(latch))
-        val t3 = Thread(FlipCoinRunnable(latch))
+
 
         btnMain.setOnClickListener {
             t1.start()
@@ -38,7 +36,7 @@ interface IFlipCoinResult {
     fun onResult(result: ArrayList<Boolean>)
 }
 
-class FlipCoinRunnable(val latch: CountDownLatch) : Runnable {
+class FlipCoinRunnable(val latch: CountDownLatch, val listener: IFlipCoinResult) : Runnable {
     override fun run() {
         val random = Random(System.currentTimeMillis())
         val count = random.nextInt(100)
@@ -47,6 +45,7 @@ class FlipCoinRunnable(val latch: CountDownLatch) : Runnable {
         for (i in 1..count) {
             result.add(random.nextBoolean())
         }
+        listener.onResult(result)
         latch.countDown()
     }
 }
