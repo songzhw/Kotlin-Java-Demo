@@ -12,5 +12,4 @@ fun main() {
         .takeUntil { x -> x > 3 }
         .subscribe(System.out::println) //1,2,3,4
 
-
 }
