@@ -1,5 +1,7 @@
 package ca.six.kjdemo
 
+import io.reactivex.Observable
+import io.reactivex.ObservableOnSubscribe
 import java.util.regex.Pattern
 
 val from = "Android&#24320;&#21457;&#33402;&#26415;&#25506;&#32034;.epub"
@@ -15,3 +17,22 @@ fun main() {
     }
     println(result)
 }
+
+
+internal object temp {
+    @JvmStatic
+    fun main(args: Array<String>) {
+        val ob: Observable<*> = Observable.create<String>(ObservableOnSubscribe { emitter ->
+            if (emitter.isDisposed) {
+                return@ObservableOnSubscribe
+            }
+            emitter.onNext("hello")
+            emitter.onNext("world")
+            emitter.onComplete()
+        })
+    }
+}
+
+
+
+
