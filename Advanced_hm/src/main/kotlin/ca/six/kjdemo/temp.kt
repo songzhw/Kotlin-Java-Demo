@@ -1,48 +1,11 @@
 package ca.six.kjdemo
 
-import io.reactivex.*
-import java.util.concurrent.TimeUnit
-import java.util.regex.Pattern
-
-val from = "Android&#24320;&#21457;&#33402;&#26415;&#25506;&#32034;.epub"
+import io.reactivex.Observable
 
 fun main() {
-    var result = from
-    val pattern = Pattern.compile("&#(\\d+);")
-    val matches = pattern.matcher(from)
-    while(matches.find()){
-        val hex = matches.group(1) //group(0)就是 "&#24320;", 而group(1)就是24320
-        val char = Integer.parseInt(hex, 10).toChar()
-        result = result.replace(matches.group(0), char.toString())
-    }
-    println(result)
+    Observable.range(1, 8)
+        .groupBy { num -> if (num % 2 == 0) "even" else "odd" }
+        .filter{pair -> pair.key == "odd"}
+        .subscribe{ob -> ob.subscribe{pair -> println(pair)}}
 }
-
-
-internal object temp {
-    @JvmStatic
-    fun main(args: Array<String>) {
-        val ob: Observable<*> = Observable.create<String>(ObservableOnSubscribe { emitter ->
-            if (emitter.isDisposed) {
-                return@ObservableOnSubscribe
-            }
-            emitter.onNext("hello")
-            emitter.onNext("world")
-            emitter.onComplete()
-        })
-    }
-}
-
-
-fun foo(){
-    val flowable = Flowable.create<Int>({ emitter ->
-        emitter.onNext(200)
-    }, BackpressureStrategy.BUFFER)
-
-    Flowable.interval(2000, TimeUnit.SECONDS)
-        .onBackpressureBuffer()
-        .subscribe{}
-}
-
-
 
