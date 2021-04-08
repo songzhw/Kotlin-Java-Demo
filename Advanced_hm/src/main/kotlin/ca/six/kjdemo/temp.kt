@@ -1,7 +1,7 @@
 package ca.six.kjdemo
 
-import io.reactivex.Observable
-import io.reactivex.ObservableOnSubscribe
+import io.reactivex.*
+import java.util.concurrent.TimeUnit
 import java.util.regex.Pattern
 
 val from = "Android&#24320;&#21457;&#33402;&#26415;&#25506;&#32034;.epub"
@@ -33,6 +33,16 @@ internal object temp {
     }
 }
 
+
+fun foo(){
+    val flowable = Flowable.create<Int>({ emitter ->
+        emitter.onNext(200)
+    }, BackpressureStrategy.BUFFER)
+
+    Flowable.interval(2000, TimeUnit.SECONDS)
+        .onBackpressureBuffer()
+        .subscribe{}
+}
 
 
 
