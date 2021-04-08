@@ -1,11 +1,21 @@
 package ca.six.kjdemo
 
 import io.reactivex.Observable
+import io.reactivex.schedulers.Schedulers
 import java.util.concurrent.TimeUnit
 
 fun main() {
-    Observable.interval(10, TimeUnit.MICROSECONDS)
-        .subscribe{num -> println(num)}
+    var temp = 0L
+    Observable.interval(100, TimeUnit.MILLISECONDS, Schedulers.trampoline())
+        .filter{ num ->
+            if(num - temp >= 20) {
+                temp = num
+                true
+            } else {
+                false
+            }
+        }
+        .subscribe{num -> println(num)} //=> 20, 40, 60, 80, 100, 120, ...
 }
 
 
