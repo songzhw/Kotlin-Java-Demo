@@ -59,22 +59,6 @@ fun k4(k: Int) {
     // 因为heap的size就是K, 所以这个peek()出的最小值, 就是整个数组的第K大元素
 }
 
-fun k5(k: Int) {
-    if (k <= 0) { return }
-    val ary = intArrayOf(23, 12, 38, 9, 45, 120, 46)
-}
-
-
-fun k6(k: Int) {
-    if (k <= 0) { return }
-    val ary = intArrayOf(23, 12, 38, 9, 45, 120, 46)
-}
-
-
-fun k7(k: Int) {
-    if (k <= 0) { return }
-    val ary = intArrayOf(23, 12, 38, 9, 45, 120, 46)
-}
 
 
 fun main() {
